@@ -8,12 +8,21 @@ else:
 # This class defines a complete listener for a parse tree produced by VYPParser.
 class VYPListener(ParseTreeListener):
 
-    # Enter a parse tree produced by VYPParser#test.
-    def enterTest(self, ctx:VYPParser.TestContext):
+    # Enter a parse tree produced by VYPParser#program.
+    def enterProgram(self, ctx:VYPParser.ProgramContext):
         pass
 
-    # Exit a parse tree produced by VYPParser#test.
-    def exitTest(self, ctx:VYPParser.TestContext):
+    # Exit a parse tree produced by VYPParser#program.
+    def exitProgram(self, ctx:VYPParser.ProgramContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#hello.
+    def enterHello(self, ctx:VYPParser.HelloContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#hello.
+    def exitHello(self, ctx:VYPParser.HelloContext):
         pass
 
 
