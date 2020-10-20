@@ -17,12 +17,66 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#hello.
-    def enterHello(self, ctx:VYPParser.HelloContext):
+    # Enter a parse tree produced by VYPParser#function.
+    def enterFunction(self, ctx:VYPParser.FunctionContext):
         pass
 
-    # Exit a parse tree produced by VYPParser#hello.
-    def exitHello(self, ctx:VYPParser.HelloContext):
+    # Exit a parse tree produced by VYPParser#function.
+    def exitFunction(self, ctx:VYPParser.FunctionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#function_header.
+    def enterFunction_header(self, ctx:VYPParser.Function_headerContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#function_header.
+    def exitFunction_header(self, ctx:VYPParser.Function_headerContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#function_body.
+    def enterFunction_body(self, ctx:VYPParser.Function_bodyContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#function_body.
+    def exitFunction_body(self, ctx:VYPParser.Function_bodyContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#statement.
+    def enterStatement(self, ctx:VYPParser.StatementContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#statement.
+    def exitStatement(self, ctx:VYPParser.StatementContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#variable_type.
+    def enterVariable_type(self, ctx:VYPParser.Variable_typeContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#variable_type.
+    def exitVariable_type(self, ctx:VYPParser.Variable_typeContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#parameter_list.
+    def enterParameter_list(self, ctx:VYPParser.Parameter_listContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#parameter_list.
+    def exitParameter_list(self, ctx:VYPParser.Parameter_listContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#next_parameter.
+    def enterNext_parameter(self, ctx:VYPParser.Next_parameterContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#next_parameter.
+    def exitNext_parameter(self, ctx:VYPParser.Next_parameterContext):
         pass
 
 

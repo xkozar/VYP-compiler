@@ -7,9 +7,25 @@
 
 grammar VYP;
 
-program: hello* EOF;
+// program: hello* EOF;
+// hello: 'hello world' ID;
 
-hello: 'hello world' ID;
+program: function* EOF;
+
+function: function_header function_body;
+
+function_header: variable_type ID '(' parameter_list ')';
+
+function_body: '{' statement* '}';
+
+statement: ID ';';
+
+variable_type: INT | STRING | VOID;
+parameter_list
+    :   VOID
+    |   variable_type ID next_parameter*;
+
+next_parameter: ',' variable_type ID;
 
 CLASS: 'class';
 ELSE: 'else';
@@ -23,26 +39,30 @@ THIS: 'this';
 VOID: 'void';
 WHILE: 'while';
 
-INTEGER_LITERAL: [1-9][0-9]*;
-// TODO STRING_LITERAL: 
+INTEGER_LITERAL: [1-9] DIGIT*;
 ID: (CILETTER | UNDERSCORE)(CILETTER | UNDERSCORE | DIGIT)*;
-WS: [ \t\r\n]+ -> skip;
+STRING_LITERAL: '"' STRING_CHARACTER* '"';
+
+/* Lexemes to ignore */
+WHITE_SPACE: [ \t\r\n]+ -> skip;
+LINE_COMMENT: '//' .*? '\r' ? '\n' -> skip;
+BLOCK_COMMENT: '/*' .*? '*/' -> skip;
 
 fragment CILETTER: [a-zA-Z]; // Case In-sensitive letter
 fragment UNDERSCORE: [_];
 fragment DIGIT: [0-9];
-fragment OCTAL_DIGIT: [0-7]; 
-
-// List of possible escape sequences taken from https://en.wikipedia.org/wiki/Escape_sequences_in_C
+fragment OCTAL_DIGIT: [0-7];
+fragment HEXADECIMAL_DIGIT: [0-9A-Fa-f];
+fragment PRINTABLE_CHARACTER: [ !#-~];
+fragment STRING_CHARACTER: (PRINTABLE_CHARACTER | ESCAPE_SEQUENCE);
 
 fragment ESCAPE_SEQUENCE
     :   SIMPLE_ESCAPE_SEQUENCE
-    |   OCTAL_ECAPE_SEQUENCE;
+    |   UTF8_ESCAPE_SEQUENCE;
+    // |   OCTAL_ESCAPE_SEQUENCE
+    // |   HEXA_ESCAPE_SEQUENCE;
 
-fragment SIMPLE_ESCAPE_SEQUENCE: BACKSLASH [abefnrtv\\'"?];
-fragment OCTAL_ECAPE_SEQUENCE
-    :   BACKSLASH OCTAL_DIGIT
-    |   BACKSLASH OCTAL_DIGIT OCTAL_DIGIT
-    |   BACKSLASH OCTAL_DIGIT OCTAL_DIGIT OCTAL_DIGIT;
+fragment SIMPLE_ESCAPE_SEQUENCE: BACKSLASH [nt\\"?];
+fragment UTF8_ESCAPE_SEQUENCE: BACKSLASH HEXADECIMAL_DIGIT HEXADECIMAL_DIGIT HEXADECIMAL_DIGIT HEXADECIMAL_DIGIT HEXADECIMAL_DIGIT HEXADECIMAL_DIGIT;
 
 fragment BACKSLASH: '\\';

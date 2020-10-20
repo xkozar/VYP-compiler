@@ -1,13 +1,13 @@
-hello world _xY
-hello world xY
-hello world XY
+int x (void)
+{
+    a;
+}
 
-hello world x5Y
-hello world x5_Y
-hello world
-hello world 5Y
+string asdf(int qwe, string p) {
+    wqer;
+    asd;
 
-
-
-        
-
+    qwe;
+    a;//asd
+    a/*aasdf*/;
+}
