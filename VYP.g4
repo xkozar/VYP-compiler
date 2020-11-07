@@ -7,18 +7,67 @@
 
 grammar VYP;
 
-// program: hello* EOF;
-// hello: 'hello world' ID;
+program: (function_definition | class_definition)* EOF;
 
-program: function* EOF;
+statement
+    :   if_else_block
+    |   while_block
+    |   variable_definition
+    |   expression
+    ;
 
-function: function_header function_body;
-
+function_definition: function_header function_body;
 function_header: variable_type ID '(' parameter_list ')';
-
 function_body: '{' statement* '}';
 
-statement: ID ';';
+class_definition: class_header class_body;
+class_header: CLASS ID ':' ID;
+class_body: '{' class_members* '}';
+class_members
+    :   variable_definition
+    |   function_definition;
+
+// Might be extended with visibility modificators
+variable_definition: variable_type ID multiple_variable_definition* ';';
+multiple_variable_definition: ',' ID;
+variable_assignment: ID '=' expression;
+
+if_else_block: if_part else_part;
+if_part: IF '(' expression ')' '{' statement* '}';
+else_part: ELSE '(' expression ')' '{' statement* '}';
+while_block: WHILE '(' expression ')' '{' statement* '}';
+
+expression
+    :   ID
+    |   literal_value
+    |   function_call
+    |   instance_creation
+    |   '(' expression ')'
+    |   instance_function_call
+    |   instance_variable
+    |   '!' expression
+    |   expression ('*' | '/') expression
+    |   expression ('+' | '-') expression
+    |   expression (LE | LEQ | GT | GTQ) expression
+    |   expression (LOGICAL_EQUAL | LOGICAL_NEQUAL) expression
+    |   expression LOGICAL_AND expression
+    |   expression LOGICAL_OR expression;
+
+literal_value
+    :   INTEGER_LITERAL
+    |   STRING_LITERAL;
+
+instance_creation: NEW ID '(' expression_list? ')';
+instance_variable: (THIS | ID) nested_object* '.' ID;
+instance_function_call: (THIS | ID) nested_object* '.' ID '(' expression_list? ')';
+nested_object: '.' ID;
+
+function_call: ID '(' expression_list? ')';
+
+expression_list: expression next_expression*;
+
+next_expression: ',' expression;
+
 
 variable_type: INT | STRING | VOID;
 parameter_list
@@ -39,7 +88,17 @@ THIS: 'this';
 VOID: 'void';
 WHILE: 'while';
 
-INTEGER_LITERAL: [1-9] DIGIT*;
+LE: '<';
+LEQ: '<=';
+GT: '>';
+GTQ: '>=';
+
+LOGICAL_EQUAL: '==';
+LOGICAL_NEQUAL: '!=';
+LOGICAL_AND: '&&';
+LOGICAL_OR: '||';
+
+INTEGER_LITERAL: ('-'? [1-9] DIGIT* | '0');
 ID: (CILETTER | UNDERSCORE)(CILETTER | UNDERSCORE | DIGIT)*;
 STRING_LITERAL: '"' STRING_CHARACTER* '"';
 
