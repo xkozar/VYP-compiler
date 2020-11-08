@@ -1,9 +1,19 @@
+from .partial_symbol_table import PartialSymbolTable
+from .static_partial_symbol_table import StaticPartialSymbolTable
+
 class SymbolTable:
 
     def __init__(self):
-        self.currentSymbolClosure = 
+        self.currentSymbolClosure = PartialSymbolTable(StaticPartialSymbolTable())
 
-    def findSymbolByKey(self):
-        pass
+    def findSymbolByKey(self, key):
+        return self.currentSymbolClosure.getSymbol(key)
 
-    def 
+    def addSymbol(self, key, symbol):
+        self.currentSymbolClosure.setSymbol(key, symbol)
+
+    def addClosure(self):
+        self.currentSymbolClosure = PartialSymbolTable(self.currentSymbolClosure)
+
+    def removeClosure(self):
+        self.currentSymbolClosure = self.currentSymbolClosure.parentClosure
