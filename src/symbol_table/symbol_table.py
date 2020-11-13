@@ -16,4 +16,4 @@ class SymbolTable:
         self.currentSymbolClosure = PartialSymbolTable(self.currentSymbolClosure)
 
     def removeClosure(self):
-        self.currentSymbolClosure = self.currentSymbolClosure.parentClosure
+        self.currentSymbolClosure = self.currentSymbolClosure.getParentClosure()

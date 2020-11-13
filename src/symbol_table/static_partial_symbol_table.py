@@ -1,9 +1,12 @@
 # from ..compiler.custom_exceptions import SemanticGeneralError, CompilerInternalError
-import compiler
+from compiler import *
 
 class StaticPartialSymbolTable:
 
-    def removeClosure(self):
+    def getParentClosure(self):
+        raise CompilerInternalError("There is no more closures to remove.")
+
+    def getClosure(self):
         raise CompilerInternalError("There is no more closures to remove.")
     
     def getSymbol(self, key):

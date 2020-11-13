@@ -7,13 +7,14 @@
 
 grammar VYP;
 
-program: (function_definition | class_definition)* EOF;
+program: (function_definition | class_definition)*;
 
 statement
     :   if_else_block
     |   while_block
+    |   variable_assignment
     |   variable_definition
-    |   expression
+    |   expression ';'
     ;
 
 function_definition: function_header function_body;
@@ -30,11 +31,11 @@ class_members
 // Might be extended with visibility modificators
 variable_definition: variable_type ID multiple_variable_definition* ';';
 multiple_variable_definition: ',' ID;
-variable_assignment: ID '=' expression;
+variable_assignment: ID '=' expression ';';
 
 if_else_block: if_part else_part;
 if_part: IF '(' expression ')' '{' statement* '}';
-else_part: ELSE '(' expression ')' '{' statement* '}';
+else_part: ELSE '{' statement* '}';
 while_block: WHILE '(' expression ')' '{' statement* '}';
 
 expression

@@ -7,7 +7,6 @@ void main(void) { // Program Main function
     else {
         res = 1;
         while (a > 0) {
-            10
             res = res * a; a = a - 1;
         } // endwhile
         print("\nThe result is: ", res, "\n");

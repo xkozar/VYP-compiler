@@ -2,13 +2,19 @@ class PartialSymbolTable:
 
     def __init__(self, parentClosure):
         self.symbols = {}
-        self.parentClosure = parentClosure
+        self.__parentClosure = parentClosure
 
     def getSymbol(self, key: str):
-        return self.symbols.get(key) or self.parentClosure.getSymbol(key)
+        return self.symbols.get(key) or self.__parentClosure.getSymbol(key)
 
     def setSymbol(self, key, symbol):
         self.symbols.update({key: symbol})
+
+    def getParentClosure(self):
+        return self.__parentClosure.getClosure()
+
+    def getClosure(self):
+        return self
 
     def containsKey(self, key):
         return key in self.symbols
