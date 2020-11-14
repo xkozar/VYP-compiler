@@ -251,6 +251,24 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#function_parameter_definition.
+    def enterFunction_parameter_definition(self, ctx:VYPParser.Function_parameter_definitionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#function_parameter_definition.
+    def exitFunction_parameter_definition(self, ctx:VYPParser.Function_parameter_definitionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#function_parameters.
+    def enterFunction_parameters(self, ctx:VYPParser.Function_parametersContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#function_parameters.
+    def exitFunction_parameters(self, ctx:VYPParser.Function_parametersContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#next_parameter.
     def enterNext_parameter(self, ctx:VYPParser.Next_parameterContext):
         pass

@@ -4,7 +4,7 @@ from .static_partial_symbol_table import StaticPartialSymbolTable
 class SymbolTable:
 
     def __init__(self):
-        self.currentSymbolClosure = PartialSymbolTable(StaticPartialSymbolTable())
+        self.resetToDefaultState()
 
     def findSymbolByKey(self, key):
         return self.currentSymbolClosure.getSymbol(key)
@@ -17,3 +17,9 @@ class SymbolTable:
 
     def removeClosure(self):
         self.currentSymbolClosure = self.currentSymbolClosure.getParentClosure()
+
+    def resetToDefaultState(self):
+        self.currentSymbolClosure = PartialSymbolTable(StaticPartialSymbolTable())
+
+    def __str__(self):
+        return self.currentSymbolClosure.__str__()

@@ -1,3 +1,7 @@
+string testicek(int x, int y) {
+    print("testik");
+}
+
 void main(void) { // Program Main function
     int a, res;
     print("Enter an integer to compute its factorial:");

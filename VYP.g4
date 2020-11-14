@@ -7,7 +7,7 @@
 
 grammar VYP;
 
-program: (function_definition | class_definition)*;
+program: (function_definition | class_definition)+;
 
 statement
     :   if_else_block
@@ -70,12 +70,14 @@ expression_list: expression next_expression*;
 next_expression: ',' expression;
 
 
-variable_type: INT | STRING | VOID;
+variable_type: INT | STRING | VOID | ID;
 parameter_list
     :   VOID
-    |   variable_type ID next_parameter*;
+    |   function_parameters;
 
-next_parameter: ',' variable_type ID;
+function_parameter_definition: variable_type ID;
+function_parameters: function_parameter_definition next_parameter*;
+next_parameter: ',' function_parameter_definition;
 
 CLASS: 'class';
 ELSE: 'else';
