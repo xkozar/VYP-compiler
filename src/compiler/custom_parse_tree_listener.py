@@ -20,7 +20,6 @@ class CustomParseTreeListener(VYPListener):
     ''' Reset symbol table since symbol table is valid only inside of function/methon
         definition'''
     def exitFunction_definition(self, ctx:VYPParser.Function_definitionContext):
-        print(self.localSymbolTable)
         self.localSymbolTable.resetToDefaultState()
         pass
 
@@ -32,10 +31,9 @@ class CustomParseTreeListener(VYPListener):
     def exitFunction_header(self, ctx:VYPParser.Function_headerContext):
         pass
 
-    ''' We need to enter function parameters into symbol table. If 'void' is 
+    ''' Function parameters need to be inserted into symbol table. If 'void' is 
         used as parameter, no action is needed. This rule is not used anywhere
-        else, so we know this rule is entered only during function
-        definition. '''
+        else, so this rule is entered only during function definition. '''
     def enterFunction_parameter_definition(self, ctx:VYPParser.Function_parametersContext):
         self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.variable_type, ctx.ID().getText()))
         pass
@@ -47,6 +45,31 @@ class CustomParseTreeListener(VYPListener):
         self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.variable_type, ctx.ID().getText()))
         pass
 
+    ''' Data type of variable must be taken from parent context'''
     def enterMultiple_variable_definition(self, ctx:VYPParser.Multiple_variable_definitionContext):
         self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.parentCtx.variable_type, ctx.ID().getText()))
+        pass
+
+    def enterIf_part(self, ctx:VYPParser.If_partContext):
+        self.localSymbolTable.addClosure()
+        pass
+
+    def exitIf_part(self, ctx:VYPParser.If_partContext):
+        self.localSymbolTable.removeClosure()
+        pass
+
+    def enterElse_part(self, ctx:VYPParser.Else_partContext):
+        self.localSymbolTable.addClosure()
+        pass
+
+    def exitElse_part(self, ctx:VYPParser.Else_partContext):
+        self.localSymbolTable.removeClosure()
+        pass
+
+    def enterWhile_block(self, ctx:VYPParser.While_blockContext):
+        self.localSymbolTable.addClosure()
+        pass
+
+    def exitWhile_block(self, ctx:VYPParser.While_blockContext):
+        self.localSymbolTable.removeClosure()
         pass

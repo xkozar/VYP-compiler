@@ -7,6 +7,7 @@ void main(void) { // Program Main function
     print("Enter an integer to compute its factorial:");
     a = readInt();
     if (a < 0) {
+        int xxx;
         print("\nFactorial of a negative integer is undefined!\n"); }
     else {
         res = 1;

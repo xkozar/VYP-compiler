@@ -20,4 +20,4 @@ class PartialSymbolTable:
         return key in self.symbols
 
     def __str__(self):
-        return (f'{{ \n {self.symbols.keys()} \n\t {self.__parentClosure.__str__()} \n }}')
+        return (f'{{ \n {self.__parentClosure.__str__()} \n\t {self.symbols.keys()} \n }}')
