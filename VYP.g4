@@ -40,20 +40,20 @@ else_part: ELSE code_block;
 while_block: WHILE '(' expression ')' code_block;
 
 expression
-    :   ID
-    |   literal_value
-    |   function_call
-    |   instance_creation
-    |   '(' expression ')'
-    |   instance_function_call
-    |   instance_variable
-    |   '!' expression
-    |   expression ('*' | '/') expression
-    |   expression ('+' | '-') expression
-    |   expression (LE | LEQ | GT | GTQ) expression
-    |   expression (LOGICAL_EQUAL | LOGICAL_NEQUAL) expression
-    |   expression LOGICAL_AND expression
-    |   expression LOGICAL_OR expression;
+    :   '(' expression ')'  #bracket_expression
+    |   '!' expression      #negation_expression
+    |   expression operator=('*' | '/') expression #muldiv_expression
+    |   expression operator=('+' | '-') expression #plusminus_expression
+    |   expression operator=(LE | LEQ | GT | GTQ) expression #comparison_expression
+    |   expression operator=(LOGICAL_EQUAL | LOGICAL_NEQUAL) expression #equality_expression
+    |   expression operator=LOGICAL_AND expression #and_expression
+    |   expression operator=LOGICAL_OR expression #or_expression
+    |   instance_function_call #method_expression
+    |   instance_variable   #field_expression
+    |   instance_creation   #new_expression
+    |   function_call       #function_expression
+    |   literal_value       #literal_expression
+    |   ID                  #variable_expression;
 
 literal_value
     :   INTEGER_LITERAL

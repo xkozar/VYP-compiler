@@ -161,12 +161,129 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#expression.
-    def enterExpression(self, ctx:VYPParser.ExpressionContext):
+    # Enter a parse tree produced by VYPParser#equality_expression.
+    def enterEquality_expression(self, ctx:VYPParser.Equality_expressionContext):
         pass
 
-    # Exit a parse tree produced by VYPParser#expression.
-    def exitExpression(self, ctx:VYPParser.ExpressionContext):
+    # Exit a parse tree produced by VYPParser#equality_expression.
+    def exitEquality_expression(self, ctx:VYPParser.Equality_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#muldiv_expression.
+    def enterMuldiv_expression(self, ctx:VYPParser.Muldiv_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#muldiv_expression.
+    def exitMuldiv_expression(self, ctx:VYPParser.Muldiv_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#method_expression.
+    def enterMethod_expression(self, ctx:VYPParser.Method_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#method_expression.
+    def exitMethod_expression(self, ctx:VYPParser.Method_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#function_expression.
+    def enterFunction_expression(self, ctx:VYPParser.Function_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#function_expression.
+    def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#comparison_expression.
+    def enterComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#comparison_expression.
+    def exitComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#or_expression.
+    def enterOr_expression(self, ctx:VYPParser.Or_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#or_expression.
+    def exitOr_expression(self, ctx:VYPParser.Or_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#variable_expression.
+    def enterVariable_expression(self, ctx:VYPParser.Variable_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#variable_expression.
+    def exitVariable_expression(self, ctx:VYPParser.Variable_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#and_expression.
+    def enterAnd_expression(self, ctx:VYPParser.And_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#and_expression.
+    def exitAnd_expression(self, ctx:VYPParser.And_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#bracket_expression.
+    def enterBracket_expression(self, ctx:VYPParser.Bracket_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#bracket_expression.
+    def exitBracket_expression(self, ctx:VYPParser.Bracket_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#negation_expression.
+    def enterNegation_expression(self, ctx:VYPParser.Negation_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#negation_expression.
+    def exitNegation_expression(self, ctx:VYPParser.Negation_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#plusminus_expression.
+    def enterPlusminus_expression(self, ctx:VYPParser.Plusminus_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#plusminus_expression.
+    def exitPlusminus_expression(self, ctx:VYPParser.Plusminus_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#new_expression.
+    def enterNew_expression(self, ctx:VYPParser.New_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#new_expression.
+    def exitNew_expression(self, ctx:VYPParser.New_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#literal_expression.
+    def enterLiteral_expression(self, ctx:VYPParser.Literal_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#literal_expression.
+    def exitLiteral_expression(self, ctx:VYPParser.Literal_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#field_expression.
+    def enterField_expression(self, ctx:VYPParser.Field_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#field_expression.
+    def exitField_expression(self, ctx:VYPParser.Field_expressionContext):
         pass
 
 

@@ -13,9 +13,12 @@ def main(argv):
     stream = CommonTokenStream(lexer)
     parser = VYPParser(stream)
     tree = parser.program()
-    listener = CustomParseTreeListener()
+    listener = ExpressionListener()
     walker = ParseTreeWalker()
-    walker.walk(listener, tree)
+    try:
+        walker.walk(listener, tree)
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':

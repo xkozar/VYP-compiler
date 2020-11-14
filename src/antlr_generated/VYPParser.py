@@ -77,25 +77,25 @@ def serializedATN():
         buf.write("\u009b\u009c\5\32\16\2\u009c!\3\2\2\2\u009d\u009e\7\33")
         buf.write("\2\2\u009e\u009f\7\4\2\2\u009f\u00a0\5$\23\2\u00a0\u00a1")
         buf.write("\7\5\2\2\u00a1\u00a2\5\32\16\2\u00a2#\3\2\2\2\u00a3\u00a4")
-        buf.write("\b\23\1\2\u00a4\u00b1\7%\2\2\u00a5\u00b1\5&\24\2\u00a6")
-        buf.write("\u00b1\5\60\31\2\u00a7\u00b1\5(\25\2\u00a8\u00a9\7\4\2")
-        buf.write("\2\u00a9\u00aa\5$\23\2\u00aa\u00ab\7\5\2\2\u00ab\u00b1")
-        buf.write("\3\2\2\2\u00ac\u00b1\5,\27\2\u00ad\u00b1\5*\26\2\u00ae")
-        buf.write("\u00af\7\13\2\2\u00af\u00b1\5$\23\t\u00b0\u00a3\3\2\2")
-        buf.write("\2\u00b0\u00a5\3\2\2\2\u00b0\u00a6\3\2\2\2\u00b0\u00a7")
-        buf.write("\3\2\2\2\u00b0\u00a8\3\2\2\2\u00b0\u00ac\3\2\2\2\u00b0")
-        buf.write("\u00ad\3\2\2\2\u00b0\u00ae\3\2\2\2\u00b1\u00c6\3\2\2\2")
-        buf.write("\u00b2\u00b3\f\b\2\2\u00b3\u00b4\t\2\2\2\u00b4\u00c5\5")
-        buf.write("$\23\t\u00b5\u00b6\f\7\2\2\u00b6\u00b7\t\3\2\2\u00b7\u00c5")
-        buf.write("\5$\23\b\u00b8\u00b9\f\6\2\2\u00b9\u00ba\t\4\2\2\u00ba")
-        buf.write("\u00c5\5$\23\7\u00bb\u00bc\f\5\2\2\u00bc\u00bd\t\5\2\2")
-        buf.write("\u00bd\u00c5\5$\23\6\u00be\u00bf\f\4\2\2\u00bf\u00c0\7")
-        buf.write("\"\2\2\u00c0\u00c5\5$\23\5\u00c1\u00c2\f\3\2\2\u00c2\u00c3")
-        buf.write("\7#\2\2\u00c3\u00c5\5$\23\4\u00c4\u00b2\3\2\2\2\u00c4")
-        buf.write("\u00b5\3\2\2\2\u00c4\u00b8\3\2\2\2\u00c4\u00bb\3\2\2\2")
-        buf.write("\u00c4\u00be\3\2\2\2\u00c4\u00c1\3\2\2\2\u00c5\u00c8\3")
-        buf.write("\2\2\2\u00c6\u00c4\3\2\2\2\u00c6\u00c7\3\2\2\2\u00c7%")
-        buf.write("\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c9\u00ca\t\6\2\2\u00ca")
+        buf.write("\b\23\1\2\u00a4\u00a5\7\4\2\2\u00a5\u00a6\5$\23\2\u00a6")
+        buf.write("\u00a7\7\5\2\2\u00a7\u00b1\3\2\2\2\u00a8\u00a9\7\13\2")
+        buf.write("\2\u00a9\u00b1\5$\23\17\u00aa\u00b1\5,\27\2\u00ab\u00b1")
+        buf.write("\5*\26\2\u00ac\u00b1\5(\25\2\u00ad\u00b1\5\60\31\2\u00ae")
+        buf.write("\u00b1\5&\24\2\u00af\u00b1\7%\2\2\u00b0\u00a3\3\2\2\2")
+        buf.write("\u00b0\u00a8\3\2\2\2\u00b0\u00aa\3\2\2\2\u00b0\u00ab\3")
+        buf.write("\2\2\2\u00b0\u00ac\3\2\2\2\u00b0\u00ad\3\2\2\2\u00b0\u00ae")
+        buf.write("\3\2\2\2\u00b0\u00af\3\2\2\2\u00b1\u00c6\3\2\2\2\u00b2")
+        buf.write("\u00b3\f\16\2\2\u00b3\u00b4\t\2\2\2\u00b4\u00c5\5$\23")
+        buf.write("\17\u00b5\u00b6\f\r\2\2\u00b6\u00b7\t\3\2\2\u00b7\u00c5")
+        buf.write("\5$\23\16\u00b8\u00b9\f\f\2\2\u00b9\u00ba\t\4\2\2\u00ba")
+        buf.write("\u00c5\5$\23\r\u00bb\u00bc\f\13\2\2\u00bc\u00bd\t\5\2")
+        buf.write("\2\u00bd\u00c5\5$\23\f\u00be\u00bf\f\n\2\2\u00bf\u00c0")
+        buf.write("\7\"\2\2\u00c0\u00c5\5$\23\13\u00c1\u00c2\f\t\2\2\u00c2")
+        buf.write("\u00c3\7#\2\2\u00c3\u00c5\5$\23\n\u00c4\u00b2\3\2\2\2")
+        buf.write("\u00c4\u00b5\3\2\2\2\u00c4\u00b8\3\2\2\2\u00c4\u00bb\3")
+        buf.write("\2\2\2\u00c4\u00be\3\2\2\2\u00c4\u00c1\3\2\2\2\u00c5\u00c8")
+        buf.write("\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c6\u00c7\3\2\2\2\u00c7")
+        buf.write("%\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c9\u00ca\t\6\2\2\u00ca")
         buf.write("\'\3\2\2\2\u00cb\u00cc\7\25\2\2\u00cc\u00cd\7%\2\2\u00cd")
         buf.write("\u00cf\7\4\2\2\u00ce\u00d0\5\62\32\2\u00cf\u00ce\3\2\2")
         buf.write("\2\u00cf\u00d0\3\2\2\2\u00d0\u00d1\3\2\2\2\u00d1\u00d2")
@@ -281,6 +281,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitProgram" ):
                 listener.exitProgram(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProgram" ):
+                return visitor.visitProgram(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -361,6 +367,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitStatement" ):
                 listener.exitStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStatement" ):
+                return visitor.visitStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -439,6 +451,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitFunction_definition" ):
                 listener.exitFunction_definition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_definition" ):
+                return visitor.visitFunction_definition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -488,6 +506,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunction_header" ):
                 listener.exitFunction_header(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_header" ):
+                return visitor.visitFunction_header(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -540,6 +564,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunction_body" ):
                 listener.exitFunction_body(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_body" ):
+                return visitor.visitFunction_body(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -599,6 +629,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitClass_definition" ):
                 listener.exitClass_definition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_definition" ):
+                return visitor.visitClass_definition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -646,6 +682,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClass_header" ):
                 listener.exitClass_header(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_header" ):
+                return visitor.visitClass_header(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -696,6 +738,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClass_body" ):
                 listener.exitClass_body(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_body" ):
+                return visitor.visitClass_body(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -754,6 +802,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClass_members" ):
                 listener.exitClass_members(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClass_members" ):
+                return visitor.visitClass_members(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -819,6 +873,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitVariable_definition" ):
                 listener.exitVariable_definition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable_definition" ):
+                return visitor.visitVariable_definition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -874,6 +934,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitMultiple_variable_definition" ):
                 listener.exitMultiple_variable_definition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMultiple_variable_definition" ):
+                return visitor.visitMultiple_variable_definition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -919,6 +985,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitVariable_assignment" ):
                 listener.exitVariable_assignment(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable_assignment" ):
+                return visitor.visitVariable_assignment(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -969,6 +1041,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCode_block" ):
                 listener.exitCode_block(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCode_block" ):
+                return visitor.visitCode_block(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1028,6 +1106,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitIf_else_block" ):
                 listener.exitIf_else_block(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIf_else_block" ):
+                return visitor.visitIf_else_block(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1077,6 +1161,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitIf_part" ):
                 listener.exitIf_part(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIf_part" ):
+                return visitor.visitIf_part(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1130,6 +1220,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitElse_part" ):
                 listener.exitElse_part(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitElse_part" ):
+                return visitor.visitElse_part(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1180,6 +1276,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitWhile_block" ):
                 listener.exitWhile_block(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhile_block" ):
+                return visitor.visitWhile_block(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1214,20 +1316,54 @@ class VYPParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self):
-            return self.getToken(VYPParser.ID, 0)
 
-        def literal_value(self):
-            return self.getTypedRuleContext(VYPParser.Literal_valueContext,0)
+        def getRuleIndex(self):
+            return VYPParser.RULE_expression
 
-
-        def function_call(self):
-            return self.getTypedRuleContext(VYPParser.Function_callContext,0)
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
 
 
-        def instance_creation(self):
-            return self.getTypedRuleContext(VYPParser.Instance_creationContext,0)
+    class Equality_expressionContext(ExpressionContext):
 
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.operator = None # Token
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VYPParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(VYPParser.ExpressionContext,i)
+
+        def LOGICAL_EQUAL(self):
+            return self.getToken(VYPParser.LOGICAL_EQUAL, 0)
+        def LOGICAL_NEQUAL(self):
+            return self.getToken(VYPParser.LOGICAL_NEQUAL, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterEquality_expression" ):
+                listener.enterEquality_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitEquality_expression" ):
+                listener.exitEquality_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEquality_expression" ):
+                return visitor.visitEquality_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Muldiv_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.operator = None # Token
+            self.copyFrom(ctx)
 
         def expression(self, i:int=None):
             if i is None:
@@ -1236,48 +1372,346 @@ class VYPParser ( Parser ):
                 return self.getTypedRuleContext(VYPParser.ExpressionContext,i)
 
 
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMuldiv_expression" ):
+                listener.enterMuldiv_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMuldiv_expression" ):
+                listener.exitMuldiv_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMuldiv_expression" ):
+                return visitor.visitMuldiv_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Method_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
         def instance_function_call(self):
             return self.getTypedRuleContext(VYPParser.Instance_function_callContext,0)
 
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMethod_expression" ):
+                listener.enterMethod_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMethod_expression" ):
+                listener.exitMethod_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMethod_expression" ):
+                return visitor.visitMethod_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Function_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def function_call(self):
+            return self.getTypedRuleContext(VYPParser.Function_callContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFunction_expression" ):
+                listener.enterFunction_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFunction_expression" ):
+                listener.exitFunction_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_expression" ):
+                return visitor.visitFunction_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Comparison_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.operator = None # Token
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VYPParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(VYPParser.ExpressionContext,i)
+
+        def LE(self):
+            return self.getToken(VYPParser.LE, 0)
+        def LEQ(self):
+            return self.getToken(VYPParser.LEQ, 0)
+        def GT(self):
+            return self.getToken(VYPParser.GT, 0)
+        def GTQ(self):
+            return self.getToken(VYPParser.GTQ, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterComparison_expression" ):
+                listener.enterComparison_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitComparison_expression" ):
+                listener.exitComparison_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitComparison_expression" ):
+                return visitor.visitComparison_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Or_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.operator = None # Token
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VYPParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(VYPParser.ExpressionContext,i)
+
+        def LOGICAL_OR(self):
+            return self.getToken(VYPParser.LOGICAL_OR, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterOr_expression" ):
+                listener.enterOr_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitOr_expression" ):
+                listener.exitOr_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitOr_expression" ):
+                return visitor.visitOr_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Variable_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def ID(self):
+            return self.getToken(VYPParser.ID, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterVariable_expression" ):
+                listener.enterVariable_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitVariable_expression" ):
+                listener.exitVariable_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable_expression" ):
+                return visitor.visitVariable_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class And_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.operator = None # Token
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VYPParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(VYPParser.ExpressionContext,i)
+
+        def LOGICAL_AND(self):
+            return self.getToken(VYPParser.LOGICAL_AND, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAnd_expression" ):
+                listener.enterAnd_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAnd_expression" ):
+                listener.exitAnd_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAnd_expression" ):
+                return visitor.visitAnd_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Bracket_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(VYPParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBracket_expression" ):
+                listener.enterBracket_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBracket_expression" ):
+                listener.exitBracket_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBracket_expression" ):
+                return visitor.visitBracket_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Negation_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(VYPParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNegation_expression" ):
+                listener.enterNegation_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNegation_expression" ):
+                listener.exitNegation_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNegation_expression" ):
+                return visitor.visitNegation_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Plusminus_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.operator = None # Token
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VYPParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(VYPParser.ExpressionContext,i)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterPlusminus_expression" ):
+                listener.enterPlusminus_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitPlusminus_expression" ):
+                listener.exitPlusminus_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPlusminus_expression" ):
+                return visitor.visitPlusminus_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class New_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def instance_creation(self):
+            return self.getTypedRuleContext(VYPParser.Instance_creationContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNew_expression" ):
+                listener.enterNew_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNew_expression" ):
+                listener.exitNew_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNew_expression" ):
+                return visitor.visitNew_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Literal_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def literal_value(self):
+            return self.getTypedRuleContext(VYPParser.Literal_valueContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterLiteral_expression" ):
+                listener.enterLiteral_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitLiteral_expression" ):
+                listener.exitLiteral_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLiteral_expression" ):
+                return visitor.visitLiteral_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class Field_expressionContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def instance_variable(self):
             return self.getTypedRuleContext(VYPParser.Instance_variableContext,0)
 
 
-        def LE(self):
-            return self.getToken(VYPParser.LE, 0)
-
-        def LEQ(self):
-            return self.getToken(VYPParser.LEQ, 0)
-
-        def GT(self):
-            return self.getToken(VYPParser.GT, 0)
-
-        def GTQ(self):
-            return self.getToken(VYPParser.GTQ, 0)
-
-        def LOGICAL_EQUAL(self):
-            return self.getToken(VYPParser.LOGICAL_EQUAL, 0)
-
-        def LOGICAL_NEQUAL(self):
-            return self.getToken(VYPParser.LOGICAL_NEQUAL, 0)
-
-        def LOGICAL_AND(self):
-            return self.getToken(VYPParser.LOGICAL_AND, 0)
-
-        def LOGICAL_OR(self):
-            return self.getToken(VYPParser.LOGICAL_OR, 0)
-
-        def getRuleIndex(self):
-            return VYPParser.RULE_expression
-
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpression" ):
-                listener.enterExpression(self)
+            if hasattr( listener, "enterField_expression" ):
+                listener.enterField_expression(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpression" ):
-                listener.exitExpression(self)
+            if hasattr( listener, "exitField_expression" ):
+                listener.exitField_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitField_expression" ):
+                return visitor.visitField_expression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1295,49 +1729,74 @@ class VYPParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
             if la_ == 1:
+                localctx = VYPParser.Bracket_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+
                 self.state = 162
-                self.match(VYPParser.ID)
-                pass
-
-            elif la_ == 2:
-                self.state = 163
-                self.literal_value()
-                pass
-
-            elif la_ == 3:
-                self.state = 164
-                self.function_call()
-                pass
-
-            elif la_ == 4:
-                self.state = 165
-                self.instance_creation()
-                pass
-
-            elif la_ == 5:
-                self.state = 166
                 self.match(VYPParser.T__1)
-                self.state = 167
+                self.state = 163
                 self.expression(0)
-                self.state = 168
+                self.state = 164
                 self.match(VYPParser.T__2)
                 pass
 
-            elif la_ == 6:
-                self.state = 170
+            elif la_ == 2:
+                localctx = VYPParser.Negation_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 166
+                self.match(VYPParser.T__8)
+                self.state = 167
+                self.expression(13)
+                pass
+
+            elif la_ == 3:
+                localctx = VYPParser.Method_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 168
                 self.instance_function_call()
                 pass
 
-            elif la_ == 7:
-                self.state = 171
+            elif la_ == 4:
+                localctx = VYPParser.Field_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 169
                 self.instance_variable()
                 pass
 
-            elif la_ == 8:
+            elif la_ == 5:
+                localctx = VYPParser.New_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 170
+                self.instance_creation()
+                pass
+
+            elif la_ == 6:
+                localctx = VYPParser.Function_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 171
+                self.function_call()
+                pass
+
+            elif la_ == 7:
+                localctx = VYPParser.Literal_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 172
-                self.match(VYPParser.T__8)
+                self.literal_value()
+                pass
+
+            elif la_ == 8:
+                localctx = VYPParser.Variable_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 173
-                self.expression(7)
+                self.match(VYPParser.ID)
                 pass
 
 
@@ -1354,101 +1813,105 @@ class VYPParser ( Parser ):
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
                     if la_ == 1:
-                        localctx = VYPParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = VYPParser.Muldiv_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 176
-                        if not self.precpred(self._ctx, 6):
+                        if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
                         self.state = 177
+                        localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==VYPParser.T__9 or _la==VYPParser.T__10):
-                            self._errHandler.recoverInline(self)
+                            localctx.operator = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
                         self.state = 178
-                        self.expression(7)
+                        self.expression(13)
                         pass
 
                     elif la_ == 2:
-                        localctx = VYPParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = VYPParser.Plusminus_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 179
-                        if not self.precpred(self._ctx, 5):
+                        if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
                         self.state = 180
+                        localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==VYPParser.T__11 or _la==VYPParser.T__12):
-                            self._errHandler.recoverInline(self)
+                            localctx.operator = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
                         self.state = 181
-                        self.expression(6)
+                        self.expression(12)
                         pass
 
                     elif la_ == 3:
-                        localctx = VYPParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = VYPParser.Comparison_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 182
-                        if not self.precpred(self._ctx, 4):
+                        if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
                         self.state = 183
+                        localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.LE) | (1 << VYPParser.LEQ) | (1 << VYPParser.GT) | (1 << VYPParser.GTQ))) != 0)):
-                            self._errHandler.recoverInline(self)
+                            localctx.operator = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
                         self.state = 184
-                        self.expression(5)
+                        self.expression(11)
                         pass
 
                     elif la_ == 4:
-                        localctx = VYPParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = VYPParser.Equality_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 185
-                        if not self.precpred(self._ctx, 3):
+                        if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
                         self.state = 186
+                        localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==VYPParser.LOGICAL_EQUAL or _la==VYPParser.LOGICAL_NEQUAL):
-                            self._errHandler.recoverInline(self)
+                            localctx.operator = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
                         self.state = 187
-                        self.expression(4)
+                        self.expression(10)
                         pass
 
                     elif la_ == 5:
-                        localctx = VYPParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = VYPParser.And_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 188
-                        if not self.precpred(self._ctx, 2):
+                        if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 189
-                        self.match(VYPParser.LOGICAL_AND)
+                        localctx.operator = self.match(VYPParser.LOGICAL_AND)
                         self.state = 190
-                        self.expression(3)
+                        self.expression(9)
                         pass
 
                     elif la_ == 6:
-                        localctx = VYPParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = VYPParser.Or_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 191
-                        if not self.precpred(self._ctx, 1):
+                        if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
                         self.state = 192
-                        self.match(VYPParser.LOGICAL_OR)
+                        localctx.operator = self.match(VYPParser.LOGICAL_OR)
                         self.state = 193
-                        self.expression(2)
+                        self.expression(8)
                         pass
 
              
@@ -1487,6 +1950,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitLiteral_value" ):
                 listener.exitLiteral_value(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLiteral_value" ):
+                return visitor.visitLiteral_value(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1540,6 +2009,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitInstance_creation" ):
                 listener.exitInstance_creation(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInstance_creation" ):
+                return visitor.visitInstance_creation(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1608,6 +2083,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitInstance_variable" ):
                 listener.exitInstance_variable(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInstance_variable" ):
+                return visitor.visitInstance_variable(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1687,6 +2168,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitInstance_function_call" ):
                 listener.exitInstance_function_call(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitInstance_function_call" ):
+                return visitor.visitInstance_function_call(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1760,6 +2247,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitNested_object" ):
                 listener.exitNested_object(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNested_object" ):
+                return visitor.visitNested_object(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1805,6 +2298,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunction_call" ):
                 listener.exitFunction_call(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_call" ):
+                return visitor.visitFunction_call(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1867,6 +2366,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitExpression_list" ):
                 listener.exitExpression_list(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpression_list" ):
+                return visitor.visitExpression_list(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1919,6 +2424,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitNext_expression" ):
                 listener.exitNext_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNext_expression" ):
+                return visitor.visitNext_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1970,6 +2481,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitVariable_type" ):
                 listener.exitVariable_type(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable_type" ):
+                return visitor.visitVariable_type(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2019,6 +2536,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitParameter_list" ):
                 listener.exitParameter_list(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParameter_list" ):
+                return visitor.visitParameter_list(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2077,6 +2600,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitFunction_parameter_definition" ):
                 listener.exitFunction_parameter_definition(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_parameter_definition" ):
+                return visitor.visitFunction_parameter_definition(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2126,6 +2655,12 @@ class VYPParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunction_parameters" ):
                 listener.exitFunction_parameters(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_parameters" ):
+                return visitor.visitFunction_parameters(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2179,6 +2714,12 @@ class VYPParser ( Parser ):
             if hasattr( listener, "exitNext_parameter" ):
                 listener.exitNext_parameter(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNext_parameter" ):
+                return visitor.visitNext_parameter(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2214,27 +2755,27 @@ class VYPParser ( Parser ):
 
     def expression_sempred(self, localctx:ExpressionContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 6)
+                return self.precpred(self._ctx, 12)
          
 
             if predIndex == 1:
-                return self.precpred(self._ctx, 5)
+                return self.precpred(self._ctx, 11)
          
 
             if predIndex == 2:
-                return self.precpred(self._ctx, 4)
+                return self.precpred(self._ctx, 10)
          
 
             if predIndex == 3:
-                return self.precpred(self._ctx, 3)
+                return self.precpred(self._ctx, 9)
          
 
             if predIndex == 4:
-                return self.precpred(self._ctx, 2)
+                return self.precpred(self._ctx, 8)
          
 
             if predIndex == 5:
-                return self.precpred(self._ctx, 1)
+                return self.precpred(self._ctx, 7)
          
 
 

@@ -1,7 +1,8 @@
 string testicek(int x, int y) {
-    print("testik");
+    int test;
+    test = 5 + 1 * 5;
 }
-
+/*
 void main(void) { // Program Main function
     int a, res;
     print("Enter an integer to compute its factorial:");
@@ -17,3 +18,4 @@ void main(void) { // Program Main function
         print("\nThe result is: ", res, "\n");
     } // endif
 } // main
+*/
