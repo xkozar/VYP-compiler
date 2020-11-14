@@ -54,7 +54,6 @@ class CustomParseTreeListener(VYPListener):
         self.localSymbolTable.addClosure()
         pass
 
-    # Exit a parse tree produced by VYPParser#code_block.
     def exitCode_block(self, ctx:VYPParser.Code_blockContext):
         self.localSymbolTable.removeClosure()
         pass
