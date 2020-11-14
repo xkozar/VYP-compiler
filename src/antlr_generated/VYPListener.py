@@ -116,6 +116,15 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#code_block.
+    def enterCode_block(self, ctx:VYPParser.Code_blockContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#code_block.
+    def exitCode_block(self, ctx:VYPParser.Code_blockContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#if_else_block.
     def enterIf_else_block(self, ctx:VYPParser.If_else_blockContext):
         pass

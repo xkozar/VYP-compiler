@@ -50,26 +50,11 @@ class CustomParseTreeListener(VYPListener):
         self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.parentCtx.variable_type, ctx.ID().getText()))
         pass
 
-    def enterIf_part(self, ctx:VYPParser.If_partContext):
+    def enterCode_block(self, ctx:VYPParser.Code_blockContext):
         self.localSymbolTable.addClosure()
         pass
 
-    def exitIf_part(self, ctx:VYPParser.If_partContext):
-        self.localSymbolTable.removeClosure()
-        pass
-
-    def enterElse_part(self, ctx:VYPParser.Else_partContext):
-        self.localSymbolTable.addClosure()
-        pass
-
-    def exitElse_part(self, ctx:VYPParser.Else_partContext):
-        self.localSymbolTable.removeClosure()
-        pass
-
-    def enterWhile_block(self, ctx:VYPParser.While_blockContext):
-        self.localSymbolTable.addClosure()
-        pass
-
-    def exitWhile_block(self, ctx:VYPParser.While_blockContext):
+    # Exit a parse tree produced by VYPParser#code_block.
+    def exitCode_block(self, ctx:VYPParser.Code_blockContext):
         self.localSymbolTable.removeClosure()
         pass

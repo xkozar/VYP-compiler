@@ -33,10 +33,11 @@ variable_definition: variable_type ID multiple_variable_definition* ';';
 multiple_variable_definition: ',' ID;
 variable_assignment: ID '=' expression ';';
 
+code_block: '{' statement* '}';
 if_else_block: if_part else_part;
-if_part: IF '(' expression ')' '{' statement* '}';
-else_part: ELSE '{' statement* '}';
-while_block: WHILE '(' expression ')' '{' statement* '}';
+if_part: IF '(' expression ')' code_block;
+else_part: ELSE code_block;
+while_block: WHILE '(' expression ')' code_block;
 
 expression
     :   ID
