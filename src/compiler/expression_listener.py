@@ -23,7 +23,7 @@ class UnaryExpression:
         self.operator = operator
 
     def __str__(self):
-        return f'{operator} {self.expression}'
+        return f'{self.operator} {self.expression}'
 
 class LiteralExpression:
 
@@ -79,11 +79,12 @@ class ExpressionListener(CustomParseTreeListener):
     def exitAnd_expression(self, ctx:VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
 
+    '''Nothing needs to be generated, rule is just used to get proper order of operations'''
     def exitBracket_expression(self, ctx:VYPParser.Bracket_expressionContext):
         pass
 
     def exitNegation_expression(self, ctx:VYPParser.Negation_expressionContext):
-        pass
+        self.processUnaryExpression('!')
 
     def exitPlusminus_expression(self, ctx:VYPParser.Plusminus_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -106,3 +107,10 @@ class ExpressionListener(CustomParseTreeListener):
         binaryExpression = BinaryExpression(leftExpression, rightExpression, operator)
         self.expressionStack.append(binaryExpression)
         print(binaryExpression)
+
+    def processUnaryExpression(self, operator):
+        expression = self.expressionStack.pop()
+        self.semanticsChecker.checkUnaryExpressionSemantics(expression, operator)
+        unaryExpression = UnaryExpression(expression, operator)
+        self.expressionStack.append(unaryExpression)
+        print(unaryExpression)

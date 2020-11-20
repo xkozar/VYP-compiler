@@ -16,7 +16,10 @@ class SemanticsChecker:
             '==': ['int', 'string', 'object'],
             '!=': ['int', 'string', 'object'],
             '&&': ['int', 'object'],
-            '||': ['int', 'object'],
+            '||': ['int', 'object']
+        }
+        self.unaryTypeMap = {
+            '!': ['int']
         }
 
     def checkBinaryExpressionSemantics(self, leftExpression, rightExpression, operator):
@@ -24,6 +27,10 @@ class SemanticsChecker:
             raise SemanticTypeIncompabilityError
         acceptedTypeValues = self.binaryTypeMap[operator]
         if not (leftExpression.dataType in acceptedTypeValues or ('object' in acceptedTypeValues and leftExpression.dataType != 'string')):
+            raise SemanticTypeIncompabilityError
+
+    def checkUnaryExpressionSemantics(self, expression, operator):
+        if expression.dataType not in self.unaryTypeMap[operator]:
             raise SemanticTypeIncompabilityError
 
     def checkVariableIsDefined(self, variableSymbol):
