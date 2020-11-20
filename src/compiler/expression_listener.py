@@ -1,12 +1,55 @@
 from collections import deque
 from antlr_generated.VYPParser import VYPParser
 from .custom_parse_tree_listener import CustomParseTreeListener
+from .semantics_checker import SemanticsChecker
+
+
+class BinaryExpression:
+
+    def __init__(self, leftExpression, rightExpression, operator):
+        self.dataType = leftExpression.dataType
+        self.leftExpression = leftExpression
+        self.rightExpression = rightExpression
+        self.operator = operator
+
+    def __str__(self):
+        return f'{self.leftExpression.__str__()} {self.operator} {self.rightExpression}'
+
+class UnaryExpression:
+
+    def __init__(self, expression, operator):
+        self.dataType = expression.dataType
+        self.expression = expression
+        self.operator = operator
+
+    def __str__(self):
+        return f'{operator} {self.expression}'
+
+class LiteralExpression:
+
+    def __init__(self, dataType, value):
+        self.dataType = dataType
+        self.value = value
+
+    def __str__(self):
+        return f'{self.value}'
+
+class VariableExpression:
+
+    def __init__(self, dataType, id):
+        self.dataType = dataType
+        self.id = id
+
+    def __str__(self):
+        return f'{self.id}'
+
 
 class ExpressionListener(CustomParseTreeListener):
     
     def __init__(self):
         super().__init__()
         self.expressionStack = deque()
+        self.semanticsChecker = SemanticsChecker()
 
 
     def exitEquality_expression(self, ctx:VYPParser.Equality_expressionContext):
@@ -28,8 +71,10 @@ class ExpressionListener(CustomParseTreeListener):
         self.processBinaryExpression(ctx.operator.text)
 
     def exitVariable_expression(self, ctx:VYPParser.Variable_expressionContext):
-        self.expressionStack.append(ctx.ID().getText())
-        pass
+        variableSymbol = self.localSymbolTable.findSymbolByKey(ctx.ID().getText())
+        self.semanticsChecker.checkVariableIsDefined(variableSymbol)
+        variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
+        self.expressionStack.append(variableExpression)
 
     def exitAnd_expression(self, ctx:VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -47,7 +92,9 @@ class ExpressionListener(CustomParseTreeListener):
         pass
 
     def exitLiteral_expression(self, ctx:VYPParser.Literal_expressionContext):
-        self.expressionStack.append(ctx.literal_value().getText())
+        dataType = 'string' if ctx.literal_value().STRING_LITERAL() != None else 'int'
+        literalExpression = LiteralExpression(dataType, ctx.literal_value().getText())
+        self.expressionStack.append(literalExpression)
 
     def exitField_expression(self, ctx:VYPParser.Field_expressionContext):
         pass
@@ -55,5 +102,7 @@ class ExpressionListener(CustomParseTreeListener):
     def processBinaryExpression(self, operator):
         rightExpression = self.expressionStack.pop()
         leftExpression = self.expressionStack.pop()
-        print(leftExpression, operator, rightExpression)
-        self.expressionStack.append(leftExpression + operator + rightExpression)
+        self.semanticsChecker.checkBinaryExpressionSemantics(leftExpression, rightExpression, operator)
+        binaryExpression = BinaryExpression(leftExpression, rightExpression, operator)
+        self.expressionStack.append(binaryExpression)
+        print(binaryExpression)

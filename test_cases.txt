@@ -1,0 +1,5 @@
+EXPRESSION SEMANTICS:
+1. Using operations with invalid data types (for example multiplication of strings)
+2. Trying to use operation on different data types
+3. Using value of defined, but uninitilized variable
+4. Using non-existent variable

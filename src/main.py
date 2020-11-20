@@ -16,10 +16,10 @@ def main(argv):
     listener = ExpressionListener()
     
     walker = ParseTreeWalker()
-    try:
-        walker.walk(listener, tree)
-    except Exception as e:
-        print(e)
+    walker.walk(listener, tree)
+    # try:
+    # except Exception as e:
+    #     print(e)
 
 
 if __name__ == '__main__':

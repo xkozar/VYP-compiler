@@ -21,12 +21,11 @@ class CustomParseTreeListener(VYPListener):
         definition'''
     def exitFunction_definition(self, ctx:VYPParser.Function_definitionContext):
         self.localSymbolTable.resetToDefaultState()
-        pass
 
     ''' Enter function symbol to global definitions '''
     def enterFunction_header(self, ctx:VYPParser.Function_headerContext):
-        self.globalDefinitionTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.variable_type, ctx.ID().getText()))
-        pass
+        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.FUNCTION, None)
+        self.globalDefinitionTable.addSymbol(ctx.ID().getText(), definitionSymbol)
 
     def exitFunction_header(self, ctx:VYPParser.Function_headerContext):
         pass
@@ -35,26 +34,31 @@ class CustomParseTreeListener(VYPListener):
         used as parameter, no action is needed. This rule is not used anywhere
         else, so this rule is entered only during function definition. '''
     def enterFunction_parameter_definition(self, ctx:VYPParser.Function_parametersContext):
-        self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.variable_type, ctx.ID().getText()))
-        pass
+        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
+        self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
 
     def exitFunction_parameter_definition(self, ctx:VYPParser.Function_parametersContext):
         pass
 
     def enterVariable_definition(self, ctx:VYPParser.Variable_definitionContext):
-        self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.variable_type, ctx.ID().getText()))
+        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
+        self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
         print(self.localSymbolTable)
         pass
 
     ''' Data type of variable must be taken from parent context'''
     def enterMultiple_variable_definition(self, ctx:VYPParser.Multiple_variable_definitionContext):
-        self.localSymbolTable.addSymbol(ctx.ID().getText(), GeneralSymbol(ctx.parentCtx.variable_type, ctx.ID().getText()))
+        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.parentCtx.variable_type().getText())
+        self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
         pass
 
     def enterCode_block(self, ctx:VYPParser.Code_blockContext):
         self.localSymbolTable.addClosure()
-        pass
 
     def exitCode_block(self, ctx:VYPParser.Code_blockContext):
         self.localSymbolTable.removeClosure()
         pass
+
+    def enterVariable_assignment(self, ctx:VYPParser.Variable_assignmentContext):
+        symbol = self.localSymbolTable.findSymbolByKey(ctx.ID().getText())
+        symbol.setAsDefined()

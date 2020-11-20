@@ -1,6 +1,7 @@
 string testicek(int x, int y) {
-    int test;
+    int test, x;
     test = 5 + 1 * 5;
+    x = test + 8;
 }
 /*
 void main(void) { // Program Main function

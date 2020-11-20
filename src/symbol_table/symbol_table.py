@@ -22,5 +22,8 @@ class SymbolTable:
     def resetToDefaultState(self):
         self.currentSymbolClosure = PartialSymbolTable(StaticPartialSymbolTable())
 
+    def setAsDefined(self, key):
+        self.currentSymbolClosure.getSymbol(key).setAsDefined()
+
     def __str__(self):
         return self.currentSymbolClosure.__str__()
