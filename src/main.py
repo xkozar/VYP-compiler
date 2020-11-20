@@ -14,6 +14,7 @@ def main(argv):
     parser = VYPParser(stream)
     tree = parser.program()
     listener = ExpressionListener()
+    
     walker = ParseTreeWalker()
     try:
         walker.walk(listener, tree)
