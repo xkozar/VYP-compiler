@@ -1,10 +1,9 @@
 import sys
 from antlr4 import *
-from antlr_generated.VYPLexer import VYPLexer
-from antlr_generated.VYPParser import VYPParser
-from antlr_generated.VYPListener import VYPListener
-from compiler import *
-from symbol_table import *
+
+from compiler import ExpressionListener
+from antlr_generated import VYPLexer, VYPParser
+
 
 def main(argv):
     input_stream = FileStream(argv[1])

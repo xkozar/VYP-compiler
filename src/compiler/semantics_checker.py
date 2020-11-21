@@ -1,4 +1,5 @@
-from compiler import SemanticTypeIncompabilityError, SemanticGeneralError
+from compiler import SemanticTypeIncompatibilityError, SemanticGeneralError
+
 
 class SemanticsChecker:
 
@@ -24,14 +25,14 @@ class SemanticsChecker:
 
     def checkBinaryExpressionSemantics(self, leftExpression, rightExpression, operator):
         if leftExpression.dataType != rightExpression.dataType:
-            raise SemanticTypeIncompabilityError
+            raise SemanticTypeIncompatibilityError
         acceptedTypeValues = self.binaryTypeMap[operator]
         if not (leftExpression.dataType in acceptedTypeValues or ('object' in acceptedTypeValues and leftExpression.dataType != 'string')):
-            raise SemanticTypeIncompabilityError
+            raise SemanticTypeIncompatibilityError
 
     def checkUnaryExpressionSemantics(self, expression, operator):
         if expression.dataType not in self.unaryTypeMap[operator]:
-            raise SemanticTypeIncompabilityError
+            raise SemanticTypeIncompatibilityError
 
     def checkFunctionCallSemantics(self, functionId, callExpressionList: list, callParameterList: list):
         if functionId == 'print':
@@ -44,7 +45,7 @@ class SemanticsChecker:
         #TODO this needs to be modified for object polymorphism
         for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
             if callExpression.dataType != callParameter.dataType:
-                raise SemanticTypeIncompabilityError
+                raise SemanticTypeIncompatibilityError
         
 
     ''' Function 'print' takes arbitrary (but more than 1) number of primitive data type parameters.

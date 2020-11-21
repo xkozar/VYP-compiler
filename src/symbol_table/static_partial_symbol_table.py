@@ -1,5 +1,5 @@
-# from ..compiler.custom_exceptions import SemanticGeneralError, CompilerInternalError
-from compiler import *
+from compiler import CompilerInternalError, SemanticGeneralError
+
 
 class StaticPartialSymbolTable:
 

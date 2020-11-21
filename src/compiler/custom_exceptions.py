@@ -4,7 +4,7 @@ class LexicalAnalysisError(Exception):
 class SyntacticAnalysisError(Exception):
     exitCode = 12
 
-class SemanticTypeIncompabilityError(Exception):
+class SemanticTypeIncompatibilityError(Exception):
     exitCode = 13
 
 class SemanticGeneralError(Exception):

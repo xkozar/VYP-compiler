@@ -1,8 +1,8 @@
 from collections import deque
-from antlr_generated.VYPParser import VYPParser
-from .custom_parse_tree_listener import CustomParseTreeListener
-from .semantics_checker import SemanticsChecker
 
+from antlr_generated.VYPParser import VYPParser
+from compiler import CustomParseTreeListener
+from compiler.semantics_checker import SemanticsChecker
 
 class BinaryExpression:
 
@@ -51,7 +51,7 @@ class FunctionExpression:
         self.callExpressions = callExpressions
 
     def __str__(self):
-        return f'{self.id}({', '.join(self.callExpressions)})'
+        return f'{self.id}({", ".join(self.callExpressions)})'
 
 
 class ExpressionListener(CustomParseTreeListener):

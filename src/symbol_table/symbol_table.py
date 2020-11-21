@@ -5,6 +5,7 @@ from .general_symbol import GeneralSymbol
 class SymbolTable:
 
     def __init__(self):
+        self.currentSymbolClosure = None
         self.resetToDefaultState()
 
     def findSymbolByKey(self, key) -> GeneralSymbol:
