@@ -7,6 +7,27 @@ class CustomParseTreeListener(VYPListener):
     def __init__(self): 
         self.localSymbolTable = SymbolTable()
         self.globalDefinitionTable = SymbolTable()
+        self.functionParametersDict = {}
+        self.currentFunctionId = ''
+        self.__defineBuiltInFunctions()
+
+    def __defineBuiltInFunctions(self):
+        #TODO add parameters
+        self.defineFunction('print', 'void')
+        
+        self.defineFunction('readInt', 'int')
+        
+        self.defineFunction('readString', 'void')
+        
+        self.defineFunction('length', 'int')
+        
+        self.defineFunction('subStr', 'string')
+
+
+    def defineFunction(self, id, dataType):
+        definitionSymbol = GeneralSymbol(id, SymbolType.FUNCTION, dataType)
+        self.globalDefinitionTable.addSymbol(id, definitionSymbol)
+        self.initializeFunctionSymbolTable(definitionSymbol)
 
     def enterProgram(self, ctx:VYPParser.ProgramContext):
         pass
@@ -24,8 +45,7 @@ class CustomParseTreeListener(VYPListener):
 
     ''' Enter function symbol to global definitions '''
     def enterFunction_header(self, ctx:VYPParser.Function_headerContext):
-        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.FUNCTION, None)
-        self.globalDefinitionTable.addSymbol(ctx.ID().getText(), definitionSymbol)
+        self.defineFunction(ctx.ID().getText(), ctx.variable_type().getText())
 
     def exitFunction_header(self, ctx:VYPParser.Function_headerContext):
         pass
@@ -35,16 +55,14 @@ class CustomParseTreeListener(VYPListener):
         else, so this rule is entered only during function definition. '''
     def enterFunction_parameter_definition(self, ctx:VYPParser.Function_parametersContext):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
+        definitionSymbol.setAsDefined()
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-
-    def exitFunction_parameter_definition(self, ctx:VYPParser.Function_parametersContext):
-        pass
+        self.defineFunctionParameter(definitionSymbol)
 
     def enterVariable_definition(self, ctx:VYPParser.Variable_definitionContext):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        print(self.localSymbolTable)
-        pass
+        print("local symbol table", self.localSymbolTable)
 
     ''' Data type of variable must be taken from parent context'''
     def enterMultiple_variable_definition(self, ctx:VYPParser.Multiple_variable_definitionContext):
@@ -62,3 +80,10 @@ class CustomParseTreeListener(VYPListener):
     def enterVariable_assignment(self, ctx:VYPParser.Variable_assignmentContext):
         symbol = self.localSymbolTable.findSymbolByKey(ctx.ID().getText())
         symbol.setAsDefined()
+
+    def initializeFunctionSymbolTable(self, id):
+        self.currentFunctionId = id
+        self.functionParametersDict[self.currentFunctionId] = []
+
+    def defineFunctionParameter(self, symbol):
+        self.functionParametersDict[self.currentFunctionId].append(symbol)

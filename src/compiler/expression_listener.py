@@ -62,6 +62,7 @@ class ExpressionListener(CustomParseTreeListener):
         pass
 
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
+        functionSymbol = self.globalDefinitionTable.findSymbolByKey(ctx.function_call().ID().getText())
         pass
 
     def exitComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):

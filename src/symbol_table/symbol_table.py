@@ -12,6 +12,7 @@ class SymbolTable:
 
     def addSymbol(self, key, symbol):
         self.currentSymbolClosure.setSymbol(key, symbol)
+        return symbol
 
     def addClosure(self):
         self.currentSymbolClosure = PartialSymbolTable(self.currentSymbolClosure)
