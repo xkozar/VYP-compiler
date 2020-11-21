@@ -33,6 +33,30 @@ class SemanticsChecker:
         if expression.dataType not in self.unaryTypeMap[operator]:
             raise SemanticTypeIncompabilityError
 
+    def checkFunctionCallSemantics(self, functionId, callExpressionList: list, callParameterList: list):
+        if functionId == 'print':
+            return self.checkPrintFunctionCall(callExpressionList)
+        if len(callExpressionList) != len(callParameterList):
+            return SemanticGeneralError
+        self.checkFunctionParametersTypes(callExpressionList, callParameterList)
+
+    def checkFunctionParametersTypes(self, callExpressionList: list, callParameterList: list):
+        #TODO this needs to be modified for object polymorphism
+        for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
+            if callExpression.dataType != callParameter.dataType:
+                raise SemanticTypeIncompabilityError
+        
+
+    ''' Function 'print' takes arbitrary (but more than 1) number of primitive data type parameters.
+    Since this behaviour is not supported anywhere else, special method for checking 'print' is 
+    sufficient. '''
+    def checkPrintFunctionCall(self, callExpressionList):
+        if len(callExpressionList) == 0:
+            raise SemanticGeneralError
+        for callExpression in callExpressionList:
+            if callExpression.dataType not in ['int', 'string']:
+                raise SemanticGeneralError
+
     def checkVariableIsDefined(self, variableSymbol):
         if variableSymbol.isDefined == False:
             raise SemanticGeneralError

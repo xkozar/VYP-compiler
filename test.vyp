@@ -1,7 +1,9 @@
 string testicek(int x, int y) {
+    testicek(123,456);
     int test, x;
     test = 5 + 1 * 5;
     x = test + 8;
+    x = !-5;
 }
 /*
 void main(void) { // Program Main function

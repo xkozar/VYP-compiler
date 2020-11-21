@@ -43,6 +43,16 @@ class VariableExpression:
     def __str__(self):
         return f'{self.id}'
 
+class FunctionExpression:
+
+    def __init__(self, id, dataType, callExpressions):
+        self.id = id
+        self.dataType = dataType
+        self.callExpressions = callExpressions
+
+    def __str__(self):
+        return f'{self.id}({', '.join(self.callExpressions)})'
+
 
 class ExpressionListener(CustomParseTreeListener):
     
@@ -50,6 +60,7 @@ class ExpressionListener(CustomParseTreeListener):
         super().__init__()
         self.expressionStack = deque()
         self.semanticsChecker = SemanticsChecker()
+        self.functionCallParametersList = []
 
 
     def exitEquality_expression(self, ctx:VYPParser.Equality_expressionContext):
@@ -62,8 +73,10 @@ class ExpressionListener(CustomParseTreeListener):
         pass
 
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
-        functionSymbol = self.globalDefinitionTable.findSymbolByKey(ctx.function_call().ID().getText())
-        pass
+        functionId = ctx.function_call().ID().getText()
+        functionSymbol = self.globalDefinitionTable.findSymbolByKey(functionId)
+        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, self.functionParametersDict[functionId])
+        self.functionCallParametersList = []
 
     def exitComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -101,6 +114,14 @@ class ExpressionListener(CustomParseTreeListener):
     def exitField_expression(self, ctx:VYPParser.Field_expressionContext):
         pass
 
+        # Exit a parse tree produced by VYPParser#next_expression.
+    def exitNext_expression(self, ctx:VYPParser.Next_expressionContext):
+        self.processFunctionParameter()
+
+    def exitExpression_list(self, ctx:VYPParser.Expression_listContext):
+        self.processFunctionParameter()
+
+
     def processBinaryExpression(self, operator):
         rightExpression = self.expressionStack.pop()
         leftExpression = self.expressionStack.pop()
@@ -115,3 +136,7 @@ class ExpressionListener(CustomParseTreeListener):
         unaryExpression = UnaryExpression(expression, operator)
         self.expressionStack.append(unaryExpression)
         print(unaryExpression)
+
+    def processFunctionParameter(self):
+        expression = self.expressionStack.pop()
+        self.functionCallParametersList.append(expression)
