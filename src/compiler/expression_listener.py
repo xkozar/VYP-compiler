@@ -36,22 +36,23 @@ class LiteralExpression:
 
 class VariableExpression:
 
-    def __init__(self, dataType, id):
+    def __init__(self, dataType, identifier):
         self.dataType = dataType
-        self.id = id
+        self.id = identifier
 
     def __str__(self):
         return f'{self.id}'
 
 class FunctionExpression:
 
-    def __init__(self, id, dataType, callExpressions):
-        self.id = id
+    def __init__(self, identifier, dataType, callExpressions):
+        self.id = identifier
         self.dataType = dataType
         self.callExpressions = callExpressions
 
     def __str__(self):
-        return f'{self.id}({", ".join(self.callExpressions)})'
+        stringExpressionsList = list(map(lambda expr: expr.__str__(), self.callExpressions[::-1]))
+        return f'{self.id}({", ".join(stringExpressionsList).__str__()})'
 
 
 class ExpressionListener(CustomParseTreeListener):
@@ -76,6 +77,9 @@ class ExpressionListener(CustomParseTreeListener):
         functionId = ctx.function_call().ID().getText()
         functionSymbol = self.globalDefinitionTable.findSymbolByKey(functionId)
         self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, self.functionParametersDict[functionId])
+        functionExpression = FunctionExpression(functionId, functionSymbol.dataType, self.functionCallParametersList.copy())
+        self.expressionStack.append(functionExpression)
+        print(functionExpression)
         self.functionCallParametersList = []
 
     def exitComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):
@@ -107,14 +111,13 @@ class ExpressionListener(CustomParseTreeListener):
         pass
 
     def exitLiteral_expression(self, ctx:VYPParser.Literal_expressionContext):
-        dataType = 'string' if ctx.literal_value().STRING_LITERAL() != None else 'int'
+        dataType = 'string' if ctx.literal_value().STRING_LITERAL() is not None else 'int'
         literalExpression = LiteralExpression(dataType, ctx.literal_value().getText())
         self.expressionStack.append(literalExpression)
 
     def exitField_expression(self, ctx:VYPParser.Field_expressionContext):
         pass
 
-        # Exit a parse tree produced by VYPParser#next_expression.
     def exitNext_expression(self, ctx:VYPParser.Next_expressionContext):
         self.processFunctionParameter()
 

@@ -68,7 +68,8 @@ function_call: ID '(' expression_list? ')';
 
 expression_list: expression next_expression*;
 
-next_expression: ',' expression;
+next_expression
+    :   ',' expression next_expression?;
 
 
 variable_type: INT | STRING | VOID | ID;

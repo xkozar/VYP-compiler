@@ -1,5 +1,5 @@
-string testicek(int x, int y) {
-    testicek(123,456);
+string testicek(int x, int y, string s) {
+    testicek(123,456, "2");
     int test, x;
     test = 5 + 1 * 5;
     x = test + 8;
