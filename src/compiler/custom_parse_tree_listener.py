@@ -1,33 +1,21 @@
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
-from symbol_table import GeneralSymbol, SymbolTable, SymbolType
+from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, FunctionCallSignature
 
 
 class CustomParseTreeListener(VYPListener):
     
-    def __init__(self): 
+    def __init__(self, functionDefinitionTable):
         self.localSymbolTable = SymbolTable()
-        self.globalDefinitionTable = SymbolTable()
+        self.functionTable = functionDefinitionTable
+        self.preemptiveFunctionCallTable = SymbolTable()
         self.functionParametersDict = {}
         self.currentFunctionId = ''
-        self.__defineBuiltInFunctions()
-
-    def __defineBuiltInFunctions(self):
-        #TODO add parameters
-        self.defineFunction('print', 'void')
-        
-        self.defineFunction('readInt', 'int')
-        
-        self.defineFunction('readString', 'void')
-        
-        self.defineFunction('length', 'int')
-        
-        self.defineFunction('subStr', 'string')
 
 
-    def defineFunction(self, id, dataType):
-        definitionSymbol = GeneralSymbol(id, SymbolType.FUNCTION, dataType)
-        self.globalDefinitionTable.addSymbol(id, definitionSymbol)
+    def defineFunction(self, identifier, dataType):
+        definitionSymbol = FunctionSymbol(identifier, dataType)
+        self.functionTable.addSymbol(identifier, definitionSymbol)
         self.initializeFunctionSymbolTable(definitionSymbol.id)
 
     def enterProgram(self, ctx:VYPParser.ProgramContext):
@@ -39,16 +27,18 @@ class CustomParseTreeListener(VYPListener):
     def enterFunction_definition(self, ctx:VYPParser.Function_definitionContext):
         pass
 
-    ''' Reset symbol table since symbol table is valid only inside of function/methon
+    ''' Reset symbol table since symbol table is valid only inside of function/method
         definition'''
     def exitFunction_definition(self, ctx:VYPParser.Function_definitionContext):
         self.localSymbolTable.resetToDefaultState()
 
-    ''' Enter function symbol to global definitions '''
+    ''' Enter function symbol to global function definitions '''
     def enterFunction_header(self, ctx:VYPParser.Function_headerContext):
         self.defineFunction(ctx.ID().getText(), ctx.variable_type().getText())
 
     def exitFunction_header(self, ctx:VYPParser.Function_headerContext):
+        functionParameterSignature = self.functionParametersDict[ctx.ID().getText()]
+        self.functionTable.findSymbolByKey(ctx.ID().getText()).defineParameters(functionParameterSignature)
         pass
 
     ''' Function parameters need to be inserted into symbol table. If 'void' is 
@@ -81,11 +71,11 @@ class CustomParseTreeListener(VYPListener):
         symbol = self.localSymbolTable.findSymbolByKey(ctx.ID().getText())
         symbol.setAsDefined()
 
-    def initializeFunctionSymbolTable(self, id):
-        self.currentFunctionId = id
-        self.functionParametersDict[self.currentFunctionId] = []
+    def initializeFunctionSymbolTable(self, identifier):
+        self.currentFunctionId = identifier
+        self.functionParametersDict[self.currentFunctionId] = FunctionCallSignature()
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):
         self.localSymbolTable.addSymbol(symbol.id, symbol)
-        self.functionParametersDict[self.currentFunctionId].append(symbol)
+        self.functionParametersDict[self.currentFunctionId].appendParameter(symbol)
         pass

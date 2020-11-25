@@ -13,7 +13,8 @@ class DefinitionsTreeListener(VYPListener):
         self.currentFunctionId = ''
         self.__defineBuiltInFunctions()
 
-    # def getFunctionTable
+    def getFunctionTable(self):
+        return self.functionTable
 
     def __defineBuiltInFunctions(self):
         # TODO add parameters

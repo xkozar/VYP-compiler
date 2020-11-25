@@ -7,6 +7,12 @@ class PartialSymbolTable:
     def getSymbol(self, key: str):
         return self.symbols.get(key) or self.__parentClosure.getSymbol(key)
 
+    def isSymbolDefined(self, key):
+        if self.symbols.get(key):
+            return True
+        else:
+            return self.__parentClosure.getSymbol(key)
+
     def setSymbol(self, key, symbol):
         self.symbols.update({key: symbol})
 
@@ -20,4 +26,4 @@ class PartialSymbolTable:
         return key in self.symbols
 
     def __str__(self):
-        return (f'{{ \n {self.__parentClosure.__str__()} \n\t {self.symbols.keys()} \n }}')
+        return f'{{ \n {self.__parentClosure.__str__()} \n\t {self.symbols.keys()} \n }}'

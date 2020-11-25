@@ -9,6 +9,8 @@ grammar VYP;
 
 program: (function_definition | class_definition)+;
 
+//TODO return statement
+
 statement
     :   if_else_block
     |   while_block

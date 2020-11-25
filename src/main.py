@@ -1,7 +1,7 @@
 import sys
 from antlr4 import *
 
-from compiler import ExpressionListener
+from compiler import ExpressionListener, DefinitionsTreeListener
 from antlr_generated import VYPLexer, VYPParser
 
 
@@ -12,10 +12,15 @@ def main(argv):
     stream = CommonTokenStream(lexer)
     parser = VYPParser(stream)
     tree = parser.program()
-    listener = ExpressionListener()
-    
+
+    definitionListener = DefinitionsTreeListener()
     walker = ParseTreeWalker()
+
+    walker.walk(definitionListener, tree)
+
+    listener = ExpressionListener(definitionListener.getFunctionTable())
     walker.walk(listener, tree)
+
     # try:
     # except Exception as e:
     #     print(e)

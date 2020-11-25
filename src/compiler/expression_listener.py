@@ -4,6 +4,7 @@ from antlr_generated.VYPParser import VYPParser
 from compiler import CustomParseTreeListener
 from compiler.semantics_checker import SemanticsChecker
 
+
 class BinaryExpression:
 
     def __init__(self, leftExpression, rightExpression, operator):
@@ -57,8 +58,8 @@ class FunctionExpression:
 
 class ExpressionListener(CustomParseTreeListener):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, functionDefinitionTable):
+        super().__init__(functionDefinitionTable)
         self.expressionStack = deque()
         self.semanticsChecker = SemanticsChecker()
         self.functionCallParametersList = []
@@ -75,8 +76,8 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
         functionId = ctx.function_call().ID().getText()
-        functionSymbol = self.globalDefinitionTable.findSymbolByKey(functionId)
-        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, self.functionParametersDict[functionId])
+        functionSymbol = self.functionTable.findSymbolByKey(functionId)
+        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType, self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)
         print(functionExpression)

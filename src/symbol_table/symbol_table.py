@@ -11,6 +11,10 @@ class SymbolTable:
     def findSymbolByKey(self, key) -> GeneralSymbol:
         return self.currentSymbolClosure.getSymbol(key)
 
+    def isSymbolDefined(self, key):
+        return self.currentSymbolClosure.isSymbolDefined(key)
+
+
     def addSymbol(self, key, symbol):
         self.currentSymbolClosure.setSymbol(key, symbol)
         return symbol

@@ -12,5 +12,8 @@ class StaticPartialSymbolTable:
     def getSymbol(self, key):
         raise SemanticGeneralError(f'No symbol with key "{key}" defined.')
 
+    def isSymbolDefined(self, key):
+        return False
+
     def __str__(self):
         return ''
