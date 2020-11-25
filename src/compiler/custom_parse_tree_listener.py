@@ -31,7 +31,6 @@ class CustomParseTreeListener(VYPListener):
     def enterVariable_definition(self, ctx:VYPParser.Variable_definitionContext):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        print("local symbol table", self.localSymbolTable)
 
     ''' Data type of variable must be taken from parent context'''
     def enterMultiple_variable_definition(self, ctx:VYPParser.Multiple_variable_definitionContext):

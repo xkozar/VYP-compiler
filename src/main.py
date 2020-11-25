@@ -19,7 +19,7 @@ def main(argv):
     walker.walk(definitionListener, tree)
 
     listener = ExpressionListener(definitionListener.getFunctionTable())
-    walker.walk(listener, tree)
+    # walker.walk(listener, tree)
 
     # try:
     # except Exception as e:

@@ -77,11 +77,9 @@ class ExpressionListener(CustomParseTreeListener):
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
         functionId = ctx.function_call().ID().getText()
         functionSymbol = self.functionTable.findSymbolByKey(functionId)
-        print(functionSymbol.parameterList)
         self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType, self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)
-        print(functionExpression)
         self.functionCallParametersList = []
 
     def exitComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):
@@ -133,14 +131,12 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkBinaryExpressionSemantics(leftExpression, rightExpression, operator)
         binaryExpression = BinaryExpression(leftExpression, rightExpression, operator)
         self.expressionStack.append(binaryExpression)
-        print(binaryExpression)
 
     def processUnaryExpression(self, operator):
         expression = self.expressionStack.pop()
         self.semanticsChecker.checkUnaryExpressionSemantics(expression, operator)
         unaryExpression = UnaryExpression(expression, operator)
         self.expressionStack.append(unaryExpression)
-        print(unaryExpression)
 
     def processFunctionParameter(self):
         expression = self.expressionStack.pop()

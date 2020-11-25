@@ -80,12 +80,21 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#class_members.
-    def enterClass_members(self, ctx:VYPParser.Class_membersContext):
+    # Enter a parse tree produced by VYPParser#field_definition.
+    def enterField_definition(self, ctx:VYPParser.Field_definitionContext):
         pass
 
-    # Exit a parse tree produced by VYPParser#class_members.
-    def exitClass_members(self, ctx:VYPParser.Class_membersContext):
+    # Exit a parse tree produced by VYPParser#field_definition.
+    def exitField_definition(self, ctx:VYPParser.Field_definitionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#method_definition.
+    def enterMethod_definition(self, ctx:VYPParser.Method_definitionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#method_definition.
+    def exitMethod_definition(self, ctx:VYPParser.Method_definitionContext):
         pass
 
 
@@ -113,6 +122,15 @@ class VYPListener(ParseTreeListener):
 
     # Exit a parse tree produced by VYPParser#variable_assignment.
     def exitVariable_assignment(self, ctx:VYPParser.Variable_assignmentContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#return_statement.
+    def enterReturn_statement(self, ctx:VYPParser.Return_statementContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#return_statement.
+    def exitReturn_statement(self, ctx:VYPParser.Return_statementContext):
         pass
 
 
@@ -203,6 +221,15 @@ class VYPListener(ParseTreeListener):
 
     # Exit a parse tree produced by VYPParser#comparison_expression.
     def exitComparison_expression(self, ctx:VYPParser.Comparison_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#castExpression.
+    def enterCastExpression(self, ctx:VYPParser.CastExpressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#castExpression.
+    def exitCastExpression(self, ctx:VYPParser.CastExpressionContext):
         pass
 
 

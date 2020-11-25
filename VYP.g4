@@ -9,13 +9,12 @@ grammar VYP;
 
 program: (function_definition | class_definition)+;
 
-//TODO return statement
-
 statement
     :   if_else_block
     |   while_block
     |   variable_assignment
     |   variable_definition
+    |   return_statement
     |   expression ';'
     ;
 
@@ -27,13 +26,14 @@ class_definition: class_header class_body;
 class_header: CLASS ID ':' ID;
 class_body: '{' class_members* '}';
 class_members
-    :   variable_definition
-    |   function_definition;
+    :   variable_definition #field_definition
+    |   function_definition #method_definition;
 
 // Might be extended with visibility modificators
 variable_definition: variable_type ID multiple_variable_definition* ';';
 multiple_variable_definition: ',' ID;
 variable_assignment: ID '=' expression ';';
+return_statement: RETURN expression ';';
 
 code_block: '{' statement* '}';
 if_else_block: if_part else_part;
@@ -42,7 +42,8 @@ else_part: ELSE code_block;
 while_block: WHILE '(' expression ')' code_block;
 
 expression
-    :   '(' expression ')'  #bracket_expression
+    :   '(' cast=(INT | STRING | ID) ')' expression #castExpression
+    |   '(' expression ')'  #bracket_expression
     |   '!' expression      #negation_expression
     |   expression operator=('*' | '/') expression #muldiv_expression
     |   expression operator=('+' | '-') expression #plusminus_expression
@@ -62,8 +63,8 @@ literal_value
     |   STRING_LITERAL;
 
 instance_creation: NEW ID '(' expression_list? ')';
-instance_variable: (THIS | ID) nested_object* '.' ID;
-instance_function_call: (THIS | ID) nested_object* '.' ID '(' expression_list? ')';
+instance_variable: (SUPER | THIS | ID) nested_object* '.' ID;
+instance_function_call: (SUPER | THIS | ID) nested_object* '.' ID '(' expression_list? ')';
 nested_object: '.' ID;
 
 function_call: ID '(' expression_list? ')';

@@ -1,19 +1,36 @@
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
-from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, FunctionCallSignature
+from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, ClassSymbol, StaticPartialSymbolTable
 
 
 class DefinitionsTreeListener(VYPListener):
 
     def __init__(self):
         self.functionTable = SymbolTable()
+        self.classTable = SymbolTable()
         self.preemptiveFunctionCallTable = SymbolTable()
         self.functionParametersDict = {}
         self.currentFunctionId = ''
+        self.currentObject = ''
+        self.currentMethod = ''
         self.__defineBuiltInFunctions()
+        self.__defineBuiltInClasses()
 
     def getFunctionTable(self):
         return self.functionTable
+
+    def __defineBuiltInClasses(self):
+        objectSymbol = ClassSymbol('Object', None, StaticPartialSymbolTable())
+        toStringSymbol = FunctionSymbol('toString', 'string')
+        getClassSymbol = FunctionSymbol('getClass', 'string')
+        objectSymbol.methodTable.setSymbol('toString', toStringSymbol)
+        objectSymbol.methodTable.setSymbol('getClass', getClassSymbol)
+        self.classTable.addSymbol('Object', objectSymbol)
+
+    def defineMethod(self, identifier, dataType):
+        definitionSymbol = FunctionSymbol(identifier, dataType)
+        self.functionTable.addSymbol(identifier, definitionSymbol)
+        self.currentFunctionId = identifier
 
     def __defineBuiltInFunctions(self):
         # TODO add parameters
@@ -50,4 +67,3 @@ class DefinitionsTreeListener(VYPListener):
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):
         self.functionTable.findSymbolByKey(self.currentFunctionId).appendParameter(symbol)
-        pass
