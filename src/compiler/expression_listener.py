@@ -77,6 +77,7 @@ class ExpressionListener(CustomParseTreeListener):
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
         functionId = ctx.function_call().ID().getText()
         functionSymbol = self.functionTable.findSymbolByKey(functionId)
+        print(functionSymbol.parameterList)
         self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType, self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)

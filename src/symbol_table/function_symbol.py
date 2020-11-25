@@ -5,10 +5,11 @@ class FunctionSymbol(GeneralSymbol):
 
     def __init__(self, identifier, dataType):
         super().__init__(identifier, SymbolType.FUNCTION, dataType)
-        self.parameterList = None
+        self.parameterList = FunctionCallSignature()
 
-    def defineParameters(self, parameterList):
-        self.parameterList = parameterList
+    def appendParameter(self, symbol):
+        self.parameterList.appendParameter(symbol)
+
 
 class FunctionCallSignature:
 

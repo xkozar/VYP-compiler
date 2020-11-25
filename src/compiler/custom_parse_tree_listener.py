@@ -15,7 +15,7 @@ class CustomParseTreeListener(VYPListener):
 
     def defineFunction(self, identifier, dataType):
         definitionSymbol = FunctionSymbol(identifier, dataType)
-        self.functionTable.addSymbol(identifier, definitionSymbol)
+        # self.functionTable.addSymbol(identifier, definitionSymbol)
         self.initializeFunctionSymbolTable(definitionSymbol.id)
 
     def enterProgram(self, ctx:VYPParser.ProgramContext):
@@ -34,12 +34,8 @@ class CustomParseTreeListener(VYPListener):
 
     ''' Enter function symbol to global function definitions '''
     def enterFunction_header(self, ctx:VYPParser.Function_headerContext):
+        self.currentFunctionId= ctx.ID().getText()
         self.defineFunction(ctx.ID().getText(), ctx.variable_type().getText())
-
-    def exitFunction_header(self, ctx:VYPParser.Function_headerContext):
-        functionParameterSignature = self.functionParametersDict[ctx.ID().getText()]
-        self.functionTable.findSymbolByKey(ctx.ID().getText()).defineParameters(functionParameterSignature)
-        pass
 
     ''' Function parameters need to be inserted into symbol table. If 'void' is 
         used as parameter, no action is needed. This rule is not used anywhere
@@ -73,9 +69,8 @@ class CustomParseTreeListener(VYPListener):
 
     def initializeFunctionSymbolTable(self, identifier):
         self.currentFunctionId = identifier
-        self.functionParametersDict[self.currentFunctionId] = FunctionCallSignature()
+        # self.functionParametersDict[self.currentFunctionId] = FunctionCallSignature()
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):
         self.localSymbolTable.addSymbol(symbol.id, symbol)
-        self.functionParametersDict[self.currentFunctionId].appendParameter(symbol)
-        pass
+        # self.functionParametersDict[self.currentFunctionId].appendParameter(symbol)
