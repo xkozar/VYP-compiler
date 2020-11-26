@@ -26,8 +26,8 @@ class_definition: class_header class_body;
 class_header: CLASS class_id=ID ':' parent_id=ID;
 class_body: '{' class_members* '}';
 class_members
-    :   field_definition
-    |   function_definition;
+    :   field_definition #class_field_definition
+    |   function_definition #method_definition;
 
 field_definition: variable_type ID multiple_field_definition* ';';
 multiple_field_definition: ',' ID;
@@ -71,7 +71,7 @@ nested_object
 next_final: (final_field_expression | final_method_expression);
 
 final_field_expression: '.' ID;
-final_method_expression: '.' ID '(' expression_list? ')';
+final_method_expression: '.' function_call;
 
 function_call: ID '(' expression_list? ')';
 

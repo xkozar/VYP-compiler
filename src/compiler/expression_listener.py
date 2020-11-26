@@ -133,7 +133,17 @@ class ExpressionListener(CustomParseTreeListener):
         literalExpression = LiteralExpression(dataType, ctx.literal_value().getText())
         self.expressionStack.append(literalExpression)
 
-    def exitNested_object(self, ctx:VYPParser.Nested_objectContext):
+    def exitFinal_field_expression(self, ctx: VYPParser.Final_field_expressionContext):
+        variableExpression = VariableExpression(None, ctx.ID().getText())
+        self.nestedObjectList.append(variableExpression)
+
+    def exitFinal_method_expression(self, ctx: VYPParser.Final_method_expressionContext):
+        functionExpression = FunctionExpression(ctx.function_call().ID().getText(), None, self.functionCallParametersList)
+        self.functionCallParametersList = []
+        self.nestedObjectList.append(functionExpression)
+
+    def exitInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
+        self.nestedObjectList = []
         pass
 
     def exitNext_expression(self, ctx: VYPParser.Next_expressionContext):
@@ -158,3 +168,5 @@ class ExpressionListener(CustomParseTreeListener):
     def processFunctionParameter(self):
         expression = self.expressionStack.pop()
         self.functionCallParametersList.append(expression)
+
+# TODO OBJECT EXPRESSIONS
