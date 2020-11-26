@@ -30,5 +30,8 @@ class SymbolTable:
     def setAsDefined(self, key):
         self.currentSymbolClosure.getSymbol(key).setAsDefined()
 
+    def getAllSymbols(self):
+        return self.currentSymbolClosure.getAllSymbols()
+
     def __str__(self):
         return self.currentSymbolClosure.__str__()

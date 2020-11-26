@@ -54,8 +54,7 @@ expression
     |   expression operator=(LOGICAL_EQUAL | LOGICAL_NEQUAL) expression #equality_expression
     |   expression operator=LOGICAL_AND expression #and_expression
     |   expression operator=LOGICAL_OR expression #or_expression
-    |   instance_function_call #method_expression
-    |   instance_variable   #field_expression
+    |   (SUPER | THIS | ID) nested_object #instance_expression
     |   instance_creation   #new_expression
     |   function_call       #function_expression
     |   literal_value       #literal_expression
@@ -66,9 +65,13 @@ literal_value
     |   STRING_LITERAL;
 
 instance_creation: NEW ID '(' expression_list? ')';
-instance_variable: (SUPER | THIS | ID) nested_object* '.' ID;
-instance_function_call: (SUPER | THIS | ID) nested_object* '.' ID '(' expression_list? ')';
-nested_object: '.' ID;
+nested_object
+    :   (final_field_expression | final_method_expression) next_final*;
+
+next_final: (final_field_expression | final_method_expression);
+
+final_field_expression: '.' ID;
+final_method_expression: '.' ID '(' expression_list? ')';
 
 function_call: ID '(' expression_list? ')';
 

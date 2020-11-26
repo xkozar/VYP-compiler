@@ -12,135 +12,134 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3)")
-        buf.write("\u0132\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u0131\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
         buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
         buf.write("\t\31\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36")
-        buf.write("\4\37\t\37\4 \t \4!\t!\4\"\t\"\4#\t#\3\2\3\2\6\2I\n\2")
-        buf.write("\r\2\16\2J\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3U\n\3\3")
-        buf.write("\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\7\6b\n\6\f")
-        buf.write("\6\16\6e\13\6\3\6\3\6\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b")
-        buf.write("\3\t\3\t\7\ts\n\t\f\t\16\tv\13\t\3\t\3\t\3\n\3\n\5\n|")
-        buf.write("\n\n\3\13\3\13\3\13\7\13\u0081\n\13\f\13\16\13\u0084\13")
-        buf.write("\13\3\13\3\13\3\f\3\f\3\f\3\r\3\r\3\r\7\r\u008e\n\r\f")
-        buf.write("\r\16\r\u0091\13\r\3\r\3\r\3\16\3\16\3\16\3\17\3\17\3")
-        buf.write("\17\3\17\3\17\3\20\3\20\3\20\3\20\3\21\3\21\7\21\u00a3")
-        buf.write("\n\21\f\21\16\21\u00a6\13\21\3\21\3\21\3\22\3\22\3\22")
+        buf.write("\4\37\t\37\4 \t \4!\t!\4\"\t\"\4#\t#\4$\t$\3\2\3\2\6\2")
+        buf.write("K\n\2\r\2\16\2L\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3W\n")
+        buf.write("\3\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\6\3\6\7\6d\n")
+        buf.write("\6\f\6\16\6g\13\6\3\6\3\6\3\7\3\7\3\7\3\b\3\b\3\b\3\b")
+        buf.write("\3\b\3\t\3\t\7\tu\n\t\f\t\16\tx\13\t\3\t\3\t\3\n\3\n\5")
+        buf.write("\n~\n\n\3\13\3\13\3\13\7\13\u0083\n\13\f\13\16\13\u0086")
+        buf.write("\13\13\3\13\3\13\3\f\3\f\3\f\3\r\3\r\3\r\7\r\u0090\n\r")
+        buf.write("\f\r\16\r\u0093\13\r\3\r\3\r\3\16\3\16\3\16\3\17\3\17")
+        buf.write("\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\21\3\21\7\21\u00a5")
+        buf.write("\n\21\f\21\16\21\u00a8\13\21\3\21\3\21\3\22\3\22\3\22")
         buf.write("\3\23\3\23\3\23\3\23\3\23\3\23\3\24\3\24\3\24\3\25\3\25")
         buf.write("\3\25\3\25\3\25\3\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26")
         buf.write("\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\5\26")
-        buf.write("\u00cd\n\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3")
+        buf.write("\u00cf\n\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3")
         buf.write("\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\7\26")
-        buf.write("\u00e1\n\26\f\26\16\26\u00e4\13\26\3\27\3\27\3\30\3\30")
-        buf.write("\3\30\3\30\5\30\u00ec\n\30\3\30\3\30\3\31\3\31\7\31\u00f2")
-        buf.write("\n\31\f\31\16\31\u00f5\13\31\3\31\3\31\3\31\3\32\3\32")
-        buf.write("\7\32\u00fc\n\32\f\32\16\32\u00ff\13\32\3\32\3\32\3\32")
-        buf.write("\3\32\5\32\u0105\n\32\3\32\3\32\3\33\3\33\3\33\3\34\3")
-        buf.write("\34\3\34\5\34\u010f\n\34\3\34\3\34\3\35\3\35\7\35\u0115")
-        buf.write("\n\35\f\35\16\35\u0118\13\35\3\36\3\36\3\36\5\36\u011d")
-        buf.write("\n\36\3\37\3\37\3 \3 \5 \u0123\n \3!\3!\3!\3\"\3\"\7\"")
-        buf.write("\u012a\n\"\f\"\16\"\u012d\13\"\3#\3#\3#\3#\2\3*$\2\4\6")
-        buf.write("\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\66")
-        buf.write("8:<>@BD\2\n\5\2\24\24\27\27%%\3\2\f\r\3\2\16\17\3\2\34")
-        buf.write("\37\3\2 !\4\2$$&&\4\2\30\31%%\6\2\24\24\27\27\32\32%%")
-        buf.write("\2\u0133\2H\3\2\2\2\4T\3\2\2\2\6V\3\2\2\2\bY\3\2\2\2\n")
-        buf.write("_\3\2\2\2\fh\3\2\2\2\16k\3\2\2\2\20p\3\2\2\2\22{\3\2\2")
-        buf.write("\2\24}\3\2\2\2\26\u0087\3\2\2\2\30\u008a\3\2\2\2\32\u0094")
-        buf.write("\3\2\2\2\34\u0097\3\2\2\2\36\u009c\3\2\2\2 \u00a0\3\2")
-        buf.write("\2\2\"\u00a9\3\2\2\2$\u00ac\3\2\2\2&\u00b2\3\2\2\2(\u00b5")
-        buf.write("\3\2\2\2*\u00cc\3\2\2\2,\u00e5\3\2\2\2.\u00e7\3\2\2\2")
-        buf.write("\60\u00ef\3\2\2\2\62\u00f9\3\2\2\2\64\u0108\3\2\2\2\66")
-        buf.write("\u010b\3\2\2\28\u0112\3\2\2\2:\u0119\3\2\2\2<\u011e\3")
-        buf.write("\2\2\2>\u0122\3\2\2\2@\u0124\3\2\2\2B\u0127\3\2\2\2D\u012e")
-        buf.write("\3\2\2\2FI\5\6\4\2GI\5\f\7\2HF\3\2\2\2HG\3\2\2\2IJ\3\2")
-        buf.write("\2\2JH\3\2\2\2JK\3\2\2\2K\3\3\2\2\2LU\5\"\22\2MU\5(\25")
-        buf.write("\2NU\5\34\17\2OU\5\30\r\2PU\5\36\20\2QR\5*\26\2RS\7\3")
-        buf.write("\2\2SU\3\2\2\2TL\3\2\2\2TM\3\2\2\2TN\3\2\2\2TO\3\2\2\2")
-        buf.write("TP\3\2\2\2TQ\3\2\2\2U\5\3\2\2\2VW\5\b\5\2WX\5\n\6\2X\7")
-        buf.write("\3\2\2\2YZ\5<\37\2Z[\7%\2\2[\\\7\4\2\2\\]\5> \2]^\7\5")
-        buf.write("\2\2^\t\3\2\2\2_c\7\6\2\2`b\5\4\3\2a`\3\2\2\2be\3\2\2")
-        buf.write("\2ca\3\2\2\2cd\3\2\2\2df\3\2\2\2ec\3\2\2\2fg\7\7\2\2g")
-        buf.write("\13\3\2\2\2hi\5\16\b\2ij\5\20\t\2j\r\3\2\2\2kl\7\21\2")
-        buf.write("\2lm\7%\2\2mn\7\b\2\2no\7%\2\2o\17\3\2\2\2pt\7\6\2\2q")
-        buf.write("s\5\22\n\2rq\3\2\2\2sv\3\2\2\2tr\3\2\2\2tu\3\2\2\2uw\3")
-        buf.write("\2\2\2vt\3\2\2\2wx\7\7\2\2x\21\3\2\2\2y|\5\24\13\2z|\5")
-        buf.write("\6\4\2{y\3\2\2\2{z\3\2\2\2|\23\3\2\2\2}~\5<\37\2~\u0082")
-        buf.write("\7%\2\2\177\u0081\5\26\f\2\u0080\177\3\2\2\2\u0081\u0084")
-        buf.write("\3\2\2\2\u0082\u0080\3\2\2\2\u0082\u0083\3\2\2\2\u0083")
-        buf.write("\u0085\3\2\2\2\u0084\u0082\3\2\2\2\u0085\u0086\7\3\2\2")
-        buf.write("\u0086\25\3\2\2\2\u0087\u0088\7\t\2\2\u0088\u0089\7%\2")
-        buf.write("\2\u0089\27\3\2\2\2\u008a\u008b\5<\37\2\u008b\u008f\7")
-        buf.write("%\2\2\u008c\u008e\5\32\16\2\u008d\u008c\3\2\2\2\u008e")
-        buf.write("\u0091\3\2\2\2\u008f\u008d\3\2\2\2\u008f\u0090\3\2\2\2")
-        buf.write("\u0090\u0092\3\2\2\2\u0091\u008f\3\2\2\2\u0092\u0093\7")
-        buf.write("\3\2\2\u0093\31\3\2\2\2\u0094\u0095\7\t\2\2\u0095\u0096")
-        buf.write("\7%\2\2\u0096\33\3\2\2\2\u0097\u0098\7%\2\2\u0098\u0099")
-        buf.write("\7\n\2\2\u0099\u009a\5*\26\2\u009a\u009b\7\3\2\2\u009b")
-        buf.write("\35\3\2\2\2\u009c\u009d\7\26\2\2\u009d\u009e\5*\26\2\u009e")
-        buf.write("\u009f\7\3\2\2\u009f\37\3\2\2\2\u00a0\u00a4\7\6\2\2\u00a1")
-        buf.write("\u00a3\5\4\3\2\u00a2\u00a1\3\2\2\2\u00a3\u00a6\3\2\2\2")
-        buf.write("\u00a4\u00a2\3\2\2\2\u00a4\u00a5\3\2\2\2\u00a5\u00a7\3")
-        buf.write("\2\2\2\u00a6\u00a4\3\2\2\2\u00a7\u00a8\7\7\2\2\u00a8!")
-        buf.write("\3\2\2\2\u00a9\u00aa\5$\23\2\u00aa\u00ab\5&\24\2\u00ab")
-        buf.write("#\3\2\2\2\u00ac\u00ad\7\23\2\2\u00ad\u00ae\7\4\2\2\u00ae")
-        buf.write("\u00af\5*\26\2\u00af\u00b0\7\5\2\2\u00b0\u00b1\5 \21\2")
-        buf.write("\u00b1%\3\2\2\2\u00b2\u00b3\7\22\2\2\u00b3\u00b4\5 \21")
-        buf.write("\2\u00b4\'\3\2\2\2\u00b5\u00b6\7\33\2\2\u00b6\u00b7\7")
-        buf.write("\4\2\2\u00b7\u00b8\5*\26\2\u00b8\u00b9\7\5\2\2\u00b9\u00ba")
-        buf.write("\5 \21\2\u00ba)\3\2\2\2\u00bb\u00bc\b\26\1\2\u00bc\u00bd")
-        buf.write("\7\4\2\2\u00bd\u00be\t\2\2\2\u00be\u00bf\7\5\2\2\u00bf")
-        buf.write("\u00cd\5*\26\21\u00c0\u00c1\7\4\2\2\u00c1\u00c2\5*\26")
-        buf.write("\2\u00c2\u00c3\7\5\2\2\u00c3\u00cd\3\2\2\2\u00c4\u00c5")
-        buf.write("\7\13\2\2\u00c5\u00cd\5*\26\17\u00c6\u00cd\5\62\32\2\u00c7")
-        buf.write("\u00cd\5\60\31\2\u00c8\u00cd\5.\30\2\u00c9\u00cd\5\66")
-        buf.write("\34\2\u00ca\u00cd\5,\27\2\u00cb\u00cd\7%\2\2\u00cc\u00bb")
-        buf.write("\3\2\2\2\u00cc\u00c0\3\2\2\2\u00cc\u00c4\3\2\2\2\u00cc")
-        buf.write("\u00c6\3\2\2\2\u00cc\u00c7\3\2\2\2\u00cc\u00c8\3\2\2\2")
-        buf.write("\u00cc\u00c9\3\2\2\2\u00cc\u00ca\3\2\2\2\u00cc\u00cb\3")
-        buf.write("\2\2\2\u00cd\u00e2\3\2\2\2\u00ce\u00cf\f\16\2\2\u00cf")
-        buf.write("\u00d0\t\3\2\2\u00d0\u00e1\5*\26\17\u00d1\u00d2\f\r\2")
-        buf.write("\2\u00d2\u00d3\t\4\2\2\u00d3\u00e1\5*\26\16\u00d4\u00d5")
-        buf.write("\f\f\2\2\u00d5\u00d6\t\5\2\2\u00d6\u00e1\5*\26\r\u00d7")
-        buf.write("\u00d8\f\13\2\2\u00d8\u00d9\t\6\2\2\u00d9\u00e1\5*\26")
-        buf.write("\f\u00da\u00db\f\n\2\2\u00db\u00dc\7\"\2\2\u00dc\u00e1")
-        buf.write("\5*\26\13\u00dd\u00de\f\t\2\2\u00de\u00df\7#\2\2\u00df")
-        buf.write("\u00e1\5*\26\n\u00e0\u00ce\3\2\2\2\u00e0\u00d1\3\2\2\2")
-        buf.write("\u00e0\u00d4\3\2\2\2\u00e0\u00d7\3\2\2\2\u00e0\u00da\3")
-        buf.write("\2\2\2\u00e0\u00dd\3\2\2\2\u00e1\u00e4\3\2\2\2\u00e2\u00e0")
-        buf.write("\3\2\2\2\u00e2\u00e3\3\2\2\2\u00e3+\3\2\2\2\u00e4\u00e2")
-        buf.write("\3\2\2\2\u00e5\u00e6\t\7\2\2\u00e6-\3\2\2\2\u00e7\u00e8")
-        buf.write("\7\25\2\2\u00e8\u00e9\7%\2\2\u00e9\u00eb\7\4\2\2\u00ea")
-        buf.write("\u00ec\58\35\2\u00eb\u00ea\3\2\2\2\u00eb\u00ec\3\2\2\2")
-        buf.write("\u00ec\u00ed\3\2\2\2\u00ed\u00ee\7\5\2\2\u00ee/\3\2\2")
-        buf.write("\2\u00ef\u00f3\t\b\2\2\u00f0\u00f2\5\64\33\2\u00f1\u00f0")
-        buf.write("\3\2\2\2\u00f2\u00f5\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f3")
-        buf.write("\u00f4\3\2\2\2\u00f4\u00f6\3\2\2\2\u00f5\u00f3\3\2\2\2")
-        buf.write("\u00f6\u00f7\7\20\2\2\u00f7\u00f8\7%\2\2\u00f8\61\3\2")
-        buf.write("\2\2\u00f9\u00fd\t\b\2\2\u00fa\u00fc\5\64\33\2\u00fb\u00fa")
-        buf.write("\3\2\2\2\u00fc\u00ff\3\2\2\2\u00fd\u00fb\3\2\2\2\u00fd")
-        buf.write("\u00fe\3\2\2\2\u00fe\u0100\3\2\2\2\u00ff\u00fd\3\2\2\2")
-        buf.write("\u0100\u0101\7\20\2\2\u0101\u0102\7%\2\2\u0102\u0104\7")
-        buf.write("\4\2\2\u0103\u0105\58\35\2\u0104\u0103\3\2\2\2\u0104\u0105")
-        buf.write("\3\2\2\2\u0105\u0106\3\2\2\2\u0106\u0107\7\5\2\2\u0107")
-        buf.write("\63\3\2\2\2\u0108\u0109\7\20\2\2\u0109\u010a\7%\2\2\u010a")
-        buf.write("\65\3\2\2\2\u010b\u010c\7%\2\2\u010c\u010e\7\4\2\2\u010d")
-        buf.write("\u010f\58\35\2\u010e\u010d\3\2\2\2\u010e\u010f\3\2\2\2")
-        buf.write("\u010f\u0110\3\2\2\2\u0110\u0111\7\5\2\2\u0111\67\3\2")
-        buf.write("\2\2\u0112\u0116\5*\26\2\u0113\u0115\5:\36\2\u0114\u0113")
-        buf.write("\3\2\2\2\u0115\u0118\3\2\2\2\u0116\u0114\3\2\2\2\u0116")
-        buf.write("\u0117\3\2\2\2\u01179\3\2\2\2\u0118\u0116\3\2\2\2\u0119")
-        buf.write("\u011a\7\t\2\2\u011a\u011c\5*\26\2\u011b\u011d\5:\36\2")
-        buf.write("\u011c\u011b\3\2\2\2\u011c\u011d\3\2\2\2\u011d;\3\2\2")
-        buf.write("\2\u011e\u011f\t\t\2\2\u011f=\3\2\2\2\u0120\u0123\7\32")
-        buf.write("\2\2\u0121\u0123\5B\"\2\u0122\u0120\3\2\2\2\u0122\u0121")
-        buf.write("\3\2\2\2\u0123?\3\2\2\2\u0124\u0125\5<\37\2\u0125\u0126")
-        buf.write("\7%\2\2\u0126A\3\2\2\2\u0127\u012b\5@!\2\u0128\u012a\5")
-        buf.write("D#\2\u0129\u0128\3\2\2\2\u012a\u012d\3\2\2\2\u012b\u0129")
-        buf.write("\3\2\2\2\u012b\u012c\3\2\2\2\u012cC\3\2\2\2\u012d\u012b")
-        buf.write("\3\2\2\2\u012e\u012f\7\t\2\2\u012f\u0130\5@!\2\u0130E")
-        buf.write("\3\2\2\2\27HJTct{\u0082\u008f\u00a4\u00cc\u00e0\u00e2")
-        buf.write("\u00eb\u00f3\u00fd\u0104\u010e\u0116\u011c\u0122\u012b")
+        buf.write("\u00e3\n\26\f\26\16\26\u00e6\13\26\3\27\3\27\3\30\3\30")
+        buf.write("\3\30\3\30\5\30\u00ee\n\30\3\30\3\30\3\31\3\31\5\31\u00f4")
+        buf.write("\n\31\3\31\7\31\u00f7\n\31\f\31\16\31\u00fa\13\31\3\32")
+        buf.write("\3\32\5\32\u00fe\n\32\3\33\3\33\3\33\3\34\3\34\3\34\3")
+        buf.write("\34\5\34\u0107\n\34\3\34\3\34\3\35\3\35\3\35\5\35\u010e")
+        buf.write("\n\35\3\35\3\35\3\36\3\36\7\36\u0114\n\36\f\36\16\36\u0117")
+        buf.write("\13\36\3\37\3\37\3\37\5\37\u011c\n\37\3 \3 \3!\3!\5!\u0122")
+        buf.write("\n!\3\"\3\"\3\"\3#\3#\7#\u0129\n#\f#\16#\u012c\13#\3$")
+        buf.write("\3$\3$\3$\2\3*%\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36")
+        buf.write(" \"$&(*,.\60\62\64\668:<>@BDF\2\n\5\2\24\24\27\27%%\4")
+        buf.write("\2\30\31%%\3\2\f\r\3\2\16\17\3\2\34\37\3\2 !\4\2$$&&\6")
+        buf.write("\2\24\24\27\27\32\32%%\2\u0131\2J\3\2\2\2\4V\3\2\2\2\6")
+        buf.write("X\3\2\2\2\b[\3\2\2\2\na\3\2\2\2\fj\3\2\2\2\16m\3\2\2\2")
+        buf.write("\20r\3\2\2\2\22}\3\2\2\2\24\177\3\2\2\2\26\u0089\3\2\2")
+        buf.write("\2\30\u008c\3\2\2\2\32\u0096\3\2\2\2\34\u0099\3\2\2\2")
+        buf.write("\36\u009e\3\2\2\2 \u00a2\3\2\2\2\"\u00ab\3\2\2\2$\u00ae")
+        buf.write("\3\2\2\2&\u00b4\3\2\2\2(\u00b7\3\2\2\2*\u00ce\3\2\2\2")
+        buf.write(",\u00e7\3\2\2\2.\u00e9\3\2\2\2\60\u00f3\3\2\2\2\62\u00fd")
+        buf.write("\3\2\2\2\64\u00ff\3\2\2\2\66\u0102\3\2\2\28\u010a\3\2")
+        buf.write("\2\2:\u0111\3\2\2\2<\u0118\3\2\2\2>\u011d\3\2\2\2@\u0121")
+        buf.write("\3\2\2\2B\u0123\3\2\2\2D\u0126\3\2\2\2F\u012d\3\2\2\2")
+        buf.write("HK\5\6\4\2IK\5\f\7\2JH\3\2\2\2JI\3\2\2\2KL\3\2\2\2LJ\3")
+        buf.write("\2\2\2LM\3\2\2\2M\3\3\2\2\2NW\5\"\22\2OW\5(\25\2PW\5\34")
+        buf.write("\17\2QW\5\30\r\2RW\5\36\20\2ST\5*\26\2TU\7\3\2\2UW\3\2")
+        buf.write("\2\2VN\3\2\2\2VO\3\2\2\2VP\3\2\2\2VQ\3\2\2\2VR\3\2\2\2")
+        buf.write("VS\3\2\2\2W\5\3\2\2\2XY\5\b\5\2YZ\5\n\6\2Z\7\3\2\2\2[")
+        buf.write("\\\5> \2\\]\7%\2\2]^\7\4\2\2^_\5@!\2_`\7\5\2\2`\t\3\2")
+        buf.write("\2\2ae\7\6\2\2bd\5\4\3\2cb\3\2\2\2dg\3\2\2\2ec\3\2\2\2")
+        buf.write("ef\3\2\2\2fh\3\2\2\2ge\3\2\2\2hi\7\7\2\2i\13\3\2\2\2j")
+        buf.write("k\5\16\b\2kl\5\20\t\2l\r\3\2\2\2mn\7\21\2\2no\7%\2\2o")
+        buf.write("p\7\b\2\2pq\7%\2\2q\17\3\2\2\2rv\7\6\2\2su\5\22\n\2ts")
+        buf.write("\3\2\2\2ux\3\2\2\2vt\3\2\2\2vw\3\2\2\2wy\3\2\2\2xv\3\2")
+        buf.write("\2\2yz\7\7\2\2z\21\3\2\2\2{~\5\24\13\2|~\5\6\4\2}{\3\2")
+        buf.write("\2\2}|\3\2\2\2~\23\3\2\2\2\177\u0080\5> \2\u0080\u0084")
+        buf.write("\7%\2\2\u0081\u0083\5\26\f\2\u0082\u0081\3\2\2\2\u0083")
+        buf.write("\u0086\3\2\2\2\u0084\u0082\3\2\2\2\u0084\u0085\3\2\2\2")
+        buf.write("\u0085\u0087\3\2\2\2\u0086\u0084\3\2\2\2\u0087\u0088\7")
+        buf.write("\3\2\2\u0088\25\3\2\2\2\u0089\u008a\7\t\2\2\u008a\u008b")
+        buf.write("\7%\2\2\u008b\27\3\2\2\2\u008c\u008d\5> \2\u008d\u0091")
+        buf.write("\7%\2\2\u008e\u0090\5\32\16\2\u008f\u008e\3\2\2\2\u0090")
+        buf.write("\u0093\3\2\2\2\u0091\u008f\3\2\2\2\u0091\u0092\3\2\2\2")
+        buf.write("\u0092\u0094\3\2\2\2\u0093\u0091\3\2\2\2\u0094\u0095\7")
+        buf.write("\3\2\2\u0095\31\3\2\2\2\u0096\u0097\7\t\2\2\u0097\u0098")
+        buf.write("\7%\2\2\u0098\33\3\2\2\2\u0099\u009a\7%\2\2\u009a\u009b")
+        buf.write("\7\n\2\2\u009b\u009c\5*\26\2\u009c\u009d\7\3\2\2\u009d")
+        buf.write("\35\3\2\2\2\u009e\u009f\7\26\2\2\u009f\u00a0\5*\26\2\u00a0")
+        buf.write("\u00a1\7\3\2\2\u00a1\37\3\2\2\2\u00a2\u00a6\7\6\2\2\u00a3")
+        buf.write("\u00a5\5\4\3\2\u00a4\u00a3\3\2\2\2\u00a5\u00a8\3\2\2\2")
+        buf.write("\u00a6\u00a4\3\2\2\2\u00a6\u00a7\3\2\2\2\u00a7\u00a9\3")
+        buf.write("\2\2\2\u00a8\u00a6\3\2\2\2\u00a9\u00aa\7\7\2\2\u00aa!")
+        buf.write("\3\2\2\2\u00ab\u00ac\5$\23\2\u00ac\u00ad\5&\24\2\u00ad")
+        buf.write("#\3\2\2\2\u00ae\u00af\7\23\2\2\u00af\u00b0\7\4\2\2\u00b0")
+        buf.write("\u00b1\5*\26\2\u00b1\u00b2\7\5\2\2\u00b2\u00b3\5 \21\2")
+        buf.write("\u00b3%\3\2\2\2\u00b4\u00b5\7\22\2\2\u00b5\u00b6\5 \21")
+        buf.write("\2\u00b6\'\3\2\2\2\u00b7\u00b8\7\33\2\2\u00b8\u00b9\7")
+        buf.write("\4\2\2\u00b9\u00ba\5*\26\2\u00ba\u00bb\7\5\2\2\u00bb\u00bc")
+        buf.write("\5 \21\2\u00bc)\3\2\2\2\u00bd\u00be\b\26\1\2\u00be\u00bf")
+        buf.write("\7\4\2\2\u00bf\u00c0\t\2\2\2\u00c0\u00c1\7\5\2\2\u00c1")
+        buf.write("\u00cf\5*\26\20\u00c2\u00c3\7\4\2\2\u00c3\u00c4\5*\26")
+        buf.write("\2\u00c4\u00c5\7\5\2\2\u00c5\u00cf\3\2\2\2\u00c6\u00c7")
+        buf.write("\7\13\2\2\u00c7\u00cf\5*\26\16\u00c8\u00c9\t\3\2\2\u00c9")
+        buf.write("\u00cf\5\60\31\2\u00ca\u00cf\5.\30\2\u00cb\u00cf\58\35")
+        buf.write("\2\u00cc\u00cf\5,\27\2\u00cd\u00cf\7%\2\2\u00ce\u00bd")
+        buf.write("\3\2\2\2\u00ce\u00c2\3\2\2\2\u00ce\u00c6\3\2\2\2\u00ce")
+        buf.write("\u00c8\3\2\2\2\u00ce\u00ca\3\2\2\2\u00ce\u00cb\3\2\2\2")
+        buf.write("\u00ce\u00cc\3\2\2\2\u00ce\u00cd\3\2\2\2\u00cf\u00e4\3")
+        buf.write("\2\2\2\u00d0\u00d1\f\r\2\2\u00d1\u00d2\t\4\2\2\u00d2\u00e3")
+        buf.write("\5*\26\16\u00d3\u00d4\f\f\2\2\u00d4\u00d5\t\5\2\2\u00d5")
+        buf.write("\u00e3\5*\26\r\u00d6\u00d7\f\13\2\2\u00d7\u00d8\t\6\2")
+        buf.write("\2\u00d8\u00e3\5*\26\f\u00d9\u00da\f\n\2\2\u00da\u00db")
+        buf.write("\t\7\2\2\u00db\u00e3\5*\26\13\u00dc\u00dd\f\t\2\2\u00dd")
+        buf.write("\u00de\7\"\2\2\u00de\u00e3\5*\26\n\u00df\u00e0\f\b\2\2")
+        buf.write("\u00e0\u00e1\7#\2\2\u00e1\u00e3\5*\26\t\u00e2\u00d0\3")
+        buf.write("\2\2\2\u00e2\u00d3\3\2\2\2\u00e2\u00d6\3\2\2\2\u00e2\u00d9")
+        buf.write("\3\2\2\2\u00e2\u00dc\3\2\2\2\u00e2\u00df\3\2\2\2\u00e3")
+        buf.write("\u00e6\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e4\u00e5\3\2\2\2")
+        buf.write("\u00e5+\3\2\2\2\u00e6\u00e4\3\2\2\2\u00e7\u00e8\t\b\2")
+        buf.write("\2\u00e8-\3\2\2\2\u00e9\u00ea\7\25\2\2\u00ea\u00eb\7%")
+        buf.write("\2\2\u00eb\u00ed\7\4\2\2\u00ec\u00ee\5:\36\2\u00ed\u00ec")
+        buf.write("\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\u00ef\3\2\2\2\u00ef")
+        buf.write("\u00f0\7\5\2\2\u00f0/\3\2\2\2\u00f1\u00f4\5\64\33\2\u00f2")
+        buf.write("\u00f4\5\66\34\2\u00f3\u00f1\3\2\2\2\u00f3\u00f2\3\2\2")
+        buf.write("\2\u00f4\u00f8\3\2\2\2\u00f5\u00f7\5\62\32\2\u00f6\u00f5")
+        buf.write("\3\2\2\2\u00f7\u00fa\3\2\2\2\u00f8\u00f6\3\2\2\2\u00f8")
+        buf.write("\u00f9\3\2\2\2\u00f9\61\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fb")
+        buf.write("\u00fe\5\64\33\2\u00fc\u00fe\5\66\34\2\u00fd\u00fb\3\2")
+        buf.write("\2\2\u00fd\u00fc\3\2\2\2\u00fe\63\3\2\2\2\u00ff\u0100")
+        buf.write("\7\20\2\2\u0100\u0101\7%\2\2\u0101\65\3\2\2\2\u0102\u0103")
+        buf.write("\7\20\2\2\u0103\u0104\7%\2\2\u0104\u0106\7\4\2\2\u0105")
+        buf.write("\u0107\5:\36\2\u0106\u0105\3\2\2\2\u0106\u0107\3\2\2\2")
+        buf.write("\u0107\u0108\3\2\2\2\u0108\u0109\7\5\2\2\u0109\67\3\2")
+        buf.write("\2\2\u010a\u010b\7%\2\2\u010b\u010d\7\4\2\2\u010c\u010e")
+        buf.write("\5:\36\2\u010d\u010c\3\2\2\2\u010d\u010e\3\2\2\2\u010e")
+        buf.write("\u010f\3\2\2\2\u010f\u0110\7\5\2\2\u01109\3\2\2\2\u0111")
+        buf.write("\u0115\5*\26\2\u0112\u0114\5<\37\2\u0113\u0112\3\2\2\2")
+        buf.write("\u0114\u0117\3\2\2\2\u0115\u0113\3\2\2\2\u0115\u0116\3")
+        buf.write("\2\2\2\u0116;\3\2\2\2\u0117\u0115\3\2\2\2\u0118\u0119")
+        buf.write("\7\t\2\2\u0119\u011b\5*\26\2\u011a\u011c\5<\37\2\u011b")
+        buf.write("\u011a\3\2\2\2\u011b\u011c\3\2\2\2\u011c=\3\2\2\2\u011d")
+        buf.write("\u011e\t\t\2\2\u011e?\3\2\2\2\u011f\u0122\7\32\2\2\u0120")
+        buf.write("\u0122\5D#\2\u0121\u011f\3\2\2\2\u0121\u0120\3\2\2\2\u0122")
+        buf.write("A\3\2\2\2\u0123\u0124\5> \2\u0124\u0125\7%\2\2\u0125C")
+        buf.write("\3\2\2\2\u0126\u012a\5B\"\2\u0127\u0129\5F$\2\u0128\u0127")
+        buf.write("\3\2\2\2\u0129\u012c\3\2\2\2\u012a\u0128\3\2\2\2\u012a")
+        buf.write("\u012b\3\2\2\2\u012bE\3\2\2\2\u012c\u012a\3\2\2\2\u012d")
+        buf.write("\u012e\7\t\2\2\u012e\u012f\5B\"\2\u012fG\3\2\2\2\30JL")
+        buf.write("Vev}\u0084\u0091\u00a6\u00ce\u00e2\u00e4\u00ed\u00f3\u00f8")
+        buf.write("\u00fd\u0106\u010d\u0115\u011b\u0121\u012a")
         return buf.getvalue()
 
 
@@ -194,17 +193,18 @@ class VYPParser ( Parser ):
     RULE_expression = 20
     RULE_literal_value = 21
     RULE_instance_creation = 22
-    RULE_instance_variable = 23
-    RULE_instance_function_call = 24
-    RULE_nested_object = 25
-    RULE_function_call = 26
-    RULE_expression_list = 27
-    RULE_next_expression = 28
-    RULE_variable_type = 29
-    RULE_parameter_list = 30
-    RULE_function_parameter_definition = 31
-    RULE_function_parameters = 32
-    RULE_next_parameter = 33
+    RULE_nested_object = 23
+    RULE_next_final = 24
+    RULE_final_field_expression = 25
+    RULE_final_method_expression = 26
+    RULE_function_call = 27
+    RULE_expression_list = 28
+    RULE_next_expression = 29
+    RULE_variable_type = 30
+    RULE_parameter_list = 31
+    RULE_function_parameter_definition = 32
+    RULE_function_parameters = 33
+    RULE_next_parameter = 34
 
     ruleNames =  [ "program", "statement", "function_definition", "function_header", 
                    "function_body", "class_definition", "class_header", 
@@ -212,11 +212,11 @@ class VYPParser ( Parser ):
                    "variable_definition", "multiple_variable_definition", 
                    "variable_assignment", "return_statement", "code_block", 
                    "if_else_block", "if_part", "else_part", "while_block", 
-                   "expression", "literal_value", "instance_creation", "instance_variable", 
-                   "instance_function_call", "nested_object", "function_call", 
-                   "expression_list", "next_expression", "variable_type", 
-                   "parameter_list", "function_parameter_definition", "function_parameters", 
-                   "next_parameter" ]
+                   "expression", "literal_value", "instance_creation", "nested_object", 
+                   "next_final", "final_field_expression", "final_method_expression", 
+                   "function_call", "expression_list", "next_expression", 
+                   "variable_type", "parameter_list", "function_parameter_definition", 
+                   "function_parameters", "next_parameter" ]
 
     EOF = Token.EOF
     T__0=1
@@ -309,25 +309,25 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 70 
+            self.state = 72 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 70
+                self.state = 72
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [VYPParser.INT, VYPParser.STRING, VYPParser.VOID, VYPParser.ID]:
-                    self.state = 68
+                    self.state = 70
                     self.function_definition()
                     pass
                 elif token in [VYPParser.CLASS]:
-                    self.state = 69
+                    self.state = 71
                     self.class_definition()
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 72 
+                self.state = 74 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.CLASS) | (1 << VYPParser.INT) | (1 << VYPParser.STRING) | (1 << VYPParser.VOID) | (1 << VYPParser.ID))) != 0)):
@@ -391,44 +391,44 @@ class VYPParser ( Parser ):
         localctx = VYPParser.StatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_statement)
         try:
-            self.state = 82
+            self.state = 84
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 74
+                self.state = 76
                 self.if_else_block()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 75
+                self.state = 77
                 self.while_block()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 76
+                self.state = 78
                 self.variable_assignment()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 77
+                self.state = 79
                 self.variable_definition()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 78
+                self.state = 80
                 self.return_statement()
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 79
+                self.state = 81
                 self.expression(0)
-                self.state = 80
+                self.state = 82
                 self.match(VYPParser.T__0)
                 pass
 
@@ -476,9 +476,9 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_function_definition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 84
+            self.state = 86
             self.function_header()
-            self.state = 85
+            self.state = 87
             self.function_body()
         except RecognitionException as re:
             localctx.exception = re
@@ -526,15 +526,15 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_function_header)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 87
-            self.variable_type()
-            self.state = 88
-            self.match(VYPParser.ID)
             self.state = 89
-            self.match(VYPParser.T__1)
+            self.variable_type()
             self.state = 90
-            self.parameter_list()
+            self.match(VYPParser.ID)
             self.state = 91
+            self.match(VYPParser.T__1)
+            self.state = 92
+            self.parameter_list()
+            self.state = 93
             self.match(VYPParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -579,19 +579,19 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 93
+            self.state = 95
             self.match(VYPParser.T__3)
-            self.state = 97
+            self.state = 99
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.T__1) | (1 << VYPParser.T__8) | (1 << VYPParser.IF) | (1 << VYPParser.INT) | (1 << VYPParser.NEW) | (1 << VYPParser.RETURN) | (1 << VYPParser.STRING) | (1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.VOID) | (1 << VYPParser.WHILE) | (1 << VYPParser.INTEGER_LITERAL) | (1 << VYPParser.ID) | (1 << VYPParser.STRING_LITERAL))) != 0):
-                self.state = 94
+                self.state = 96
                 self.statement()
-                self.state = 99
+                self.state = 101
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 100
+            self.state = 102
             self.match(VYPParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -636,9 +636,9 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_class_definition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 102
+            self.state = 104
             self.class_header()
-            self.state = 103
+            self.state = 105
             self.class_body()
         except RecognitionException as re:
             localctx.exception = re
@@ -686,13 +686,13 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_class_header)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 105
-            self.match(VYPParser.CLASS)
-            self.state = 106
-            localctx.class_id = self.match(VYPParser.ID)
             self.state = 107
-            self.match(VYPParser.T__5)
+            self.match(VYPParser.CLASS)
             self.state = 108
+            localctx.class_id = self.match(VYPParser.ID)
+            self.state = 109
+            self.match(VYPParser.T__5)
+            self.state = 110
             localctx.parent_id = self.match(VYPParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -737,19 +737,19 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 110
+            self.state = 112
             self.match(VYPParser.T__3)
-            self.state = 114
+            self.state = 116
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.INT) | (1 << VYPParser.STRING) | (1 << VYPParser.VOID) | (1 << VYPParser.ID))) != 0):
-                self.state = 111
+                self.state = 113
                 self.class_members()
-                self.state = 116
+                self.state = 118
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 117
+            self.state = 119
             self.match(VYPParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -793,18 +793,18 @@ class VYPParser ( Parser ):
         localctx = VYPParser.Class_membersContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_class_members)
         try:
-            self.state = 121
+            self.state = 123
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,5,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 119
+                self.state = 121
                 self.field_definition()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 120
+                self.state = 122
                 self.function_definition()
                 pass
 
@@ -859,21 +859,21 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 123
+            self.state = 125
             self.variable_type()
-            self.state = 124
+            self.state = 126
             self.match(VYPParser.ID)
-            self.state = 128
+            self.state = 130
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==VYPParser.T__6:
-                self.state = 125
+                self.state = 127
                 self.multiple_field_definition()
-                self.state = 130
+                self.state = 132
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 131
+            self.state = 133
             self.match(VYPParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -913,9 +913,9 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 20, self.RULE_multiple_field_definition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 133
+            self.state = 135
             self.match(VYPParser.T__6)
-            self.state = 134
+            self.state = 136
             self.match(VYPParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -967,21 +967,21 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 136
+            self.state = 138
             self.variable_type()
-            self.state = 137
+            self.state = 139
             self.match(VYPParser.ID)
-            self.state = 141
+            self.state = 143
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==VYPParser.T__6:
-                self.state = 138
+                self.state = 140
                 self.multiple_variable_definition()
-                self.state = 143
+                self.state = 145
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 144
+            self.state = 146
             self.match(VYPParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1021,9 +1021,9 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 24, self.RULE_multiple_variable_definition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 146
+            self.state = 148
             self.match(VYPParser.T__6)
-            self.state = 147
+            self.state = 149
             self.match(VYPParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -1067,13 +1067,13 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 26, self.RULE_variable_assignment)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 149
-            self.match(VYPParser.ID)
-            self.state = 150
-            self.match(VYPParser.T__7)
             self.state = 151
-            self.expression(0)
+            self.match(VYPParser.ID)
             self.state = 152
+            self.match(VYPParser.T__7)
+            self.state = 153
+            self.expression(0)
+            self.state = 154
             self.match(VYPParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1117,11 +1117,11 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 28, self.RULE_return_statement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 154
-            self.match(VYPParser.RETURN)
-            self.state = 155
-            self.expression(0)
             self.state = 156
+            self.match(VYPParser.RETURN)
+            self.state = 157
+            self.expression(0)
+            self.state = 158
             self.match(VYPParser.T__0)
         except RecognitionException as re:
             localctx.exception = re
@@ -1166,19 +1166,19 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 158
+            self.state = 160
             self.match(VYPParser.T__3)
-            self.state = 162
+            self.state = 164
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.T__1) | (1 << VYPParser.T__8) | (1 << VYPParser.IF) | (1 << VYPParser.INT) | (1 << VYPParser.NEW) | (1 << VYPParser.RETURN) | (1 << VYPParser.STRING) | (1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.VOID) | (1 << VYPParser.WHILE) | (1 << VYPParser.INTEGER_LITERAL) | (1 << VYPParser.ID) | (1 << VYPParser.STRING_LITERAL))) != 0):
-                self.state = 159
+                self.state = 161
                 self.statement()
-                self.state = 164
+                self.state = 166
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 165
+            self.state = 167
             self.match(VYPParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -1223,9 +1223,9 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 32, self.RULE_if_else_block)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 167
+            self.state = 169
             self.if_part()
-            self.state = 168
+            self.state = 170
             self.else_part()
         except RecognitionException as re:
             localctx.exception = re
@@ -1273,15 +1273,15 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 34, self.RULE_if_part)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 170
-            self.match(VYPParser.IF)
-            self.state = 171
-            self.match(VYPParser.T__1)
             self.state = 172
-            self.expression(0)
+            self.match(VYPParser.IF)
             self.state = 173
-            self.match(VYPParser.T__2)
+            self.match(VYPParser.T__1)
             self.state = 174
+            self.expression(0)
+            self.state = 175
+            self.match(VYPParser.T__2)
+            self.state = 176
             self.code_block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1325,9 +1325,9 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 36, self.RULE_else_part)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 176
+            self.state = 178
             self.match(VYPParser.ELSE)
-            self.state = 177
+            self.state = 179
             self.code_block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1375,15 +1375,15 @@ class VYPParser ( Parser ):
         self.enterRule(localctx, 38, self.RULE_while_block)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 179
-            self.match(VYPParser.WHILE)
-            self.state = 180
-            self.match(VYPParser.T__1)
             self.state = 181
-            self.expression(0)
+            self.match(VYPParser.WHILE)
             self.state = 182
-            self.match(VYPParser.T__2)
+            self.match(VYPParser.T__1)
             self.state = 183
+            self.expression(0)
+            self.state = 184
+            self.match(VYPParser.T__2)
+            self.state = 185
             self.code_block()
         except RecognitionException as re:
             localctx.exception = re
@@ -1459,23 +1459,29 @@ class VYPParser ( Parser ):
                 listener.exitMuldiv_expression(self)
 
 
-    class Method_expressionContext(ExpressionContext):
+    class Instance_expressionContext(ExpressionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def instance_function_call(self):
-            return self.getTypedRuleContext(VYPParser.Instance_function_callContext,0)
+        def nested_object(self):
+            return self.getTypedRuleContext(VYPParser.Nested_objectContext,0)
 
+        def SUPER(self):
+            return self.getToken(VYPParser.SUPER, 0)
+        def THIS(self):
+            return self.getToken(VYPParser.THIS, 0)
+        def ID(self):
+            return self.getToken(VYPParser.ID, 0)
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMethod_expression" ):
-                listener.enterMethod_expression(self)
+            if hasattr( listener, "enterInstance_expression" ):
+                listener.enterInstance_expression(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMethod_expression" ):
-                listener.exitMethod_expression(self)
+            if hasattr( listener, "exitInstance_expression" ):
+                listener.exitInstance_expression(self)
 
 
     class Function_expressionContext(ExpressionContext):
@@ -1721,25 +1727,6 @@ class VYPParser ( Parser ):
                 listener.exitLiteral_expression(self)
 
 
-    class Field_expressionContext(ExpressionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a VYPParser.ExpressionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def instance_variable(self):
-            return self.getTypedRuleContext(VYPParser.Instance_variableContext,0)
-
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterField_expression" ):
-                listener.enterField_expression(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitField_expression" ):
-                listener.exitField_expression(self)
-
-
 
     def expression(self, _p:int=0):
         _parentctx = self._ctx
@@ -1751,7 +1738,7 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 202
+            self.state = 204
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
             if la_ == 1:
@@ -1759,9 +1746,9 @@ class VYPParser ( Parser ):
                 self._ctx = localctx
                 _prevctx = localctx
 
-                self.state = 186
+                self.state = 188
                 self.match(VYPParser.T__1)
-                self.state = 187
+                self.state = 189
                 localctx.cast = self._input.LT(1)
                 _la = self._input.LA(1)
                 if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.INT) | (1 << VYPParser.STRING) | (1 << VYPParser.ID))) != 0)):
@@ -1769,21 +1756,21 @@ class VYPParser ( Parser ):
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
-                self.state = 188
+                self.state = 190
                 self.match(VYPParser.T__2)
-                self.state = 189
-                self.expression(15)
+                self.state = 191
+                self.expression(14)
                 pass
 
             elif la_ == 2:
                 localctx = VYPParser.Bracket_expressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 190
-                self.match(VYPParser.T__1)
-                self.state = 191
-                self.expression(0)
                 self.state = 192
+                self.match(VYPParser.T__1)
+                self.state = 193
+                self.expression(0)
+                self.state = 194
                 self.match(VYPParser.T__2)
                 pass
 
@@ -1791,63 +1778,62 @@ class VYPParser ( Parser ):
                 localctx = VYPParser.Negation_expressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 194
+                self.state = 196
                 self.match(VYPParser.T__8)
-                self.state = 195
-                self.expression(13)
+                self.state = 197
+                self.expression(12)
                 pass
 
             elif la_ == 4:
-                localctx = VYPParser.Method_expressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 196
-                self.instance_function_call()
-                pass
-
-            elif la_ == 5:
-                localctx = VYPParser.Field_expressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
-                self.state = 197
-                self.instance_variable()
-                pass
-
-            elif la_ == 6:
-                localctx = VYPParser.New_expressionContext(self, localctx)
+                localctx = VYPParser.Instance_expressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 198
-                self.instance_creation()
-                pass
-
-            elif la_ == 7:
-                localctx = VYPParser.Function_expressionContext(self, localctx)
-                self._ctx = localctx
-                _prevctx = localctx
+                _la = self._input.LA(1)
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.ID))) != 0)):
+                    self._errHandler.recoverInline(self)
+                else:
+                    self._errHandler.reportMatch(self)
+                    self.consume()
                 self.state = 199
-                self.function_call()
+                self.nested_object()
                 pass
 
-            elif la_ == 8:
-                localctx = VYPParser.Literal_expressionContext(self, localctx)
+            elif la_ == 5:
+                localctx = VYPParser.New_expressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 200
-                self.literal_value()
+                self.instance_creation()
                 pass
 
-            elif la_ == 9:
-                localctx = VYPParser.Variable_expressionContext(self, localctx)
+            elif la_ == 6:
+                localctx = VYPParser.Function_expressionContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 201
+                self.function_call()
+                pass
+
+            elif la_ == 7:
+                localctx = VYPParser.Literal_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 202
+                self.literal_value()
+                pass
+
+            elif la_ == 8:
+                localctx = VYPParser.Variable_expressionContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 203
                 self.match(VYPParser.ID)
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 224
+            self.state = 226
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -1855,17 +1841,17 @@ class VYPParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 222
+                    self.state = 224
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
                     if la_ == 1:
                         localctx = VYPParser.Muldiv_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 204
-                        if not self.precpred(self._ctx, 12):
+                        self.state = 206
+                        if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
-                        self.state = 205
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
+                        self.state = 207
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==VYPParser.T__9 or _la==VYPParser.T__10):
@@ -1873,18 +1859,18 @@ class VYPParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 206
-                        self.expression(13)
+                        self.state = 208
+                        self.expression(12)
                         pass
 
                     elif la_ == 2:
                         localctx = VYPParser.Plusminus_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 207
-                        if not self.precpred(self._ctx, 11):
+                        self.state = 209
+                        if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
-                        self.state = 208
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
+                        self.state = 210
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==VYPParser.T__11 or _la==VYPParser.T__12):
@@ -1892,18 +1878,18 @@ class VYPParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 209
-                        self.expression(12)
+                        self.state = 211
+                        self.expression(11)
                         pass
 
                     elif la_ == 3:
                         localctx = VYPParser.Comparison_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 210
-                        if not self.precpred(self._ctx, 10):
+                        self.state = 212
+                        if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
-                        self.state = 211
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
+                        self.state = 213
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.LE) | (1 << VYPParser.LEQ) | (1 << VYPParser.GT) | (1 << VYPParser.GTQ))) != 0)):
@@ -1911,18 +1897,18 @@ class VYPParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 212
-                        self.expression(11)
+                        self.state = 214
+                        self.expression(10)
                         pass
 
                     elif la_ == 4:
                         localctx = VYPParser.Equality_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 213
-                        if not self.precpred(self._ctx, 9):
+                        self.state = 215
+                        if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
-                        self.state = 214
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
+                        self.state = 216
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==VYPParser.LOGICAL_EQUAL or _la==VYPParser.LOGICAL_NEQUAL):
@@ -1930,38 +1916,38 @@ class VYPParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 215
-                        self.expression(10)
+                        self.state = 217
+                        self.expression(9)
                         pass
 
                     elif la_ == 5:
                         localctx = VYPParser.And_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 216
-                        if not self.precpred(self._ctx, 8):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
-                        self.state = 217
-                        localctx.operator = self.match(VYPParser.LOGICAL_AND)
                         self.state = 218
-                        self.expression(9)
+                        if not self.precpred(self._ctx, 7):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                        self.state = 219
+                        localctx.operator = self.match(VYPParser.LOGICAL_AND)
+                        self.state = 220
+                        self.expression(8)
                         pass
 
                     elif la_ == 6:
                         localctx = VYPParser.Or_expressionContext(self, VYPParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 219
-                        if not self.precpred(self._ctx, 7):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 220
-                        localctx.operator = self.match(VYPParser.LOGICAL_OR)
                         self.state = 221
-                        self.expression(8)
+                        if not self.precpred(self._ctx, 6):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                        self.state = 222
+                        localctx.operator = self.match(VYPParser.LOGICAL_OR)
+                        self.state = 223
+                        self.expression(7)
                         pass
 
              
-                self.state = 226
+                self.state = 228
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
 
@@ -2007,7 +1993,7 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 227
+            self.state = 229
             _la = self._input.LA(1)
             if not(_la==VYPParser.INTEGER_LITERAL or _la==VYPParser.STRING_LITERAL):
                 self._errHandler.recoverInline(self)
@@ -2060,191 +2046,21 @@ class VYPParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 229
-            self.match(VYPParser.NEW)
-            self.state = 230
-            self.match(VYPParser.ID)
             self.state = 231
-            self.match(VYPParser.T__1)
+            self.match(VYPParser.NEW)
+            self.state = 232
+            self.match(VYPParser.ID)
             self.state = 233
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.T__1) | (1 << VYPParser.T__8) | (1 << VYPParser.NEW) | (1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.INTEGER_LITERAL) | (1 << VYPParser.ID) | (1 << VYPParser.STRING_LITERAL))) != 0):
-                self.state = 232
-                self.expression_list()
-
-
-            self.state = 235
-            self.match(VYPParser.T__2)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Instance_variableContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ID(self, i:int=None):
-            if i is None:
-                return self.getTokens(VYPParser.ID)
-            else:
-                return self.getToken(VYPParser.ID, i)
-
-        def SUPER(self):
-            return self.getToken(VYPParser.SUPER, 0)
-
-        def THIS(self):
-            return self.getToken(VYPParser.THIS, 0)
-
-        def nested_object(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(VYPParser.Nested_objectContext)
-            else:
-                return self.getTypedRuleContext(VYPParser.Nested_objectContext,i)
-
-
-        def getRuleIndex(self):
-            return VYPParser.RULE_instance_variable
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInstance_variable" ):
-                listener.enterInstance_variable(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInstance_variable" ):
-                listener.exitInstance_variable(self)
-
-
-
-
-    def instance_variable(self):
-
-        localctx = VYPParser.Instance_variableContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_instance_variable)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 237
-            _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.ID))) != 0)):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-            self.state = 241
-            self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,13,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    self.state = 238
-                    self.nested_object() 
-                self.state = 243
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,13,self._ctx)
-
-            self.state = 244
-            self.match(VYPParser.T__13)
-            self.state = 245
-            self.match(VYPParser.ID)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class Instance_function_callContext(ParserRuleContext):
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ID(self, i:int=None):
-            if i is None:
-                return self.getTokens(VYPParser.ID)
-            else:
-                return self.getToken(VYPParser.ID, i)
-
-        def SUPER(self):
-            return self.getToken(VYPParser.SUPER, 0)
-
-        def THIS(self):
-            return self.getToken(VYPParser.THIS, 0)
-
-        def nested_object(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(VYPParser.Nested_objectContext)
-            else:
-                return self.getTypedRuleContext(VYPParser.Nested_objectContext,i)
-
-
-        def expression_list(self):
-            return self.getTypedRuleContext(VYPParser.Expression_listContext,0)
-
-
-        def getRuleIndex(self):
-            return VYPParser.RULE_instance_function_call
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInstance_function_call" ):
-                listener.enterInstance_function_call(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInstance_function_call" ):
-                listener.exitInstance_function_call(self)
-
-
-
-
-    def instance_function_call(self):
-
-        localctx = VYPParser.Instance_function_callContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_instance_function_call)
-        self._la = 0 # Token type
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 247
-            _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.ID))) != 0)):
-                self._errHandler.recoverInline(self)
-            else:
-                self._errHandler.reportMatch(self)
-                self.consume()
-            self.state = 251
-            self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
-                    self.state = 248
-                    self.nested_object() 
-                self.state = 253
-                self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
-
-            self.state = 254
-            self.match(VYPParser.T__13)
-            self.state = 255
-            self.match(VYPParser.ID)
-            self.state = 256
             self.match(VYPParser.T__1)
-            self.state = 258
+            self.state = 235
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.T__1) | (1 << VYPParser.T__8) | (1 << VYPParser.NEW) | (1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.INTEGER_LITERAL) | (1 << VYPParser.ID) | (1 << VYPParser.STRING_LITERAL))) != 0):
-                self.state = 257
+                self.state = 234
                 self.expression_list()
 
 
-            self.state = 260
+            self.state = 237
             self.match(VYPParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -2261,8 +2077,20 @@ class VYPParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self):
-            return self.getToken(VYPParser.ID, 0)
+        def final_field_expression(self):
+            return self.getTypedRuleContext(VYPParser.Final_field_expressionContext,0)
+
+
+        def final_method_expression(self):
+            return self.getTypedRuleContext(VYPParser.Final_method_expressionContext,0)
+
+
+        def next_final(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(VYPParser.Next_finalContext)
+            else:
+                return self.getTypedRuleContext(VYPParser.Next_finalContext,i)
+
 
         def getRuleIndex(self):
             return VYPParser.RULE_nested_object
@@ -2281,13 +2109,192 @@ class VYPParser ( Parser ):
     def nested_object(self):
 
         localctx = VYPParser.Nested_objectContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_nested_object)
+        self.enterRule(localctx, 46, self.RULE_nested_object)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 262
+            self.state = 241
+            self._errHandler.sync(self)
+            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            if la_ == 1:
+                self.state = 239
+                self.final_field_expression()
+                pass
+
+            elif la_ == 2:
+                self.state = 240
+                self.final_method_expression()
+                pass
+
+
+            self.state = 246
+            self._errHandler.sync(self)
+            _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
+                    self.state = 243
+                    self.next_final() 
+                self.state = 248
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Next_finalContext(ParserRuleContext):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def final_field_expression(self):
+            return self.getTypedRuleContext(VYPParser.Final_field_expressionContext,0)
+
+
+        def final_method_expression(self):
+            return self.getTypedRuleContext(VYPParser.Final_method_expressionContext,0)
+
+
+        def getRuleIndex(self):
+            return VYPParser.RULE_next_final
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterNext_final" ):
+                listener.enterNext_final(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitNext_final" ):
+                listener.exitNext_final(self)
+
+
+
+
+    def next_final(self):
+
+        localctx = VYPParser.Next_finalContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 48, self.RULE_next_final)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 251
+            self._errHandler.sync(self)
+            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
+            if la_ == 1:
+                self.state = 249
+                self.final_field_expression()
+                pass
+
+            elif la_ == 2:
+                self.state = 250
+                self.final_method_expression()
+                pass
+
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Final_field_expressionContext(ParserRuleContext):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ID(self):
+            return self.getToken(VYPParser.ID, 0)
+
+        def getRuleIndex(self):
+            return VYPParser.RULE_final_field_expression
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFinal_field_expression" ):
+                listener.enterFinal_field_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFinal_field_expression" ):
+                listener.exitFinal_field_expression(self)
+
+
+
+
+    def final_field_expression(self):
+
+        localctx = VYPParser.Final_field_expressionContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 50, self.RULE_final_field_expression)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 253
             self.match(VYPParser.T__13)
-            self.state = 263
+            self.state = 254
             self.match(VYPParser.ID)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Final_method_expressionContext(ParserRuleContext):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ID(self):
+            return self.getToken(VYPParser.ID, 0)
+
+        def expression_list(self):
+            return self.getTypedRuleContext(VYPParser.Expression_listContext,0)
+
+
+        def getRuleIndex(self):
+            return VYPParser.RULE_final_method_expression
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFinal_method_expression" ):
+                listener.enterFinal_method_expression(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFinal_method_expression" ):
+                listener.exitFinal_method_expression(self)
+
+
+
+
+    def final_method_expression(self):
+
+        localctx = VYPParser.Final_method_expressionContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 52, self.RULE_final_method_expression)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 256
+            self.match(VYPParser.T__13)
+            self.state = 257
+            self.match(VYPParser.ID)
+            self.state = 258
+            self.match(VYPParser.T__1)
+            self.state = 260
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.T__1) | (1 << VYPParser.T__8) | (1 << VYPParser.NEW) | (1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.INTEGER_LITERAL) | (1 << VYPParser.ID) | (1 << VYPParser.STRING_LITERAL))) != 0):
+                self.state = 259
+                self.expression_list()
+
+
+            self.state = 262
+            self.match(VYPParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2327,23 +2334,23 @@ class VYPParser ( Parser ):
     def function_call(self):
 
         localctx = VYPParser.Function_callContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_function_call)
+        self.enterRule(localctx, 54, self.RULE_function_call)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 265
+            self.state = 264
             self.match(VYPParser.ID)
-            self.state = 266
+            self.state = 265
             self.match(VYPParser.T__1)
-            self.state = 268
+            self.state = 267
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.T__1) | (1 << VYPParser.T__8) | (1 << VYPParser.NEW) | (1 << VYPParser.SUPER) | (1 << VYPParser.THIS) | (1 << VYPParser.INTEGER_LITERAL) | (1 << VYPParser.ID) | (1 << VYPParser.STRING_LITERAL))) != 0):
-                self.state = 267
+                self.state = 266
                 self.expression_list()
 
 
-            self.state = 270
+            self.state = 269
             self.match(VYPParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -2388,19 +2395,19 @@ class VYPParser ( Parser ):
     def expression_list(self):
 
         localctx = VYPParser.Expression_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_expression_list)
+        self.enterRule(localctx, 56, self.RULE_expression_list)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 272
+            self.state = 271
             self.expression(0)
-            self.state = 276
+            self.state = 275
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==VYPParser.T__6:
-                self.state = 273
+                self.state = 272
                 self.next_expression()
-                self.state = 278
+                self.state = 277
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -2444,18 +2451,18 @@ class VYPParser ( Parser ):
     def next_expression(self):
 
         localctx = VYPParser.Next_expressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_next_expression)
+        self.enterRule(localctx, 58, self.RULE_next_expression)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 279
+            self.state = 278
             self.match(VYPParser.T__6)
-            self.state = 280
+            self.state = 279
             self.expression(0)
-            self.state = 282
+            self.state = 281
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,18,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
-                self.state = 281
+                self.state = 280
                 self.next_expression()
 
 
@@ -2503,11 +2510,11 @@ class VYPParser ( Parser ):
     def variable_type(self):
 
         localctx = VYPParser.Variable_typeContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 58, self.RULE_variable_type)
+        self.enterRule(localctx, 60, self.RULE_variable_type)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 284
+            self.state = 283
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << VYPParser.INT) | (1 << VYPParser.STRING) | (1 << VYPParser.VOID) | (1 << VYPParser.ID))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -2553,20 +2560,20 @@ class VYPParser ( Parser ):
     def parameter_list(self):
 
         localctx = VYPParser.Parameter_listContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 60, self.RULE_parameter_list)
+        self.enterRule(localctx, 62, self.RULE_parameter_list)
         try:
-            self.state = 288
+            self.state = 287
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,20,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 286
+                self.state = 285
                 self.match(VYPParser.VOID)
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 287
+                self.state = 286
                 self.function_parameters()
                 pass
 
@@ -2610,12 +2617,12 @@ class VYPParser ( Parser ):
     def function_parameter_definition(self):
 
         localctx = VYPParser.Function_parameter_definitionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 62, self.RULE_function_parameter_definition)
+        self.enterRule(localctx, 64, self.RULE_function_parameter_definition)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 290
+            self.state = 289
             self.variable_type()
-            self.state = 291
+            self.state = 290
             self.match(VYPParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -2660,19 +2667,19 @@ class VYPParser ( Parser ):
     def function_parameters(self):
 
         localctx = VYPParser.Function_parametersContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 64, self.RULE_function_parameters)
+        self.enterRule(localctx, 66, self.RULE_function_parameters)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 293
+            self.state = 292
             self.function_parameter_definition()
-            self.state = 297
+            self.state = 296
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==VYPParser.T__6:
-                self.state = 294
+                self.state = 293
                 self.next_parameter()
-                self.state = 299
+                self.state = 298
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -2712,12 +2719,12 @@ class VYPParser ( Parser ):
     def next_parameter(self):
 
         localctx = VYPParser.Next_parameterContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 66, self.RULE_next_parameter)
+        self.enterRule(localctx, 68, self.RULE_next_parameter)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 300
+            self.state = 299
             self.match(VYPParser.T__6)
-            self.state = 301
+            self.state = 300
             self.function_parameter_definition()
         except RecognitionException as re:
             localctx.exception = re
@@ -2741,27 +2748,27 @@ class VYPParser ( Parser ):
 
     def expression_sempred(self, localctx:ExpressionContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 12)
-         
-
-            if predIndex == 1:
                 return self.precpred(self._ctx, 11)
          
 
-            if predIndex == 2:
+            if predIndex == 1:
                 return self.precpred(self._ctx, 10)
          
 
-            if predIndex == 3:
+            if predIndex == 2:
                 return self.precpred(self._ctx, 9)
          
 
-            if predIndex == 4:
+            if predIndex == 3:
                 return self.precpred(self._ctx, 8)
          
 
-            if predIndex == 5:
+            if predIndex == 4:
                 return self.precpred(self._ctx, 7)
+         
+
+            if predIndex == 5:
+                return self.precpred(self._ctx, 6)
          
 
 

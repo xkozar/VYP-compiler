@@ -31,6 +31,13 @@ class PartialSymbolTable:
     def containsKey(self, key):
         return key in self.symbols
 
+    def getAllCurrentSymbols(self):
+        return list(self.symbols.values())
+
+    def getAllSymbols(self):
+        return self.getAllCurrentSymbols() + self.__parentClosure.getAllSymbols()
+
+
     def __str__(self):
         return f'{{ \n {self.__parentClosure.__str__()} \n\t {self.symbols.keys()} \n }}'
 

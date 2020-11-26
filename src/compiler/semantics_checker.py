@@ -2,6 +2,7 @@ from compiler import SemanticTypeIncompatibilityError, SemanticGeneralError
 from symbol_table.general_symbol import GeneralSymbol
 from symbol_table.symbol_table import SymbolTable
 
+
 class SemanticsChecker:
 
     def __init__(self):
@@ -28,7 +29,8 @@ class SemanticsChecker:
         if leftExpression.dataType != rightExpression.dataType:
             raise SemanticTypeIncompatibilityError
         acceptedTypeValues = self.binaryTypeMap[operator]
-        if not (leftExpression.dataType in acceptedTypeValues or ('object' in acceptedTypeValues and leftExpression.dataType != 'string')):
+        if not (leftExpression.dataType in acceptedTypeValues or (
+                'object' in acceptedTypeValues and leftExpression.dataType != 'string')):
             raise SemanticTypeIncompatibilityError
 
     def checkUnaryExpressionSemantics(self, expression, operator):
@@ -43,18 +45,25 @@ class SemanticsChecker:
         self.checkFunctionParametersTypes(callExpressionList, callParameterList)
 
     def checkMethodOverrideTypes(self, classTable: SymbolTable):
-        pass
+        definedClasses = classTable.getAllSymbols()
+        for definedClass in definedClasses:
+            for method in definedClass.getAllClassDefinedMethods():
+                parentMethod = definedClass.getMethodFromParents(method.id)
+                # print(definedClass, " --- ", method, ">>>", parentMethod)
 
     @staticmethod
     def checkFunctionParametersTypes(callExpressionList: list, callParameterList: list):
         # TODO this needs to be modified for object polymorphism
+        print("Hello")
         for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
+            print(callExpression, " --- ", callParameter)
             if callExpression.dataType != callParameter.dataType:
                 raise SemanticTypeIncompatibilityError
 
     ''' Function 'print' takes arbitrary (but more than 1) number of primitive data type parameters.
     Since this behaviour is not supported anywhere else, special method for checking 'print' is 
     sufficient. '''
+
     @staticmethod
     def checkPrintFunctionCall(callExpressionList):
         if len(callExpressionList) == 0:

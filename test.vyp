@@ -1,21 +1,27 @@
 class Hello: Object {
-
+    void test(void){
+        super.test().me.please()
+    }
 }
 
+/*
 class Shape : Object {
     int id;
     void Shape(void) {
+        id = 5;
         print("constructor of Shape");
     }
     string toString(void) {
-        return "instance of Shape " + (string)(this.id);
+        //return "instance of Shape " + (string)(this.id);
+        return "instance of Shape " + (string)(5);
     }
 }
 class Rectangle : Shape {
+    Shape s;
     int height, width;
     string toString(void) { return super.toString()
     + " - rectangle " + (string)(this.area()); }
-    int area(int x, int y) { return this.height * this.width; }
+    int area(int x, int y) { return this.s.id * this.width; }
 }
 
 string testicek(int x, int y, string s) {
@@ -32,7 +38,7 @@ int test(int a, int b) {
     int x;
 }
 
-/*
+
 void main(void) { // Program Main function
     int a, res;
     print("Enter an integer to compute its factorial:");

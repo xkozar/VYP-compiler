@@ -206,12 +206,12 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#method_expression.
-    def enterMethod_expression(self, ctx:VYPParser.Method_expressionContext):
+    # Enter a parse tree produced by VYPParser#instance_expression.
+    def enterInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
         pass
 
-    # Exit a parse tree produced by VYPParser#method_expression.
-    def exitMethod_expression(self, ctx:VYPParser.Method_expressionContext):
+    # Exit a parse tree produced by VYPParser#instance_expression.
+    def exitInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
         pass
 
 
@@ -314,15 +314,6 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#field_expression.
-    def enterField_expression(self, ctx:VYPParser.Field_expressionContext):
-        pass
-
-    # Exit a parse tree produced by VYPParser#field_expression.
-    def exitField_expression(self, ctx:VYPParser.Field_expressionContext):
-        pass
-
-
     # Enter a parse tree produced by VYPParser#literal_value.
     def enterLiteral_value(self, ctx:VYPParser.Literal_valueContext):
         pass
@@ -341,30 +332,39 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#instance_variable.
-    def enterInstance_variable(self, ctx:VYPParser.Instance_variableContext):
-        pass
-
-    # Exit a parse tree produced by VYPParser#instance_variable.
-    def exitInstance_variable(self, ctx:VYPParser.Instance_variableContext):
-        pass
-
-
-    # Enter a parse tree produced by VYPParser#instance_function_call.
-    def enterInstance_function_call(self, ctx:VYPParser.Instance_function_callContext):
-        pass
-
-    # Exit a parse tree produced by VYPParser#instance_function_call.
-    def exitInstance_function_call(self, ctx:VYPParser.Instance_function_callContext):
-        pass
-
-
     # Enter a parse tree produced by VYPParser#nested_object.
     def enterNested_object(self, ctx:VYPParser.Nested_objectContext):
         pass
 
     # Exit a parse tree produced by VYPParser#nested_object.
     def exitNested_object(self, ctx:VYPParser.Nested_objectContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#next_final.
+    def enterNext_final(self, ctx:VYPParser.Next_finalContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#next_final.
+    def exitNext_final(self, ctx:VYPParser.Next_finalContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#final_field_expression.
+    def enterFinal_field_expression(self, ctx:VYPParser.Final_field_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#final_field_expression.
+    def exitFinal_field_expression(self, ctx:VYPParser.Final_field_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#final_method_expression.
+    def enterFinal_method_expression(self, ctx:VYPParser.Final_method_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#final_method_expression.
+    def exitFinal_method_expression(self, ctx:VYPParser.Final_method_expressionContext):
         pass
 
 

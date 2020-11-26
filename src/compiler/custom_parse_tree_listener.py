@@ -1,5 +1,8 @@
+from collections import deque
+
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
+from compiler.semantics_checker import SemanticsChecker
 from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, FunctionCallSignature
 
 
@@ -9,6 +12,8 @@ class CustomParseTreeListener(VYPListener):
         self.localSymbolTable = SymbolTable()
         self.functionTable = functionDefinitionTable
         self.preemptiveFunctionCallTable = SymbolTable()
+        self.semanticsChecker = SemanticsChecker()
+        self.expressionStack = deque()
         self.functionParametersDict = {}
         self.currentFunctionId = ''
         self.classTable = classTable
@@ -51,8 +56,11 @@ class CustomParseTreeListener(VYPListener):
         symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         symbol.setAsDefined()
 
+    def enterStatement(self, ctx:VYPParser.StatementContext):
+        self.expressionStack.clear()
+
     def defineFunctionParameter(self, symbol: GeneralSymbol):
         self.localSymbolTable.addSymbol(symbol.id, symbol)
 
     def checkClassDefinitionsSemantics(self):
-        pass
+        self.semanticsChecker.checkMethodOverrideTypes(self.classTable)

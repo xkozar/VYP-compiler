@@ -20,5 +20,10 @@ class GeneralSymbol:
     def setAsDefined(self):
         self.isDefined = True
 
+    def __eq__(self, other):
+        if not isinstance(other, GeneralSymbol):
+            return False
+        return self.dataType == other.dataType
+
     def __str__(self):
         return f'Symbol(id: {self.id}, type: {self.symbolType}, dataType: {self.dataType}'
