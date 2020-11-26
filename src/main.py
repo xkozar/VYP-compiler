@@ -18,7 +18,7 @@ def main(argv):
 
     walker.walk(definitionListener, tree)
 
-    listener = ExpressionListener(definitionListener.getFunctionTable())
+    listener = ExpressionListener(definitionListener.getFunctionTable(), definitionListener.getClassTable())
     # walker.walk(listener, tree)
 
     # try:

@@ -1,5 +1,7 @@
 from symbol_table import GeneralSymbol, SymbolType, PartialSymbolTable, PartialClassSymbolTable
 from symbol_table.class_partial_symbol_table import ClassPartialSymbolTable
+from compiler.custom_exceptions import SemanticGeneralError
+
 
 class ClassSymbol(GeneralSymbol):
 
@@ -11,4 +13,21 @@ class ClassSymbol(GeneralSymbol):
         self.fieldTable = PartialClassSymbolTable()
 
     def getMethod(self, key):
-        return self.symbols.get(key) or self.parent.getSymbol(key)
+        return self.methodTable.getSymbol(key) or self.parent.getMethod(key)
+
+    def getField(self, key):
+        return self.fieldTable.getSymbol(key) or self.parent.getField(key)
+
+    def defineField(self, variableSymbol: GeneralSymbol):
+        if self.getField(variableSymbol.id):
+            raise SemanticGeneralError(f"Redefinition of field \'{variableSymbol.id}\' in class \'{self.id}\'")
+        self.fieldTable.addSymbol(variableSymbol.id, variableSymbol)
+
+
+class StubParentSymbol:
+
+    def getMethod(self, key):
+        return None
+
+    def getField(self, key):
+        return None

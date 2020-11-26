@@ -1,3 +1,7 @@
+class Hello: Object {
+
+}
+
 class Shape : Object {
     int id;
     void Shape(void) {

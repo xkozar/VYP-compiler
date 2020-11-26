@@ -58,8 +58,8 @@ class FunctionExpression:
 
 class ExpressionListener(CustomParseTreeListener):
     
-    def __init__(self, functionDefinitionTable):
-        super().__init__(functionDefinitionTable)
+    def __init__(self, functionDefinitionTable, classTable):
+        super().__init__(functionDefinitionTable, classTable)
         self.expressionStack = deque()
         self.semanticsChecker = SemanticsChecker()
         self.functionCallParametersList = []

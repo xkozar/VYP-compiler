@@ -1,6 +1,6 @@
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
-from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, ClassSymbol, StaticPartialSymbolTable
+from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, ClassSymbol, StaticPartialSymbolTable, StubParentSymbol
 
 
 class DefinitionsTreeListener(VYPListener):
@@ -16,12 +16,13 @@ class DefinitionsTreeListener(VYPListener):
         self.__defineBuiltInClasses()
 
     def getFunctionTable(self):
-        print(self.classTable)
-        print(self.functionTable)
         return self.functionTable
 
+    def getClassTable(self):
+        return self.classTable
+
     def __defineBuiltInClasses(self):
-        objectSymbol = ClassSymbol('Object', None, StaticPartialSymbolTable())
+        objectSymbol = ClassSymbol('Object', StubParentSymbol(), StaticPartialSymbolTable())
         toStringSymbol = FunctionSymbol('toString', 'string')
         getClassSymbol = FunctionSymbol('getClass', 'string')
         objectSymbol.methodTable.addSymbol('toString', toStringSymbol)
@@ -65,12 +66,12 @@ class DefinitionsTreeListener(VYPListener):
         self.defineFunctionParameter(definitionSymbol)
 
     def enterClass_header(self, ctx: VYPParser.Class_headerContext):
-        self.defineClass(ctx.class_id.text, ctx.parent_id.text)
+        parentClass = self.classTable.getSymbol(ctx.parent_id.text)
+        self.defineClass(ctx.class_id.text, parentClass)
 
     def exitClass_definition(self, ctx: VYPParser.Class_definitionContext):
         self.currentFunctionTable = self.functionTable
 
-    # TODO parse field properly
     def enterField_definition(self, ctx: VYPParser.Field_definitionContext):
         self.defineField(ctx.ID().getText(), ctx.variable_type().getText())
 
@@ -79,7 +80,7 @@ class DefinitionsTreeListener(VYPListener):
 
     def defineField(self, fieldId, dataType):
         fieldSymbol = GeneralSymbol(fieldId, SymbolType.VARIABLE, dataType)
-        self.currentClass.fieldTable.addSymbol(fieldId, fieldSymbol)
+        self.currentClass.defineField(fieldSymbol)
 
     def defineClass(self, classId, parentId):
         classSymbol = ClassSymbol(classId, parentId)

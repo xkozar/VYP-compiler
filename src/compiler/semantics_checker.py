@@ -1,4 +1,6 @@
 from compiler import SemanticTypeIncompatibilityError, SemanticGeneralError
+from symbol_table.general_symbol import GeneralSymbol
+from symbol_table.symbol_table import SymbolTable
 
 class SemanticsChecker:
 
@@ -40,13 +42,15 @@ class SemanticsChecker:
             return SemanticGeneralError
         self.checkFunctionParametersTypes(callExpressionList, callParameterList)
 
+    def checkMethodOverrideTypes(self, classTable: SymbolTable):
+        pass
+
     @staticmethod
     def checkFunctionParametersTypes(callExpressionList: list, callParameterList: list):
-        #TODO this needs to be modified for object polymorphism
+        # TODO this needs to be modified for object polymorphism
         for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
             if callExpression.dataType != callParameter.dataType:
                 raise SemanticTypeIncompatibilityError
-
 
     ''' Function 'print' takes arbitrary (but more than 1) number of primitive data type parameters.
     Since this behaviour is not supported anywhere else, special method for checking 'print' is 
@@ -60,6 +64,6 @@ class SemanticsChecker:
                 raise SemanticGeneralError
 
     @staticmethod
-    def checkVariableIsDefined(variableSymbol):
+    def checkVariableIsDefined(variableSymbol: GeneralSymbol):
         if not variableSymbol.isDefined:
-            raise SemanticGeneralError
+            raise SemanticGeneralError(f"Variable with id:{variableSymbol.id} is not yet defined")

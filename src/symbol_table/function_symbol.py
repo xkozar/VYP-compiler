@@ -1,6 +1,7 @@
 from symbol_table.general_symbol import GeneralSymbol, SymbolType
 import functools
 
+
 class FunctionSymbol(GeneralSymbol):
 
     def __init__(self, identifier, dataType):

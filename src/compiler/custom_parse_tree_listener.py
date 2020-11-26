@@ -5,12 +5,14 @@ from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol,
 
 class CustomParseTreeListener(VYPListener):
     
-    def __init__(self, functionDefinitionTable):
+    def __init__(self, functionDefinitionTable, classTable):
         self.localSymbolTable = SymbolTable()
         self.functionTable = functionDefinitionTable
         self.preemptiveFunctionCallTable = SymbolTable()
         self.functionParametersDict = {}
         self.currentFunctionId = ''
+        self.classTable = classTable
+        self.checkClassDefinitionsSemantics()
 
     ''' Reset symbol table since symbol table is valid only inside of function/method
         definition'''
@@ -51,3 +53,6 @@ class CustomParseTreeListener(VYPListener):
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):
         self.localSymbolTable.addSymbol(symbol.id, symbol)
+
+    def checkClassDefinitionsSemantics(self):
+        pass
