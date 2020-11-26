@@ -8,23 +8,24 @@ class DefinitionsTreeListener(VYPListener):
     def __init__(self):
         self.functionTable = SymbolTable()
         self.classTable = SymbolTable()
-        self.preemptiveFunctionCallTable = SymbolTable()
-        self.functionParametersDict = {}
         self.currentFunctionId = ''
-        self.currentObject = ''
-        self.currentMethod = ''
+        self.currentClass: ClassSymbol = None
+        # can be function table or method table of current class
+        self.currentFunctionTable = self.functionTable
         self.__defineBuiltInFunctions()
         self.__defineBuiltInClasses()
 
     def getFunctionTable(self):
+        print(self.classTable)
+        print(self.functionTable)
         return self.functionTable
 
     def __defineBuiltInClasses(self):
         objectSymbol = ClassSymbol('Object', None, StaticPartialSymbolTable())
         toStringSymbol = FunctionSymbol('toString', 'string')
         getClassSymbol = FunctionSymbol('getClass', 'string')
-        objectSymbol.methodTable.setSymbol('toString', toStringSymbol)
-        objectSymbol.methodTable.setSymbol('getClass', getClassSymbol)
+        objectSymbol.methodTable.addSymbol('toString', toStringSymbol)
+        objectSymbol.methodTable.addSymbol('getClass', getClassSymbol)
         self.classTable.addSymbol('Object', objectSymbol)
 
     def defineMethod(self, identifier, dataType):
@@ -46,24 +47,48 @@ class DefinitionsTreeListener(VYPListener):
 
     def defineFunction(self, identifier, dataType):
         definitionSymbol = FunctionSymbol(identifier, dataType)
-        self.functionTable.addSymbol(identifier, definitionSymbol)
+        self.currentFunctionTable.addSymbol(identifier, definitionSymbol)
         self.currentFunctionId = identifier
 
     ''' Enter function symbol to global function definitions '''
+
     def enterFunction_header(self, ctx: VYPParser.Function_headerContext):
         self.defineFunction(ctx.ID().getText(), ctx.variable_type().getText())
 
     ''' Function parameters need to be inserted into symbol table. If 'void' is 
         used as parameter, no action is needed. This rule is not used anywhere
         else, so this rule is entered only during function definition. '''
+
     def enterFunction_parameter_definition(self, ctx: VYPParser.Function_parametersContext):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
         definitionSymbol.setAsDefined()
         self.defineFunctionParameter(definitionSymbol)
 
+    def enterClass_header(self, ctx: VYPParser.Class_headerContext):
+        self.defineClass(ctx.class_id.text, ctx.parent_id.text)
+
+    def exitClass_definition(self, ctx: VYPParser.Class_definitionContext):
+        self.currentFunctionTable = self.functionTable
+
+    # TODO parse field properly
+    def enterField_definition(self, ctx: VYPParser.Field_definitionContext):
+        self.defineField(ctx.ID().getText(), ctx.variable_type().getText())
+
+    def enterMultiple_field_definition(self, ctx: VYPParser.Multiple_field_definitionContext):
+        self.defineField(ctx.ID().getText(), ctx.parentCtx.variable_type().getText())
+
+    def defineField(self, fieldId, dataType):
+        fieldSymbol = GeneralSymbol(fieldId, SymbolType.VARIABLE, dataType)
+        self.currentClass.fieldTable.addSymbol(fieldId, fieldSymbol)
+
+    def defineClass(self, classId, parentId):
+        classSymbol = ClassSymbol(classId, parentId)
+        self.classTable.addSymbol(classId, classSymbol)
+        self.currentClass = classSymbol
+        self.currentFunctionTable = classSymbol.methodTable
 
     def initializeFunctionSymbolTable(self, identifier):
         self.currentFunctionId = identifier
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):
-        self.functionTable.findSymbolByKey(self.currentFunctionId).appendParameter(symbol)
+        self.currentFunctionTable.getSymbol(self.currentFunctionId).appendParameter(symbol)

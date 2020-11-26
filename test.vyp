@@ -11,7 +11,7 @@ class Rectangle : Shape {
     int height, width;
     string toString(void) { return super.toString()
     + " - rectangle " + (string)(this.area()); }
-    int area(void) { return this.height * this.width; }
+    int area(int x, int y) { return this.height * this.width; }
 }
 
 string testicek(int x, int y, string s) {
@@ -21,6 +21,7 @@ string testicek(int x, int y, string s) {
     x = test + 8;
     x = !-5;
     x = test(1, 1);
+    //int test;
 }
 
 int test(int a, int b) {

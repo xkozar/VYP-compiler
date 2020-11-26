@@ -8,15 +8,14 @@ class SymbolTable:
         self.currentSymbolClosure = None
         self.resetToDefaultState()
 
-    def findSymbolByKey(self, key) -> GeneralSymbol:
+    def getSymbol(self, key) -> GeneralSymbol:
         return self.currentSymbolClosure.getSymbol(key)
 
     def isSymbolDefined(self, key):
         return self.currentSymbolClosure.isSymbolDefined(key)
 
-
     def addSymbol(self, key, symbol):
-        self.currentSymbolClosure.setSymbol(key, symbol)
+        self.currentSymbolClosure.addSymbol(key, symbol)
         return symbol
 
     def addClosure(self):

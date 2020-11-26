@@ -23,11 +23,14 @@ function_header: variable_type ID '(' parameter_list ')';
 function_body: '{' statement* '}';
 
 class_definition: class_header class_body;
-class_header: CLASS ID ':' ID;
+class_header: CLASS class_id=ID ':' parent_id=ID;
 class_body: '{' class_members* '}';
 class_members
-    :   variable_definition #field_definition
-    |   function_definition #method_definition;
+    :   field_definition
+    |   function_definition;
+
+field_definition: variable_type ID multiple_field_definition* ';';
+multiple_field_definition: ',' ID;
 
 // Might be extended with visibility modificators
 variable_definition: variable_type ID multiple_variable_definition* ';';

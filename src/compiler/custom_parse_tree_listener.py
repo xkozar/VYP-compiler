@@ -46,7 +46,7 @@ class CustomParseTreeListener(VYPListener):
         pass
 
     def enterVariable_assignment(self, ctx:VYPParser.Variable_assignmentContext):
-        symbol = self.localSymbolTable.findSymbolByKey(ctx.ID().getText())
+        symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         symbol.setAsDefined()
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):

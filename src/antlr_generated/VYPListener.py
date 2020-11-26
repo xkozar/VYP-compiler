@@ -80,6 +80,15 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#class_members.
+    def enterClass_members(self, ctx:VYPParser.Class_membersContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#class_members.
+    def exitClass_members(self, ctx:VYPParser.Class_membersContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#field_definition.
     def enterField_definition(self, ctx:VYPParser.Field_definitionContext):
         pass
@@ -89,12 +98,12 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#method_definition.
-    def enterMethod_definition(self, ctx:VYPParser.Method_definitionContext):
+    # Enter a parse tree produced by VYPParser#multiple_field_definition.
+    def enterMultiple_field_definition(self, ctx:VYPParser.Multiple_field_definitionContext):
         pass
 
-    # Exit a parse tree produced by VYPParser#method_definition.
-    def exitMethod_definition(self, ctx:VYPParser.Method_definitionContext):
+    # Exit a parse tree produced by VYPParser#multiple_field_definition.
+    def exitMultiple_field_definition(self, ctx:VYPParser.Multiple_field_definitionContext):
         pass
 
 

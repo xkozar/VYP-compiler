@@ -1,3 +1,7 @@
+from compiler import SemanticGeneralError
+from symbol_table.class_partial_symbol_table import ClassPartialSymbolTable
+
+
 class PartialSymbolTable:
 
     def __init__(self, parentClosure):
@@ -11,9 +15,11 @@ class PartialSymbolTable:
         if self.symbols.get(key):
             return True
         else:
-            return self.__parentClosure.getSymbol(key)
+            return self.__parentClosure.isSymbolDefined(key)
 
-    def setSymbol(self, key, symbol):
+    def addSymbol(self, key, symbol):
+        if self.isSymbolDefined(key):
+            raise SemanticGeneralError(f'Symbol with id:\'{key}\' is already defined')
         self.symbols.update({key: symbol})
 
     def getParentClosure(self):
@@ -27,3 +33,14 @@ class PartialSymbolTable:
 
     def __str__(self):
         return f'{{ \n {self.__parentClosure.__str__()} \n\t {self.symbols.keys()} \n }}'
+
+
+class PartialClassSymbolTable(PartialSymbolTable):
+
+    def __init__(self):
+        super().__init__(ClassPartialSymbolTable())
+
+    def addSymbol(self, key, symbol):
+        if self.symbols.get(key):
+            raise SemanticGeneralError(f'Symbol with id:\'{key}\' is already defined in this class')
+        self.symbols.update({key: symbol})

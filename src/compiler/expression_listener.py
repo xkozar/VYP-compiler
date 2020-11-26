@@ -76,7 +76,7 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
         functionId = ctx.function_call().ID().getText()
-        functionSymbol = self.functionTable.findSymbolByKey(functionId)
+        functionSymbol = self.functionTable.getSymbol(functionId)
         self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList, functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType, self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)
@@ -89,7 +89,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.processBinaryExpression(ctx.operator.text)
 
     def exitVariable_expression(self, ctx:VYPParser.Variable_expressionContext):
-        variableSymbol = self.localSymbolTable.findSymbolByKey(ctx.ID().getText())
+        variableSymbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         self.semanticsChecker.checkVariableIsDefined(variableSymbol)
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
