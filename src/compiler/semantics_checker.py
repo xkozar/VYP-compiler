@@ -49,16 +49,19 @@ class SemanticsChecker:
         for definedClass in definedClasses:
             for method in definedClass.getAllClassDefinedMethods():
                 parentMethod = definedClass.getMethodFromParents(method.id)
-                # print(definedClass, " --- ", method, ">>>", parentMethod)
+                if parentMethod is None:
+                    continue
+                if method.dataType != parentMethod.dataType:
+                    raise SemanticTypeIncompatibilityError
+                print(definedClass, " --- ", method, ">>>", parentMethod)
 
     @staticmethod
     def checkFunctionParametersTypes(callExpressionList: list, callParameterList: list):
         # TODO this needs to be modified for object polymorphism
-        print("Hello")
         for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
-            print(callExpression, " --- ", callParameter)
+            # print(callExpression, " --- ", callParameter)
             if callExpression.dataType != callParameter.dataType:
-                raise SemanticTypeIncompatibilityError
+                raise SemanticTypeIncompatibilityError()
 
     ''' Function 'print' takes arbitrary (but more than 1) number of primitive data type parameters.
     Since this behaviour is not supported anywhere else, special method for checking 'print' is 

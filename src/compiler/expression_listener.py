@@ -149,7 +149,9 @@ class ExpressionListener(CustomParseTreeListener):
             variableExpression = self.processObjectInvocation(variableExpression, nestedObject)
         self.expressionStack.append(variableExpression)
         self.nestedObjectList = []
-        pass
+
+    def exitInstance_assignment(self, ctx: VYPParser.Instance_assignmentContext):
+        self.nestedObjectList = []
 
     # TODO check empty constructor exists!!!
 

@@ -6,7 +6,7 @@ class Shape : Object {
 
 class Rectangle : Shape {
     int height, width;
-    int  toString(void) { return super.toString()
+    string  toString(void) { return super.toString()
     + " - rectangle " + (string)(this.area()); }
     int area(void) { return this.height * this.width; } ////
 }
@@ -14,8 +14,8 @@ class Rectangle : Shape {
 void main(void) {
     Rectangle r; r = new Rectangle;
     r.id = 42; r.width = readInt(); r.height = readInt();
-    //Shape s; s = r;
-    //print(s.toString());
+    Shape s; s = r;
+    print(s.toString());
 } // end of main
 
 
