@@ -40,7 +40,10 @@ class CustomParseTreeListener(VYPListener):
         self.defineFunctionParameter(definitionSymbol)
 
     def enterVariable_definition(self, ctx: VYPParser.Variable_definitionContext):
-        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, ctx.variable_type().getText())
+        variableType = ctx.variable_type().getText() if ctx.variable_type().getText() in ['int',
+                                                                                          'string'] else self.classTable.getSymbol(
+            ctx.variable_type().getText())
+        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
 
     ''' Data type of variable must be taken from parent context'''

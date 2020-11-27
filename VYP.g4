@@ -13,6 +13,7 @@ statement
     :   if_else_block
     |   while_block
     |   variable_assignment
+    |   instance_assignment
     |   variable_definition
     |   return_statement
     |   expression ';'
@@ -36,6 +37,7 @@ multiple_field_definition: ',' ID;
 variable_definition: variable_type ID multiple_variable_definition* ';';
 multiple_variable_definition: ',' ID;
 variable_assignment: ID '=' expression ';';
+instance_assignment: instance_expression '=' expression ';';
 return_statement: RETURN expression ';';
 
 code_block: '{' statement* '}';
@@ -54,7 +56,7 @@ expression
     |   expression operator=(LOGICAL_EQUAL | LOGICAL_NEQUAL) expression #equality_expression
     |   expression operator=LOGICAL_AND expression #and_expression
     |   expression operator=LOGICAL_OR expression #or_expression
-    |   (SUPER | THIS | ID) nested_object #instance_expression
+    |   instance_expression #instance_expression_value
     |   instance_creation   #new_expression
     |   function_call       #function_expression
     |   literal_value       #literal_expression
@@ -64,7 +66,9 @@ literal_value
     :   INTEGER_LITERAL
     |   STRING_LITERAL;
 
-instance_creation: NEW ID '(' expression_list? ')';
+instance_expression: reference=(SUPER | THIS | ID) nested_object;
+
+instance_creation: NEW ID;
 nested_object
     :   (final_field_expression | final_method_expression) next_final*;
 

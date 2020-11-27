@@ -6,5 +6,5 @@ EXPRESSION SEMANTICS:
 
 CLASSES
 1. Class to be inherited does not exist
-2. Overridden method does not exist
+2. Overridden method does not match ancestor type
 3. Variable redefined in inheritor class

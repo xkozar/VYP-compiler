@@ -85,7 +85,6 @@ class ExpressionListener(CustomParseTreeListener):
     def exitCastExpression(self, ctx: VYPParser.CastExpressionContext):
         castType = ctx.cast.text
         expressionType = castType if castType in ['int', 'string'] else self.classTable.getSymbol(castType).dataType
-        print(expressionType)
         expression = self.expressionStack.pop()
         self.expressionStack.append(CastExpression(expression, expressionType))
 
@@ -138,13 +137,34 @@ class ExpressionListener(CustomParseTreeListener):
         self.nestedObjectList.append(variableExpression)
 
     def exitFinal_method_expression(self, ctx: VYPParser.Final_method_expressionContext):
-        functionExpression = FunctionExpression(ctx.function_call().ID().getText(), None, self.functionCallParametersList)
+        functionExpression = FunctionExpression(ctx.function_call().ID().getText(), None,
+                                                self.functionCallParametersList)
         self.functionCallParametersList = []
         self.nestedObjectList.append(functionExpression)
 
-    def exitInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
+    def exitInstance_expression_value(self, ctx: VYPParser.Instance_expression_valueContext):
+        classSymbol = self.getObjectFromReference(ctx.instance_expression().reference.text)
+        variableExpression = VariableExpression(classSymbol, ctx.instance_expression().reference.text)
+        for nestedObject in self.nestedObjectList:
+            variableExpression = self.processObjectInvocation(variableExpression, nestedObject)
+        self.expressionStack.append(variableExpression)
         self.nestedObjectList = []
         pass
+
+    # TODO check empty constructor exists!!!
+
+    def processObjectInvocation(self, baseExpression, nextExpression):
+        if isinstance(nextExpression, VariableExpression):
+            symbol = baseExpression.dataType.getField(nextExpression.id)
+            expression = VariableExpression(symbol.dataType, nextExpression.id)
+            # TODO generate field access
+            return expression
+        if isinstance(nextExpression, FunctionExpression):
+            symbol = baseExpression.dataType.getMethod(nextExpression.id)
+            expression = FunctionExpression(nextExpression.id, symbol.dataType, self.functionCallParametersList.copy())
+            # TODO generate method call
+            self.functionCallParametersList = []
+            return expression
 
     def exitNext_expression(self, ctx: VYPParser.Next_expressionContext):
         self.processFunctionParameter()
@@ -168,5 +188,12 @@ class ExpressionListener(CustomParseTreeListener):
     def processFunctionParameter(self):
         expression = self.expressionStack.pop()
         self.functionCallParametersList.append(expression)
+
+    def getObjectFromReference(self, reference):
+        if reference == 'this':
+            return self.currentClass
+        if reference == 'super':
+            return self.currentClass.parent
+        return self.localSymbolTable.getSymbol(reference).dataType
 
 # TODO OBJECT EXPRESSIONS

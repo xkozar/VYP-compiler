@@ -143,6 +143,15 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#instance_assignment.
+    def enterInstance_assignment(self, ctx:VYPParser.Instance_assignmentContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#instance_assignment.
+    def exitInstance_assignment(self, ctx:VYPParser.Instance_assignmentContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#return_statement.
     def enterReturn_statement(self, ctx:VYPParser.Return_statementContext):
         pass
@@ -215,21 +224,21 @@ class VYPListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by VYPParser#instance_expression.
-    def enterInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
-        pass
-
-    # Exit a parse tree produced by VYPParser#instance_expression.
-    def exitInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
-        pass
-
-
     # Enter a parse tree produced by VYPParser#function_expression.
     def enterFunction_expression(self, ctx:VYPParser.Function_expressionContext):
         pass
 
     # Exit a parse tree produced by VYPParser#function_expression.
     def exitFunction_expression(self, ctx:VYPParser.Function_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#instance_expression_value.
+    def enterInstance_expression_value(self, ctx:VYPParser.Instance_expression_valueContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#instance_expression_value.
+    def exitInstance_expression_value(self, ctx:VYPParser.Instance_expression_valueContext):
         pass
 
 
@@ -329,6 +338,15 @@ class VYPListener(ParseTreeListener):
 
     # Exit a parse tree produced by VYPParser#literal_value.
     def exitLiteral_value(self, ctx:VYPParser.Literal_valueContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#instance_expression.
+    def enterInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#instance_expression.
+    def exitInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
         pass
 
 
