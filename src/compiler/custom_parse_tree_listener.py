@@ -4,15 +4,17 @@ from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
 from compiler.semantics_checker import SemanticsChecker
 from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, FunctionCallSignature
+from code_generator import CodeGenerator
 
 
 class CustomParseTreeListener(VYPListener):
 
     def __init__(self, functionDefinitionTable, classTable):
         self.localSymbolTable = SymbolTable()
-        self.functionTable = functionDefinitionTable
+        self.functionTable: SymbolTable() = functionDefinitionTable
         self.preemptiveFunctionCallTable = SymbolTable()
         self.semanticsChecker = SemanticsChecker()
+        self.codeGenerator = CodeGenerator()
         self.expressionStack = deque()
         self.functionParametersDict = {}
         self.currentFunctionId = ''
@@ -29,6 +31,8 @@ class CustomParseTreeListener(VYPListener):
 
     def enterFunction_header(self, ctx: VYPParser.Function_headerContext):
         self.currentFunctionId = ctx.ID().getText()
+        functionParameterNames = list(map(lambda x: x.id, self.functionTable.getSymbol(ctx.ID().getText()).parameterList.parameters))
+        self.codeGenerator.generateFunctionHeader(self.currentFunctionId, functionParameterNames)
 
     ''' Function parameters need to be inserted into symbol table. If 'void' is 
         used as parameter, no action is needed. This rule is not used anywhere
@@ -45,6 +49,7 @@ class CustomParseTreeListener(VYPListener):
             ctx.variable_type().getText())
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
+        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunctionId)
 
     ''' Data type of variable must be taken from parent context'''
 
@@ -52,6 +57,7 @@ class CustomParseTreeListener(VYPListener):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE,
                                          ctx.parentCtx.variable_type().getText())
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
+        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunctionId)
 
     def enterCode_block(self, ctx: VYPParser.Code_blockContext):
         self.localSymbolTable.addClosure()
@@ -79,3 +85,6 @@ class CustomParseTreeListener(VYPListener):
 
     def checkClassDefinitionsSemantics(self):
         self.semanticsChecker.checkMethodOverrideTypes(self.classTable)
+
+    def exitProgram(self, ctx:VYPParser.ProgramContext):
+        self.codeGenerator.generateCode()

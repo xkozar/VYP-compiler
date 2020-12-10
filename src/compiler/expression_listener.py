@@ -109,6 +109,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkVariableIsDefined(variableSymbol)
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
+        self.codeGenerator.assignValueToVariable(self.currentFunctionId, ctx.ID().getText())
 
     def exitAnd_expression(self, ctx: VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -131,6 +132,7 @@ class ExpressionListener(CustomParseTreeListener):
         dataType = 'string' if ctx.literal_value().STRING_LITERAL() is not None else 'int'
         literalExpression = LiteralExpression(dataType, ctx.literal_value().getText())
         self.expressionStack.append(literalExpression)
+        self.codeGenerator.generateLiteralExpression(self.currentFunctionId, ctx.literal_value().getText(), dataType)
 
     def exitFinal_field_expression(self, ctx: VYPParser.Final_field_expressionContext):
         variableExpression = VariableExpression(None, ctx.ID().getText())

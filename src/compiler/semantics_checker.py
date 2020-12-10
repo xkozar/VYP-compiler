@@ -41,7 +41,7 @@ class SemanticsChecker:
         if functionId == 'print':
             return self.checkPrintFunctionCall(callExpressionList)
         if len(callExpressionList) != len(callParameterList):
-            return SemanticGeneralError
+            raise SemanticGeneralError
         self.checkFunctionParametersTypes(callExpressionList, callParameterList)
 
     def checkMethodOverrideTypes(self, classTable: SymbolTable):

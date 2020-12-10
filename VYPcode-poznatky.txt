@@ -1,0 +1,5 @@
+Volanie funkcií:
+
+1. Napushuj parametre na stack
+2. Inkrementuj $SP (stack pointer)
+3. Zavolaj label ktory chces s odkazom na stack ( CALL [stack kde sa uloží PC], label)

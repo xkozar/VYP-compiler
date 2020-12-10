@@ -1,78 +1,21 @@
-class Shape : Object {
-    int id;
-    void Shape(void) { print("constructor of Shape"); }
-    string toString(void) { return "instance of Shape " + (string)(this.id); }
-}
-
-class Rectangle : Shape {
-    int height, width;
-    string  toString(void) { return super.toString()
-    + " - rectangle " + (string)(this.area()); }
-    int area(void) { return this.height * this.width; } ////
-}
-
+/* Program 2: Recursive Factorial Computation */
 void main(void) {
-    Rectangle r; r = new Rectangle;
-    r.id = 42; r.width = readInt(); r.height = readInt();
-    Shape s; s = r;
-    print(s.toString());
-} // end of main
-
-
-/*
-class Hello: Object {
-    void test(void){
-        super.test().me.please();
-    }
-}
-
-class Shape : Object {
-    int id;
-    void Shape(void) {
-        id = 5;
-        print("constructor of Shape");
-    }
-    string toString(void) {
-        //return "instance of Shape " + (string)(this.id);
-        return "instance of Shape " + (string)(5);
-    }
-}
-class Rectangle : Shape {
-    Shape s;
-    int height, width;
-    //string toString(void) { return super.toString()
-    //+ " - rectangle " + (string)(this.area()); }
-    //int area(int x, int y) { return this.s.id * this.width; }
-}
-
-string testicek(int xx, int y, string s) {
-    testicek(123,456, "2");
-    int test, x;
-    test = 5 + 1 * 5;
-    x = test + 8;
-    x = !-5;
-    x = test(1, 1);
-    //int test;
-}
-
-int test(int a, int b) {
-    int x;
-}
-
-
-void main(void) { // Program Main function
-    int a, res;
-    print("Enter an integer to compute its factorial:");
-    a = readInt();
+    int a; int res;
+    a = 5;
     if (a < 0) {
-        int xxx;
-        print("\nFactorial of a negative integer is undefined!\n"); }
+    }
     else {
-        res = 1;
-        while (a > 0) {
-            res = res * a; a = a - 1;
-        } // endwhile
-        print("\nThe result is: ", res, "\n");
-    } // endif
-} // main
-*/
+        print("\nThe result is: ", factorial(a,1,1), "\n");
+    }
+}
+
+int factorial (int n, int a, int b) {
+    int decremented_n, temp_result;
+    if (n < 2) {
+        return 1;
+    }
+    else {
+        decremented_n = n - 1; temp_result = factorial(decremented_n,1,1);
+    }
+    return n * temp_result;
+} // end of factorial
