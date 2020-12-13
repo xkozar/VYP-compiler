@@ -1,5 +1,7 @@
 class Shape : Object {
-    
+    int hello(void){
+        return 5;
+    }
 }
 
 class Rectangle : Shape {

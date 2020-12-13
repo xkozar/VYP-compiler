@@ -167,7 +167,10 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitReturn_statement(self, ctx: VYPParser.Return_statementContext):
         returnExpression = self.expressionStack.pop()
-        currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
+        if self.currentClass == None:
+            currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
+        else:
+            currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
         self.semanticsChecker.checkVariableAssignment(currentFunction.dataType, returnExpression.dataType)
         self.currentFunctionReturn = True
 

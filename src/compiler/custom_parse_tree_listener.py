@@ -19,6 +19,7 @@ class CustomParseTreeListener(VYPListener):
         self.expressionStack = deque()
         self.functionParametersDict = {}
         self.currentFunctionId = ''
+        self.currentFunction = None
         self.classTable = classTable
         self.checkClassDefinitionsSemantics()
         self.currentClass = None
@@ -33,7 +34,11 @@ class CustomParseTreeListener(VYPListener):
 
     def enterFunction_header(self, ctx: VYPParser.Function_headerContext):
         self.currentFunctionId = ctx.ID().getText()
-        functionParameterNames = list(map(lambda x: x.id, self.functionTable.getSymbol(ctx.ID().getText()).parameterList.parameters))
+        if self.currentClass == None:
+            functionParameterNames = list(map(lambda x: x.id, self.functionTable.getSymbol(ctx.ID().getText()).parameterList.parameters))
+        else:
+            functionParameterNames = list(map(lambda x: x.id, self.currentClass.methodTable.getSymbol(ctx.ID().getText()).parameterList.parameters))
+
         self.codeGenerator.generateFunctionHeader(self.currentFunctionId, functionParameterNames)
 
     ''' Function parameters need to be inserted into symbol table. If 'void' is 
@@ -97,7 +102,11 @@ class CustomParseTreeListener(VYPListener):
         self.codeGenerator.generateCode()
 
     def exitFunction_body(self, ctx:VYPParser.Function_bodyContext):
-        currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
+        if self.currentClass == None:
+            currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
+        else:
+            currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
+
         if currentFunction.dataType != 'void':
             if self.currentFunctionReturn == False:
                 raise SemanticGeneralError("No return value specified")
