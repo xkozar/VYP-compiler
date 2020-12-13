@@ -53,13 +53,10 @@ class SemanticsChecker:
                     continue
                 if method.dataType != parentMethod.dataType:
                     raise SemanticTypeIncompatibilityError
-                print(definedClass, " --- ", method, ">>>", parentMethod)
 
     @staticmethod
     def checkFunctionParametersTypes(callExpressionList: list, callParameterList: list):
-        # TODO this needs to be modified for object polymorphism
         for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
-            # print(callExpression, " --- ", callParameter)
             if callExpression.dataType != callParameter.dataType:
                 raise SemanticTypeIncompatibilityError()
 
@@ -73,9 +70,14 @@ class SemanticsChecker:
             raise SemanticGeneralError
         for callExpression in callExpressionList:
             if callExpression.dataType not in ['int', 'string']:
-                raise SemanticGeneralError
+                raise SemanticTypeIncompatibilityError
 
     @staticmethod
     def checkVariableIsDefined(variableSymbol: GeneralSymbol):
         if not variableSymbol.isDefined:
             raise SemanticGeneralError(f"Variable with id:{variableSymbol.id} is not yet defined")
+
+    @staticmethod
+    def checkVariableAssignment(variableDataType, expressionDataType):
+        if variableDataType != expressionDataType:
+            raise SemanticTypeIncompatibilityError(f"{variableDataType} is not compatible with {expressionDataType}")

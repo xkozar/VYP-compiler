@@ -69,6 +69,11 @@ class CustomParseTreeListener(VYPListener):
         symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         symbol.setAsDefined()
 
+    def exitVariable_assignment(self, ctx: VYPParser.Variable_assignmentContext):
+        symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
+        expression = self.expressionStack.pop()
+        self.semanticsChecker.checkVariableAssignment(symbol.dataType, expression.dataType)
+
     def enterStatement(self, ctx: VYPParser.StatementContext):
         self.expressionStack.clear()
 

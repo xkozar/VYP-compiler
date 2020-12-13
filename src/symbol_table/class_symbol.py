@@ -12,6 +12,9 @@ class ClassSymbol(GeneralSymbol):
         self.methodTable = PartialClassSymbolTable()
         self.fieldTable = PartialClassSymbolTable()
 
+    def getParent(self):
+        return self.parent
+
     def getMethod(self, key):
         return self.methodTable.getSymbol(key) or self.parent.getMethod(key)
 
@@ -28,7 +31,16 @@ class ClassSymbol(GeneralSymbol):
         return self.methodTable.getAllCurrentSymbols()
 
     def getMethodFromParents(self, key):
-        return self.parent.getMethod(key)
+        return self.getParent().getMethod(key)
+
+    def __eq__(self, other):
+        if not isinstance(other, ClassSymbol):
+            return False
+        if self.dataType == other.dataType:
+            return True
+        return self.__eq__(other.getParent())
+        
+
 
 
 class StubParentSymbol:
@@ -37,4 +49,7 @@ class StubParentSymbol:
         return None
 
     def getField(self, key):
+        return None
+
+    def getParent(self):
         return None

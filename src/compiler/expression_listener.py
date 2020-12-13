@@ -46,6 +46,14 @@ class LiteralExpression:
     def __str__(self):
         return f'{self.value}'
 
+class ObjectExpression:
+
+    def __init__(self, dataType):
+        self.dataType = dataType
+
+    def __str__(self):
+        return f'Object: {self.dataType}'
+
 
 class VariableExpression:
 
@@ -114,7 +122,7 @@ class ExpressionListener(CustomParseTreeListener):
     def exitAnd_expression(self, ctx: VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
 
-    '''Nothing needs to be generated, rule is just used to get proper order of operations'''
+    '''Nothing needs to be done, rule is just used to get proper order of operations'''
 
     def exitBracket_expression(self, ctx: VYPParser.Bracket_expressionContext):
         pass
@@ -125,9 +133,11 @@ class ExpressionListener(CustomParseTreeListener):
     def exitPlusminus_expression(self, ctx: VYPParser.Plusminus_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
 
-    def exitNew_expression(self, ctx: VYPParser.New_expressionContext):
-        pass
-
+    def exitInstance_creation(self, ctx:VYPParser.Instance_creationContext):
+        classSymbol = self.getObjectFromReference(ctx.ID().getText())
+        objectExpression = ObjectExpression(classSymbol)
+        self.expressionStack.append(objectExpression)
+        
     def exitLiteral_expression(self, ctx: VYPParser.Literal_expressionContext):
         dataType = 'string' if ctx.literal_value().STRING_LITERAL() is not None else 'int'
         literalExpression = LiteralExpression(dataType, ctx.literal_value().getText())
@@ -198,6 +208,6 @@ class ExpressionListener(CustomParseTreeListener):
             return self.currentClass
         if reference == 'super':
             return self.currentClass.parent
-        return self.localSymbolTable.getSymbol(reference).dataType
+        return self.classTable.getSymbol(reference)
 
 # TODO OBJECT EXPRESSIONS
