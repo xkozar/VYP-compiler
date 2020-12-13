@@ -1,0 +1,7 @@
+void test(int i, string s){
+
+}
+
+void main(void){
+    test(5, "hello");
+}

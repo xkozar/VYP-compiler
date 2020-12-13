@@ -57,8 +57,8 @@ class SemanticsChecker:
     @staticmethod
     def checkFunctionParametersTypes(callExpressionList: list, callParameterList: list):
         for callExpression, callParameter in zip(callExpressionList[::-1], callParameterList):
-            if callExpression.dataType != callParameter.dataType:
-                raise SemanticTypeIncompatibilityError()
+            if callParameter.dataType != callExpression.dataType:
+                raise SemanticTypeIncompatibilityError(f"Expected type {callParameter.dataType} but got {callExpression.dataType} insted.")
 
     ''' Function 'print' takes arbitrary (but more than 1) number of primitive data type parameters.
     Since this behaviour is not supported anywhere else, special method for checking 'print' is 

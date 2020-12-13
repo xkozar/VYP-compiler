@@ -1,0 +1,7 @@
+void test(int i){
+
+}
+
+void main(void){
+    test("hello");
+}

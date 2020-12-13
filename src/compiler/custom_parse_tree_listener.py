@@ -3,6 +3,7 @@ from collections import deque
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
 from compiler.semantics_checker import SemanticsChecker
+from compiler.custom_exceptions import SemanticGeneralError
 from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, FunctionCallSignature
 from code_generator import CodeGenerator
 
@@ -21,6 +22,7 @@ class CustomParseTreeListener(VYPListener):
         self.classTable = classTable
         self.checkClassDefinitionsSemantics()
         self.currentClass = None
+        self.currentFunctionReturn = False
 
     ''' Reset symbol table since symbol table is valid only inside of function/method
         definition'''
@@ -93,3 +95,10 @@ class CustomParseTreeListener(VYPListener):
 
     def exitProgram(self, ctx:VYPParser.ProgramContext):
         self.codeGenerator.generateCode()
+
+    def exitFunction_body(self, ctx:VYPParser.Function_bodyContext):
+        currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
+        if currentFunction.dataType != 'void':
+            if self.currentFunctionReturn == False:
+                raise SemanticGeneralError("No return value specified")
+        self.currentFunctionReturn = False

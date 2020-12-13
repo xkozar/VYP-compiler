@@ -78,6 +78,9 @@ class DefinitionsTreeListener(VYPListener):
     def enterMultiple_field_definition(self, ctx: VYPParser.Multiple_field_definitionContext):
         self.defineField(ctx.ID().getText(), ctx.parentCtx.variable_type().getText())
 
+    def exitProgram(self, ctx):
+        self.updateFunctionTypes()
+
     def defineField(self, fieldId, dataType):
         fieldSymbol = GeneralSymbol(fieldId, SymbolType.VARIABLE, dataType)
         self.currentClass.defineField(fieldSymbol)
@@ -93,3 +96,17 @@ class DefinitionsTreeListener(VYPListener):
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):
         self.currentFunctionTable.getSymbol(self.currentFunctionId).appendParameter(symbol)
+
+    def updateFunctionTypes(self):
+        for function in self.functionTable.getAllSymbols():
+            if function.dataType not in ['int', 'void', 'string']:
+                classSymbol = self.classTable.getSymbol(function.dataType)
+                function.dataType = classSymbol
+            self.updateFunctionParameterList(function.parameterList)
+
+    def updateFunctionParameterList(self, parameterList):
+        for parameter in parameterList.parameters:
+            if parameter.dataType in ['int', 'void', 'string']:
+                continue
+            classSymbol = self.classTable.getSymbol(parameter.dataType)
+            parameter.dataType = classSymbol

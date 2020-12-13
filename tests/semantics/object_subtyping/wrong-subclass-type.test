@@ -1,0 +1,17 @@
+class Shape : Object {
+    
+}
+
+class Rectangle : Shape {
+
+}
+
+void main(void) {
+    Shape s;
+    s = new Rectangle;
+    test(s);
+}
+
+void test(Rectangle r){
+
+}

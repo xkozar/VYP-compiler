@@ -1,0 +1,1 @@
+Expected type Symbol(id: Rectangle, type: SymbolType.CLASS, dataType: Rectangle but got Symbol(id: Shape, type: SymbolType.CLASS, dataType: Shape insted.

@@ -2,7 +2,7 @@ import sys
 from antlr4 import *
 
 from compiler import ExpressionListener, DefinitionsTreeListener
-from compiler.custom_exceptions import CompilerInternalError
+from compiler.custom_exceptions import CompilerInternalError, SyntacticAnalysisError
 from antlr_generated import VYPLexer, VYPParser
 
 
@@ -20,8 +20,12 @@ def main(argv):
     parser = VYPParser(stream)
     tree = parser.program()
 
-    definitionListener = DefinitionsTreeListener()
-    walker = ParseTreeWalker()
+    try:
+        definitionListener = DefinitionsTreeListener()
+        walker = ParseTreeWalker()
+    except Exception:
+        print(e)
+        exit(SyntacticAnalysisError.exitCode)
 
 
     try:
@@ -31,7 +35,7 @@ def main(argv):
         walker.walk(listener, tree)
     except Exception as e:
         print(e)
-        return exit(e.exitCode)
+        exit(e.exitCode)
 
 
 if __name__ == '__main__':
