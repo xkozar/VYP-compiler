@@ -9,33 +9,32 @@ class FunctionCodeGenerator:
     functionPointer = '$FP'
     programCounter = '$PC'
 
-    def __init__(self, name):
+    def __init__(self, name, parameters):
         self.name = name
         self.label = f"LABEL {name}"
         self.header = f'''\t#Function start
 \t{incrementRegister(self.stackPointer)}
-#\tSET [{self.stackPointer}], {self.stackPointer}
 \tSET {self.functionPointer}, {self.stackPointer}
 '''
         self.body = ""
         self.returnCall = ""
-        self.parametersList = []
+        self.parametersList = parameters
         self.variablesList = []
         
     def getVariableOffset(self, variable):
-        # TODO work with parameter list as well
         if variable in self.variablesList:
-            return self.variablesList.index(variable)
+            value = self.variablesList.index(variable)
+            return f'+ {value}'
         else:
-            return self.parametersList.index(variable)
-        # TODO proper index of parameters
+            value = - 3 - (len(self.parametersList) - 1 - self.parametersList.index(variable))
+            return f'{value}'
 
     def defineVariable(self, variableName):
         self.variablesList.append(variableName)
         self.body += f'\t#Create variable {variableName}\n'
         self.body += f'\tCREATE $1, 1\n'
         #self.body += f'\t{incrementRegister(self.stackPointer)}\n'
-        self.body += f'\tSET [{self.functionPointer} + {self.getVariableOffset(variableName)}], $1\n\n'
+        self.body += f'\tSET [{self.functionPointer}{self.getVariableOffset(variableName)}], $1\n\n'
 
     def intLiteralExpression(self, value):
         self.body += f'\t#Literal expression {value}\n'
@@ -44,8 +43,8 @@ class FunctionCodeGenerator:
 
     def assignValueToVariable(self, variable):
         self.body += f'\t# Variable assignment {variable}\n'
-        self.body += f'\t{decrementRegister(self.stackPointer)}\n'
-        self.body += f'\tSET [{self.functionPointer} + {self.getVariableOffset(variable)}], [{self.stackPointer}]\n\n'
+        self.body += f'\t{decrementRegister(self.stackPointer)}\n'        
+        self.body += f'\tSET [{self.functionPointer}{self.getVariableOffset(variable)}], [{self.stackPointer}]\n\n'
 
     def callFunction(self, functionName):
         self.body += f'\t# Calling function {functionName}\n'
@@ -71,11 +70,15 @@ class FunctionCodeGenerator:
         self.body += f'\tSET $2, [{self.functionPointer} - 1]\n'
         self.body += f'\tSET $3, [{self.functionPointer} - 2]\n'
         self.body += f'\t{decrementRegister(self.stackPointer)}\n'
-        self.body += f'\tSET [{self.functionPointer} - 2], [{self.stackPointer}]\n'
-        self.body += f'\tSUBI {self.stackPointer}, {self.functionPointer}, 1\n'
+        self.body += f'\tSET [{self.functionPointer} - {2 + len(self.parametersList)}], [{self.stackPointer}]\n'
+        self.body += f'\tSUBI {self.stackPointer}, {self.functionPointer}, {1 + len(self.parametersList)}\n'
         self.body += f'\tSET {self.functionPointer}, $3\n'
         self.body += f"\tRETURN $2\n"
 
+    def generateVariableExpression(self, variable):
+        self.body += f'\t# Variable expression\n'
+        self.body += f'\tSET [{self.stackPointer}], [{self.functionPointer}{self.getVariableOffset(variable)}]\n'
+        self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
 
 
 
@@ -102,8 +105,7 @@ class CodeGenerator:
         print("LABEL __END")
 
     def generateFunctionHeader(self, functionName, functionParameters):
-        self.functionDefinitions[functionName] = FunctionCodeGenerator(functionName)
-        self.functionDefinitions[functionName].parametersList = functionParameters.copy()
+        self.functionDefinitions[functionName] = FunctionCodeGenerator(functionName, functionParameters.copy())
 
     def defineVariable(self, variableName, functionName):
         self.functionDefinitions[functionName].defineVariable(variableName)
@@ -129,5 +131,8 @@ class CodeGenerator:
 
     def generateReturnValue(self, functionName):
         self.functionDefinitions[functionName].generateReturnValue()
+
+    def generateVariableExpression(self, functionName, variable):
+        self.functionDefinitions[functionName].generateVariableExpression(variable)
 
 

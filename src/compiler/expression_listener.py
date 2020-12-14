@@ -118,6 +118,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkVariableIsDefined(variableSymbol)
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
+        self.codeGenerator.generateVariableExpression(self.currentFunctionId, variableSymbol.id);
 
     def exitAnd_expression(self, ctx: VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)

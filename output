@@ -8,72 +8,56 @@ JUMP main
 LABEL main
 	#Function start
 	ADDI $SP, $SP, 1
-#	SET [$SP], $SP
 	SET $FP, $SP
 
 	#Create variable y
 	CREATE $1, 1
-	SET [$FP + 0], $1
-
-	#Create variable x
-	CREATE $1, 1
-	SET [$FP + 1], $1
+	SET [$FP+ 0], $1
 
 	# Restore stack pointer
-	ADDI $SP, $FP, 2
+	ADDI $SP, $FP, 1
 
-	#Literal expression 5
-	SET [$SP], 5
+	#Literal expression 9
+	SET [$SP], 9
 	ADDI $SP, $SP, 1
 
-	# Variable assignment x
-	SUBI $SP, $SP, 1
-	SET [$FP + 1], [$SP]
-
-	# Restore stack pointer
-	ADDI $SP, $FP, 2
+	#Literal expression 8
+	SET [$SP], 8
+	ADDI $SP, $SP, 1
 
 	# Calling function test
 	SET [$SP], $FP
 	ADDI $SP, $SP, 1
 	CALL [$SP], test
-	DUMPSTACK
-	DUMPREGS
+
 	# Variable assignment y
 	SUBI $SP, $SP, 1
-	SET [$FP + 0], [$SP]
-	DUMPSTACK
-	DUMPREGS
+	SET [$FP+ 0], [$SP]
 	WRITEI [$FP]
 
 	# Restore stack pointer
-	ADDI $SP, $FP, 2
+	ADDI $SP, $FP, 1
 
 
 	JUMP __END
 
 
 LABEL test
-	DUMPSTACK
-	DUMPREGS
 	#Function start
 	ADDI $SP, $SP, 1
-#	SET [$SP], $SP
 	SET $FP, $SP
 
-	#Literal expression 9
-	SET [$SP], 9
+	# Variable expression
+	SET [$SP], [$FP-3]
 	ADDI $SP, $SP, 1
 
 	# Return value
 	SET $2, [$FP - 1]
 	SET $3, [$FP - 2]
 	SUBI $SP, $SP, 1
-	SET [$FP - 2], [$SP]
-	SUBI $SP, $FP, 1
+	SET [$FP - 4], [$SP]
+	SUBI $SP, $FP, 3
 	SET $FP, $3
-	DUMPSTACK
-	DUMPREGS
 	RETURN $2
 	# Restore stack pointer
 	ADDI $SP, $FP, 0

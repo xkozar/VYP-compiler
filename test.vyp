@@ -1,9 +1,8 @@
 void main(void){
-    int y, x;
-    x = 5;
-    y = test();
+    int y;
+    y = test(9,8);
 }
 
-int test(void){
-    return 9;
+int test(int a, int b){
+    return b;
 }
