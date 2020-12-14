@@ -130,6 +130,7 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitNegation_expression(self, ctx: VYPParser.Negation_expressionContext):
         self.processUnaryExpression('!')
+        self.codeGenerator.generateNotExpression(self.currentFunctionId)
 
     def exitPlusminus_expression(self, ctx: VYPParser.Plusminus_expressionContext):
         self.processBinaryExpression(ctx.operator.text)

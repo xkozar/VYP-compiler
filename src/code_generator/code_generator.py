@@ -5,21 +5,17 @@ binaryOperationsMap = {
     '-': 'SUBI',
     '<': 'LTI',
     '>': 'GTI',
-    '>=': '',
-    '<=': '',
-    '<=': '',
     '==': 'EQI',
-    '!=': '',
     '&&': 'AND',
     '||': 'OR'
 }
 
 printIntFunction = '''
 LABEL print
-	WRITEI [$SP - 3]
+	WRITEI [$SP - 2]
     WRITES "\\n"
-	SUBI $SP, $SP, 3
-	RETURN [$SP + 3]
+	SUBI $SP, $SP, 2
+	RETURN [$SP + 2]
 
 '''
 
@@ -33,7 +29,8 @@ class FunctionCodeGenerator:
     stackPointer = '$SP'
     functionPointer = '$FP'
     programCounter = '$PC'
-    expressionResultReg = '$4'
+    expressionResultReg1 = '$4'
+    expressionResultReg2 = '$5'
 
     def __init__(self, name, parameters):
         self.name = name
@@ -109,10 +106,34 @@ class FunctionCodeGenerator:
     def generateBinaryExpression(self, instruction):
         if instruction in binaryOperationsMap.keys():
             self.body += f'\t# Binary expression\n'
-            self.body += f'\t{binaryOperationsMap[instruction]} {self.expressionResultReg}, [{self.stackPointer} -1], [{self.stackPointer} -2]\n'
-            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg}\n'
-            #self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+            self.body += f'\t{binaryOperationsMap[instruction]} {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
+            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+        elif instruction == '<=':
+            self.body += f'\t# Binary expression <=\n'
+            self.body += f'\tLTI {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
+            self.body += f'\tEQI {self.expressionResultReg2}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
+            self.body += f'\tOR {self.expressionResultReg1}, {self.expressionResultReg1}, {self.expressionResultReg2}\n'
+            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+        elif instruction == '>=':
+            self.body += f'\t# Binary expression >=\n'
+            self.body += f'\tGTI {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
+            self.body += f'\tEQI {self.expressionResultReg2}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
+            self.body += f'\tOR {self.expressionResultReg1}, {self.expressionResultReg1}, {self.expressionResultReg2}\n'
+            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+        elif instruction == '!=':
+            self.body += f'\t# Binary expression !=\n'
+            self.body += f'\tEQI {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
+            self.body += f'\tNOT {self.expressionResultReg1}, {self.expressionResultReg1}\n'
+            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
 
+    def notExpression(self):
+        self.body += f'\t# Not expression\n'
+        self.body += f'\tNOT {self.expressionResultReg1}, [{self.stackPointer} -1]\n'
+        self.body += f'\tSET [{self.stackPointer} -1], {self.expressionResultReg1}\n\n'
 
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
@@ -170,4 +191,7 @@ class CodeGenerator:
 
     def generateBinaryExpression(self, functionName, instruction):
         self.functionDefinitions[functionName].generateBinaryExpression(instruction)
+
+    def generateNotExpression(self, functionName):
+        self.functionDefinitions[functionName].notExpression()
 

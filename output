@@ -7,10 +7,10 @@ JUMP main
 
 
 LABEL print
-	WRITEI [$SP - 3]
+	WRITEI [$SP - 2]
     WRITES "\n"
-	SUBI $SP, $SP, 3
-	RETURN [$SP + 3]
+	SUBI $SP, $SP, 2
+	RETURN [$SP + 2]
 
 
 LABEL main
@@ -25,8 +25,8 @@ LABEL main
 	# Restore stack pointer
 	ADDI $SP, $FP, 1
 
-	#Literal expression 3
-	SET [$SP], 3
+	#Literal expression 1
+	SET [$SP], 1
 	ADDI $SP, $SP, 1
 
 	# Variable assignment y
@@ -36,17 +36,20 @@ LABEL main
 	# Restore stack pointer
 	ADDI $SP, $FP, 1
 
-	# Variable expression
-	SET [$SP], [$FP+ 0]
+	#Literal expression 5
+	SET [$SP], 5
 	ADDI $SP, $SP, 1
 
-	#Literal expression 6
-	SET [$SP], 6
+	#Literal expression 5
+	SET [$SP], 5
 	ADDI $SP, $SP, 1
 
-	# Binary expression
-	MULI $4, [$SP -1], [$SP -2]
+	# Binary expression !=
+	EQI $4, [$SP -2], [$SP -1]
+	NOT $4, $4
 	SET [$SP - 2], $4
+	SUBI $SP, $SP, 1
+
 	# Calling function print
 	SET [$SP], $FP
 	ADDI $SP, $SP, 1
