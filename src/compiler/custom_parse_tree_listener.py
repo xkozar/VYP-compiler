@@ -111,3 +111,9 @@ class CustomParseTreeListener(VYPListener):
             if self.currentFunctionReturn == False:
                 raise SemanticGeneralError("No return value specified")
         self.currentFunctionReturn = False
+        self.codeGenerator.returnFromFunction(self.currentFunctionId)
+
+    # Exit a parse tree produced by VYPParser#variable_assignment.
+    def exitVariable_assignment(self, ctx:VYPParser.Variable_assignmentContext):
+        self.expressionStack.pop()
+        self.codeGenerator.assignValueToVariable(self.currentFunctionId, ctx.ID().getText())

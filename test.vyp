@@ -1,20 +1,9 @@
-class Shape : Object {
-    int hello(void){
-        return 5;
-    }
+void main(void){
+    int y, x;
+    x = 5;
+    y = test();
 }
 
-class Rectangle : Shape {
-
-}
-
-void main(void) {
-    Rectangle r;
-    r = new Rectangle;
-    Shape s;
-    s = test(r);
-}
-
-Shape test(Rectangle r){
-    return new Rectangle;
+int test(void){
+    return 9;
 }

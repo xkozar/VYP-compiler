@@ -104,6 +104,7 @@ class ExpressionListener(CustomParseTreeListener):
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
                                                 self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)
+        self.codeGenerator.callFunction(self.currentFunctionId, functionId)
         self.functionCallParametersList = []
 
     def exitComparison_expression(self, ctx: VYPParser.Comparison_expressionContext):
@@ -117,7 +118,6 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkVariableIsDefined(variableSymbol)
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
-        self.codeGenerator.assignValueToVariable(self.currentFunctionId, ctx.ID().getText())
 
     def exitAnd_expression(self, ctx: VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -173,6 +173,7 @@ class ExpressionListener(CustomParseTreeListener):
             currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
         self.semanticsChecker.checkVariableAssignment(currentFunction.dataType, returnExpression.dataType)
         self.currentFunctionReturn = True
+        self.codeGenerator.generateReturnValue(self.currentFunctionId)
 
     # TODO check empty constructor exists!!!
 
@@ -218,5 +219,9 @@ class ExpressionListener(CustomParseTreeListener):
         if reference == 'super':
             return self.currentClass.parent
         return self.classTable.getSymbol(reference)
+
+    def exitStatement(self, ctx):
+        self.expressionStack.clear()
+        self.codeGenerator.restoreStackPointer(self.currentFunctionId)
 
 # TODO OBJECT EXPRESSIONS
