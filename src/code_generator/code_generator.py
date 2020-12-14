@@ -43,7 +43,7 @@ class FunctionCodeGenerator:
         self.returnCall = ""
         self.parametersList = parameters
         self.variablesList = []
-        
+
     def getVariableOffset(self, variable):
         if variable in self.variablesList:
             value = self.variablesList.index(variable)
@@ -135,6 +135,22 @@ class FunctionCodeGenerator:
         self.body += f'\tNOT {self.expressionResultReg1}, [{self.stackPointer} -1]\n'
         self.body += f'\tSET [{self.stackPointer} -1], {self.expressionResultReg1}\n\n'
 
+    def startIf(self, line, column):
+        self.body += f'\t# Start of IF\n'
+        self.body += f'\t{decrementRegister(self.stackPointer)}\n'
+        self.body += f'\tJUMPNZ IF{line}:{column}, [{self.stackPointer}]\n'
+        self.body += f'\tJUMP IF{line}:{column}__end\n'
+        self.body += f'\tLABEL IF{line}:{column}\n\n'
+
+    def endIf(self, line, column):
+        self.body += f'\t# End of IF part\n'
+        self.body += f'\tJUMP ELSE{line}:{column}__end\n'
+        self.body += f'\tLABEL IF{line}:{column}__end\n\n'
+
+    def endElse(self, line, column):
+        self.body += f'\t# End of ELSE part\n'
+        self.body += f'\tLABEL ELSE{line}:{column}__end\n'
+
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
 
@@ -194,4 +210,15 @@ class CodeGenerator:
 
     def generateNotExpression(self, functionName):
         self.functionDefinitions[functionName].notExpression()
+
+    def generateIfStart(self, functionName, line, column):
+        self.functionDefinitions[functionName].startIf(line, column)
+
+    def generateIfEnd(self, functionName, line, column):
+        self.functionDefinitions[functionName].endIf(line, column)
+
+    def generateElseEnd(self, functionName, line, column):
+        self.functionDefinitions[functionName].endElse(line, column)
+
+
 

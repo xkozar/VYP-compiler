@@ -1,14 +1,9 @@
 void main(void){
-    int y;
-    //y = test(9,8);
-    y = 1;
-    print(5 != 5);
-}
 
-int test(int a, int b){
-    return hello();
-}
-
-int hello(void){
-    return 12;
+    if(4 > 6){
+        print(5);
+    }
+    else{
+        print(6);
+    }
 }

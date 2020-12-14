@@ -42,7 +42,8 @@ return_statement: RETURN expression ';';
 
 code_block: '{' statement* '}';
 if_else_block: if_part else_part;
-if_part: IF '(' expression ')' code_block;
+if_expression: IF '(' expression ')';
+if_part: if_expression code_block;
 else_part: ELSE code_block;
 while_block: WHILE '(' expression ')' code_block;
 

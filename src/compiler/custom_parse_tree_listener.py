@@ -3,7 +3,7 @@ from collections import deque
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
 from compiler.semantics_checker import SemanticsChecker
-from compiler.custom_exceptions import SemanticGeneralError
+from compiler.custom_exceptions import SemanticGeneralError, SemanticTypeIncompatibilityError
 from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, FunctionCallSignature
 from code_generator import CodeGenerator
 
@@ -80,6 +80,8 @@ class CustomParseTreeListener(VYPListener):
         symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         expression = self.expressionStack.pop()
         self.semanticsChecker.checkVariableAssignment(symbol.dataType, expression.dataType)
+        self.codeGenerator.assignValueToVariable(self.currentFunctionId, ctx.ID().getText())
+
 
     def enterStatement(self, ctx: VYPParser.StatementContext):
         self.expressionStack.clear()
@@ -113,7 +115,23 @@ class CustomParseTreeListener(VYPListener):
         self.currentFunctionReturn = False
         self.codeGenerator.returnFromFunction(self.currentFunctionId)
 
-    # Exit a parse tree produced by VYPParser#variable_assignment.
-    def exitVariable_assignment(self, ctx:VYPParser.Variable_assignmentContext):
-        self.expressionStack.pop()
-        self.codeGenerator.assignValueToVariable(self.currentFunctionId, ctx.ID().getText())
+    def exitIf_part(self, ctx:VYPParser.If_partContext):
+        self.codeGenerator.generateIfEnd(self.currentFunctionId, ctx.start.line, ctx.start.column)
+
+    def exitElse_part(self, ctx:VYPParser.Else_partContext):
+        self.codeGenerator.generateElseEnd(self.currentFunctionId, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
+
+    def enterWhile_block(self, ctx:VYPParser.While_blockContext):
+        pass
+
+    def exitWhile_block(self, ctx:VYPParser.While_blockContext):
+        expression = self.expressionStack.pop()
+        if expression.dataType != 'int':
+            raise SemanticTypeIncompatibilityError(f"WHILE expected data type 'int', got '{expression.dataType}' instead.")
+        pass
+
+    def exitIf_expression(self, ctx:VYPParser.If_expressionContext):
+        expression = self.expressionStack.pop()
+        if expression.dataType != 'int':
+            raise SemanticTypeIncompatibilityError(f"IF expected data type 'int', got '{expression.dataType}' instead.")
+        self.codeGenerator.generateIfStart(self.currentFunctionId, ctx.start.line, ctx.start.column)

@@ -179,6 +179,15 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#if_expression.
+    def enterIf_expression(self, ctx:VYPParser.If_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#if_expression.
+    def exitIf_expression(self, ctx:VYPParser.If_expressionContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#if_part.
     def enterIf_part(self, ctx:VYPParser.If_partContext):
         pass

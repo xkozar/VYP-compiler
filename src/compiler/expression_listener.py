@@ -224,7 +224,7 @@ class ExpressionListener(CustomParseTreeListener):
         return self.classTable.getSymbol(reference)
 
     def exitStatement(self, ctx):
-        self.expressionStack.clear()
+        #self.expressionStack.clear()
         self.codeGenerator.restoreStackPointer(self.currentFunctionId)
 
 # TODO OBJECT EXPRESSIONS

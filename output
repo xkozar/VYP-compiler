@@ -18,37 +18,28 @@ LABEL main
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	#Create variable y
-	CREATE $1, 1
-	SET [$FP+ 0], $1
-
-	# Restore stack pointer
-	ADDI $SP, $FP, 1
-
-	#Literal expression 1
-	SET [$SP], 1
+	#Literal expression 4
+	SET [$SP], 4
 	ADDI $SP, $SP, 1
 
-	# Variable assignment y
-	SUBI $SP, $SP, 1
-	SET [$FP+ 0], [$SP]
-
-	# Restore stack pointer
-	ADDI $SP, $FP, 1
-
-	#Literal expression 5
-	SET [$SP], 5
+	#Literal expression 6
+	SET [$SP], 6
 	ADDI $SP, $SP, 1
 
-	#Literal expression 5
-	SET [$SP], 5
-	ADDI $SP, $SP, 1
-
-	# Binary expression !=
-	EQI $4, [$SP -2], [$SP -1]
-	NOT $4, $4
+	# Binary expression
+	GTI $4, [$SP -2], [$SP -1]
 	SET [$SP - 2], $4
 	SUBI $SP, $SP, 1
+
+	# Start of IF
+	SUBI $SP, $SP, 1
+	JUMPNZ IF3:4, [$SP]
+	JUMP IF3:4__end
+	LABEL IF3:4
+
+	#Literal expression 5
+	SET [$SP], 5
+	ADDI $SP, $SP, 1
 
 	# Calling function print
 	SET [$SP], $FP
@@ -56,57 +47,31 @@ LABEL main
 	CALL [$SP], print
 
 	# Restore stack pointer
-	ADDI $SP, $FP, 1
+	ADDI $SP, $FP, 0
+
+	# End of IF part
+	JUMP ELSE3:4__end
+	LABEL IF3:4__end
+
+	#Literal expression 6
+	SET [$SP], 6
+	ADDI $SP, $SP, 1
+
+	# Calling function print
+	SET [$SP], $FP
+	ADDI $SP, $SP, 1
+	CALL [$SP], print
+
+	# Restore stack pointer
+	ADDI $SP, $FP, 0
+
+	# End of ELSE part
+	LABEL ELSE3:4__end
+	# Restore stack pointer
+	ADDI $SP, $FP, 0
 
 
 	JUMP __END
 
-
-LABEL test
-	#Function start
-	ADDI $SP, $SP, 1
-	SET $FP, $SP
-
-	# Calling function hello
-	SET [$SP], $FP
-	ADDI $SP, $SP, 1
-	CALL [$SP], hello
-
-	# Return value
-	SET $2, [$FP - 1]
-	SET $3, [$FP - 2]
-	SUBI $SP, $SP, 1
-	SET [$FP - 4], [$SP]
-	SUBI $SP, $FP, 3
-	SET $FP, $3
-	RETURN $2
-	# Restore stack pointer
-	ADDI $SP, $FP, 0
-
-
-	RETURN [$FP - 1]
-
-LABEL hello
-	#Function start
-	ADDI $SP, $SP, 1
-	SET $FP, $SP
-
-	#Literal expression 12
-	SET [$SP], 12
-	ADDI $SP, $SP, 1
-
-	# Return value
-	SET $2, [$FP - 1]
-	SET $3, [$FP - 2]
-	SUBI $SP, $SP, 1
-	SET [$FP - 2], [$SP]
-	SUBI $SP, $FP, 1
-	SET $FP, $3
-	RETURN $2
-	# Restore stack pointer
-	ADDI $SP, $FP, 0
-
-
-	RETURN [$FP - 1]
 
 LABEL __END
