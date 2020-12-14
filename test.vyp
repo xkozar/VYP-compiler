@@ -1,8 +1,14 @@
 void main(void){
     int y;
-    y = test(9,8);
+    //y = test(9,8);
+    y = 3;
+    print(y * 6);
 }
 
 int test(int a, int b){
-    return b;
+    return hello();
+}
+
+int hello(void){
+    return 12;
 }

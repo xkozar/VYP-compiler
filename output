@@ -5,6 +5,14 @@
 ALIAS FP $0
 JUMP main
 
+
+LABEL print
+	WRITEI [$SP - 3]
+    WRITES "\n"
+	SUBI $SP, $SP, 3
+	RETURN [$SP + 3]
+
+
 LABEL main
 	#Function start
 	ADDI $SP, $SP, 1
@@ -17,23 +25,32 @@ LABEL main
 	# Restore stack pointer
 	ADDI $SP, $FP, 1
 
-	#Literal expression 9
-	SET [$SP], 9
+	#Literal expression 3
+	SET [$SP], 3
 	ADDI $SP, $SP, 1
-
-	#Literal expression 8
-	SET [$SP], 8
-	ADDI $SP, $SP, 1
-
-	# Calling function test
-	SET [$SP], $FP
-	ADDI $SP, $SP, 1
-	CALL [$SP], test
 
 	# Variable assignment y
 	SUBI $SP, $SP, 1
 	SET [$FP+ 0], [$SP]
-	WRITEI [$FP]
+
+	# Restore stack pointer
+	ADDI $SP, $FP, 1
+
+	# Variable expression
+	SET [$SP], [$FP+ 0]
+	ADDI $SP, $SP, 1
+
+	#Literal expression 6
+	SET [$SP], 6
+	ADDI $SP, $SP, 1
+
+	# Binary expression
+	MULI $4, [$SP -1], [$SP -2]
+	SET [$SP - 2], $4
+	# Calling function print
+	SET [$SP], $FP
+	ADDI $SP, $SP, 1
+	CALL [$SP], print
 
 	# Restore stack pointer
 	ADDI $SP, $FP, 1
@@ -47,9 +64,10 @@ LABEL test
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	# Variable expression
-	SET [$SP], [$FP-3]
+	# Calling function hello
+	SET [$SP], $FP
 	ADDI $SP, $SP, 1
+	CALL [$SP], hello
 
 	# Return value
 	SET $2, [$FP - 1]
@@ -57,6 +75,29 @@ LABEL test
 	SUBI $SP, $SP, 1
 	SET [$FP - 4], [$SP]
 	SUBI $SP, $FP, 3
+	SET $FP, $3
+	RETURN $2
+	# Restore stack pointer
+	ADDI $SP, $FP, 0
+
+
+	RETURN [$FP - 1]
+
+LABEL hello
+	#Function start
+	ADDI $SP, $SP, 1
+	SET $FP, $SP
+
+	#Literal expression 12
+	SET [$SP], 12
+	ADDI $SP, $SP, 1
+
+	# Return value
+	SET $2, [$FP - 1]
+	SET $3, [$FP - 2]
+	SUBI $SP, $SP, 1
+	SET [$FP - 2], [$SP]
+	SUBI $SP, $FP, 1
 	SET $FP, $3
 	RETURN $2
 	# Restore stack pointer

@@ -1,3 +1,28 @@
+binaryOperationsMap = {
+    '*': 'MULI',
+    '/': 'DIVI',
+    '+': 'ADDI',
+    '-': 'SUBI',
+    '<': 'LTI',
+    '>': 'GTI',
+    '>=': '',
+    '<=': '',
+    '<=': '',
+    '==': 'EQI',
+    '!=': '',
+    '&&': 'AND',
+    '||': 'OR'
+}
+
+printIntFunction = '''
+LABEL print
+	WRITEI [$SP - 3]
+    WRITES "\\n"
+	SUBI $SP, $SP, 3
+	RETURN [$SP + 3]
+
+'''
+
 def incrementRegister(register):
     return f"ADDI {register}, {register}, 1"
 
@@ -8,6 +33,7 @@ class FunctionCodeGenerator:
     stackPointer = '$SP'
     functionPointer = '$FP'
     programCounter = '$PC'
+    expressionResultReg = '$4'
 
     def __init__(self, name, parameters):
         self.name = name
@@ -80,6 +106,12 @@ class FunctionCodeGenerator:
         self.body += f'\tSET [{self.stackPointer}], [{self.functionPointer}{self.getVariableOffset(variable)}]\n'
         self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
 
+    def generateBinaryExpression(self, instruction):
+        if instruction in binaryOperationsMap.keys():
+            self.body += f'\t# Binary expression\n'
+            self.body += f'\t{binaryOperationsMap[instruction]} {self.expressionResultReg}, [{self.stackPointer} -1], [{self.stackPointer} -2]\n'
+            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg}\n'
+            #self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
 
 
     def __str__(self):
@@ -100,6 +132,7 @@ class CodeGenerator:
         print(self.header)
         print('ALIAS FP $0')
         print("JUMP main\n")
+        print(printIntFunction)
         for functionKey in self.functionDefinitions:
             print(str(self.functionDefinitions[functionKey]) + '\n')
         print("LABEL __END")
@@ -135,4 +168,6 @@ class CodeGenerator:
     def generateVariableExpression(self, functionName, variable):
         self.functionDefinitions[functionName].generateVariableExpression(variable)
 
+    def generateBinaryExpression(self, functionName, instruction):
+        self.functionDefinitions[functionName].generateBinaryExpression(instruction)
 

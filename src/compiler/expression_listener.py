@@ -203,6 +203,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkBinaryExpressionSemantics(leftExpression, rightExpression, operator)
         binaryExpression = BinaryExpression(leftExpression, rightExpression, operator)
         self.expressionStack.append(binaryExpression)
+        self.codeGenerator.generateBinaryExpression(self.currentFunctionId, operator)
 
     def processUnaryExpression(self, operator):
         expression = self.expressionStack.pop()
