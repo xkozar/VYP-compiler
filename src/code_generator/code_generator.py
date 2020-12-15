@@ -1,3 +1,5 @@
+from symbol_table.function_symbol import FunctionSymbol
+
 binaryOperationsMap = {
     '*': 'MULI',
     '/': 'DIVI',
@@ -11,8 +13,17 @@ binaryOperationsMap = {
 }
 
 printIntFunction = '''
-LABEL print
+LABEL printi
 	WRITEI [$SP - 2]
+    WRITES "\\n"
+	SUBI $SP, $SP, 2
+	RETURN [$SP + 2]
+
+'''
+
+printStringFunction = '''
+LABEL prints
+	WRITES [$SP - 2]
     WRITES "\\n"
 	SUBI $SP, $SP, 2
 	RETURN [$SP + 2]
@@ -31,6 +42,7 @@ class FunctionCodeGenerator:
     programCounter = '$PC'
     expressionResultReg1 = '$4'
     expressionResultReg2 = '$5'
+    chunkPointer = '$6'
 
     def __init__(self, name, parameters):
         self.name = name
@@ -60,9 +72,18 @@ class FunctionCodeGenerator:
         self.body += f'\tSET [{self.functionPointer}{self.getVariableOffset(variableName)}], $1\n\n'
 
     def intLiteralExpression(self, value):
-        self.body += f'\t#Literal expression {value}\n'
+        self.body += f'\t#Int literal expression {value}\n'
         self.body += f'\tSET [{self.stackPointer}], {value}\n'
         self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
+
+    def stringLiteralExpression(self, value):
+        self.body += f'\t#String literal expression {value}\n'
+        self.body += f'\tCREATE {self.chunkPointer}, 1\n'
+        self.body += f'\tSETWORD {self.chunkPointer}, 0, {value}\n'
+        self.body += f'\tGETWORD {self.chunkPointer}, {self.chunkPointer}, 0\n'
+        self.body += f'\tSET [{self.stackPointer}], {self.chunkPointer}\n'
+        self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
+
 
     def assignValueToVariable(self, variable):
         self.body += f'\t# Variable assignment {variable}\n'
@@ -185,72 +206,76 @@ class CodeGenerator:
         self.functionDefinitions = {}
     
     def generateCode(self):
-        pass
         print(self.header)
         print('ALIAS FP $0')
         print("JUMP main\n")
         print(printIntFunction)
+        print(printStringFunction)
         for functionKey in self.functionDefinitions:
-            print(str(self.functionDefinitions[functionKey]) + '\n')
+            print(str(self.functionDefinitions[functionKey].codeGenerator) + '\n')
         print("LABEL __END")
 
-    def generateFunctionHeader(self, functionName, functionParameters):
-        self.functionDefinitions[functionName] = FunctionCodeGenerator(functionName, functionParameters.copy())
+    def generateFunctionHeader(self, function: FunctionSymbol, functionParameters):
+        self.functionDefinitions[function.id] = function
+        functionLabel = function.id
+        if function.ownerClass != "":
+            functionLabel = f'{function.ownerClass}:{functionLabel}'
+        function.codeGenerator = FunctionCodeGenerator(functionLabel, functionParameters.copy())
 
-    def defineVariable(self, variableName, functionName):
-        self.functionDefinitions[functionName].defineVariable(variableName)
+    def defineVariable(self, variableName, function):
+        function.codeGenerator.defineVariable(variableName)
 
-    def generateLiteralExpression(self, functionName, value, literalType):
+    def generateLiteralExpression(self, function, value, literalType):
         if literalType == 'int':
-            self.functionDefinitions[functionName].intLiteralExpression(value)
+            function.codeGenerator.intLiteralExpression(value)
         else:
-            pass
+            function.codeGenerator.stringLiteralExpression(value)
         # TODO string
 
-    def assignValueToVariable(self, functionName, variableName):
-        self.functionDefinitions[functionName].assignValueToVariable(variableName)
+    def assignValueToVariable(self, function, variableName):
+        function.codeGenerator.assignValueToVariable(variableName)
 
-    def callFunction(self, currentFunctionName, functionToCall):
-        self.functionDefinitions[currentFunctionName].callFunction(functionToCall)
+    def callFunction(self, function, functionToCall):
+        function.codeGenerator.callFunction(functionToCall)
 
-    def returnFromFunction(self, functionName):
-        self.functionDefinitions[functionName].returnCallCode()
+    def returnFromFunction(self, function):
+        function.codeGenerator.returnCallCode()
 
-    def restoreStackPointer(self, functionName):
-        self.functionDefinitions[functionName].restoreStackPointer()
+    def restoreStackPointer(self, function):
+        function.codeGenerator.restoreStackPointer()
 
-    def generateReturnValue(self, functionName):
-        self.functionDefinitions[functionName].generateReturnValue()
+    def generateReturnValue(self, function):
+        function.codeGenerator.generateReturnValue()
 
-    def generateVariableExpression(self, functionName, variable):
-        self.functionDefinitions[functionName].generateVariableExpression(variable)
+    def generateVariableExpression(self, function, variable):
+        function.codeGenerator.generateVariableExpression(variable)
 
-    def generateBinaryExpression(self, functionName, instruction):
-        self.functionDefinitions[functionName].generateBinaryExpression(instruction)
+    def generateBinaryExpression(self, function, instruction):
+        function.codeGenerator.generateBinaryExpression(instruction)
 
-    def generateNotExpression(self, functionName):
-        self.functionDefinitions[functionName].notExpression()
+    def generateNotExpression(self, function):
+        function.codeGenerator.notExpression()
 
-    def generateUnaryMinusExpression(self, functionName):
-        self.functionDefinitions[functionName].unaryMinus()
+    def generateUnaryMinusExpression(self, function):
+        function.codeGenerator.unaryMinus()
 
-    def generateIfStart(self, functionName, line, column):
-        self.functionDefinitions[functionName].startIf(line, column)
+    def generateIfStart(self, function, line, column):
+        function.codeGenerator.startIf(line, column)
 
-    def generateIfEnd(self, functionName, line, column):
-        self.functionDefinitions[functionName].endIf(line, column)
+    def generateIfEnd(self, function, line, column):
+        function.codeGenerator.endIf(line, column)
 
-    def generateElseEnd(self, functionName, line, column):
-        self.functionDefinitions[functionName].endElse(line, column)
+    def generateElseEnd(self, function, line, column):
+        function.codeGenerator.endElse(line, column)
 
-    def generateWhileStart(self, functionName, line, column):
-        self.functionDefinitions[functionName].startWhile(line, column)
+    def generateWhileStart(self, function, line, column):
+        function.codeGenerator.startWhile(line, column)
 
-    def generateWhileEnd(self, functionName, line, column):
-        self.functionDefinitions[functionName].endWhile(line, column)
+    def generateWhileEnd(self, function, line, column):
+        function.codeGenerator.endWhile(line, column)
 
-    def generateEvaluateWhile(self, functionName, line, column):
-        self.functionDefinitions[functionName].evaluateWhile(line, column)
+    def generateEvaluateWhile(self, function, line, column):
+        function.codeGenerator.evaluateWhile(line, column)
 
 
 

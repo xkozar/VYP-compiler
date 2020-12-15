@@ -1,7 +1,10 @@
-better function adressing
+string as value
+store string in variable
+concatenation
+handle operation with strings(retyping)
 Working with strings
 implicit type conversions
 initialize variables, int 0, string ""
 functions with no return return 0 and ""
-Print - multiple parameters
+embeded functions
 Objects

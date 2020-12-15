@@ -34,12 +34,15 @@ class CustomParseTreeListener(VYPListener):
 
     def enterFunction_header(self, ctx: VYPParser.Function_headerContext):
         self.currentFunctionId = ctx.ID().getText()
+
         if self.currentClass == None:
+            self.currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
             functionParameterNames = list(map(lambda x: x.id, self.functionTable.getSymbol(ctx.ID().getText()).parameterList.parameters))
         else:
+            self.currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
             functionParameterNames = list(map(lambda x: x.id, self.currentClass.methodTable.getSymbol(ctx.ID().getText()).parameterList.parameters))
 
-        self.codeGenerator.generateFunctionHeader(self.currentFunctionId, functionParameterNames)
+        self.codeGenerator.generateFunctionHeader(self.currentFunction, functionParameterNames)
 
     ''' Function parameters need to be inserted into symbol table. If 'void' is 
         used as parameter, no action is needed. This rule is not used anywhere
@@ -56,7 +59,7 @@ class CustomParseTreeListener(VYPListener):
             ctx.variable_type().getText())
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunctionId)
+        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction)
 
     ''' Data type of variable must be taken from parent context'''
 
@@ -64,7 +67,7 @@ class CustomParseTreeListener(VYPListener):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE,
                                          ctx.parentCtx.variable_type().getText())
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunctionId)
+        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction)
 
     def enterCode_block(self, ctx: VYPParser.Code_blockContext):
         self.localSymbolTable.addClosure()
@@ -80,7 +83,7 @@ class CustomParseTreeListener(VYPListener):
         symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         expression = self.expressionStack.pop()
         self.semanticsChecker.checkVariableAssignment(symbol.dataType, expression.dataType)
-        self.codeGenerator.assignValueToVariable(self.currentFunctionId, ctx.ID().getText())
+        self.codeGenerator.assignValueToVariable(self.currentFunction, ctx.ID().getText())
 
 
     def enterStatement(self, ctx: VYPParser.StatementContext):
@@ -112,21 +115,22 @@ class CustomParseTreeListener(VYPListener):
 
         if currentFunction.dataType != 'void':
             if self.currentFunctionReturn == False:
-                raise SemanticGeneralError("No return value specified")
+                pass
+                #raise SemanticGeneralError("No return value specified")
         self.currentFunctionReturn = False
-        self.codeGenerator.returnFromFunction(self.currentFunctionId)
+        self.codeGenerator.returnFromFunction(self.currentFunction)
 
     def exitIf_part(self, ctx:VYPParser.If_partContext):
-        self.codeGenerator.generateIfEnd(self.currentFunctionId, ctx.start.line, ctx.start.column)
+        self.codeGenerator.generateIfEnd(self.currentFunction, ctx.start.line, ctx.start.column)
 
     def exitElse_part(self, ctx:VYPParser.Else_partContext):
-        self.codeGenerator.generateElseEnd(self.currentFunctionId, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
+        self.codeGenerator.generateElseEnd(self.currentFunction, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
 
     def enterWhile_block(self, ctx:VYPParser.While_blockContext):
-        self.codeGenerator.generateWhileStart(self.currentFunctionId, ctx.start.line, ctx.start.column)
+        self.codeGenerator.generateWhileStart(self.currentFunction, ctx.start.line, ctx.start.column)
 
     def exitWhile_block(self, ctx:VYPParser.While_blockContext):
-        self.codeGenerator.generateWhileEnd(self.currentFunctionId, ctx.start.line, ctx.start.column)
+        self.codeGenerator.generateWhileEnd(self.currentFunction, ctx.start.line, ctx.start.column)
 
     def enterWhile_expression(self, ctx:VYPParser.While_expressionContext):
         pass
@@ -135,11 +139,11 @@ class CustomParseTreeListener(VYPListener):
         expression = self.expressionStack.pop()
         if expression.dataType != 'int':
             raise SemanticTypeIncompatibilityError(f"WHILE expected data type 'int', got '{expression.dataType}' instead.")
-        self.codeGenerator.generateEvaluateWhile(self.currentFunctionId, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
+        self.codeGenerator.generateEvaluateWhile(self.currentFunction, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
         
 
     def exitIf_expression(self, ctx:VYPParser.If_expressionContext):
         expression = self.expressionStack.pop()
         if expression.dataType != 'int':
             raise SemanticTypeIncompatibilityError(f"IF expected data type 'int', got '{expression.dataType}' instead.")
-        self.codeGenerator.generateIfStart(self.currentFunctionId, ctx.start.line, ctx.start.column)
+        self.codeGenerator.generateIfStart(self.currentFunction, ctx.start.line, ctx.start.column)

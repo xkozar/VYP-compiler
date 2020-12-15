@@ -104,7 +104,15 @@ class ExpressionListener(CustomParseTreeListener):
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
                                                 self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)
-        self.codeGenerator.callFunction(self.currentFunctionId, functionId)
+        if functionId != 'print':
+            self.codeGenerator.callFunction(self.currentFunction, functionId)
+        else:
+            for parameter in self.functionCallParametersList:
+                if parameter.dataType == 'int':
+                    self.codeGenerator.callFunction(self.currentFunction, 'printi')
+                else:
+                    self.codeGenerator.callFunction(self.currentFunction, 'prints')
+
         self.functionCallParametersList = []
 
     def exitComparison_expression(self, ctx: VYPParser.Comparison_expressionContext):
@@ -118,7 +126,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkVariableIsDefined(variableSymbol)
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
-        self.codeGenerator.generateVariableExpression(self.currentFunctionId, variableSymbol.id);
+        self.codeGenerator.generateVariableExpression(self.currentFunction, variableSymbol.id);
 
     def exitAnd_expression(self, ctx: VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -130,11 +138,11 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitNegation_expression(self, ctx: VYPParser.Negation_expressionContext):
         self.processUnaryExpression('!')
-        self.codeGenerator.generateNotExpression(self.currentFunctionId)
+        self.codeGenerator.generateNotExpression(self.currentFunction)
 
     def exitNegative_expression(self, ctx:VYPParser.Negative_expressionContext):
         self.processUnaryExpression('-')
-        self.codeGenerator.generateUnaryMinusExpression(self.currentFunctionId)
+        self.codeGenerator.generateUnaryMinusExpression(self.currentFunction)
 
     def exitPlusminus_expression(self, ctx: VYPParser.Plusminus_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -148,7 +156,7 @@ class ExpressionListener(CustomParseTreeListener):
         dataType = 'string' if ctx.literal_value().STRING_LITERAL() is not None else 'int'
         literalExpression = LiteralExpression(dataType, ctx.literal_value().getText())
         self.expressionStack.append(literalExpression)
-        self.codeGenerator.generateLiteralExpression(self.currentFunctionId, ctx.literal_value().getText(), dataType)
+        self.codeGenerator.generateLiteralExpression(self.currentFunction, ctx.literal_value().getText(), dataType)
 
     def exitFinal_field_expression(self, ctx: VYPParser.Final_field_expressionContext):
         variableExpression = VariableExpression(None, ctx.ID().getText())
@@ -179,7 +187,7 @@ class ExpressionListener(CustomParseTreeListener):
             currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
         self.semanticsChecker.checkVariableAssignment(currentFunction.dataType, returnExpression.dataType)
         self.currentFunctionReturn = True
-        self.codeGenerator.generateReturnValue(self.currentFunctionId)
+        self.codeGenerator.generateReturnValue(self.currentFunction)
 
     # TODO check empty constructor exists!!!
 
@@ -201,6 +209,8 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitExpression_list(self, ctx: VYPParser.Expression_listContext):
         self.processFunctionParameter()
+        # if ctx.parentCtx.ID().getText() == 'print':
+            
 
     def processBinaryExpression(self, operator):
         rightExpression = self.expressionStack.pop()
@@ -208,7 +218,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkBinaryExpressionSemantics(leftExpression, rightExpression, operator)
         binaryExpression = BinaryExpression(leftExpression, rightExpression, operator)
         self.expressionStack.append(binaryExpression)
-        self.codeGenerator.generateBinaryExpression(self.currentFunctionId, operator)
+        self.codeGenerator.generateBinaryExpression(self.currentFunction, operator)
 
     def processUnaryExpression(self, operator):
         expression = self.expressionStack.pop()
@@ -229,6 +239,6 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitStatement(self, ctx):
         #self.expressionStack.clear()
-        self.codeGenerator.restoreStackPointer(self.currentFunctionId)
+        self.codeGenerator.restoreStackPointer(self.currentFunction)
 
 # TODO OBJECT EXPRESSIONS

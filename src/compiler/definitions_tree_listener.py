@@ -30,7 +30,7 @@ class DefinitionsTreeListener(VYPListener):
         self.classTable.addSymbol('Object', objectSymbol)
 
     def defineMethod(self, identifier, dataType):
-        definitionSymbol = FunctionSymbol(identifier, dataType)
+        definitionSymbol = FunctionSymbol(identifier, dataType, self.currentClass.id)
         self.functionTable.addSymbol(identifier, definitionSymbol)
         self.currentFunctionId = identifier
 
@@ -47,7 +47,10 @@ class DefinitionsTreeListener(VYPListener):
         self.defineFunction('subStr', 'string')
 
     def defineFunction(self, identifier, dataType):
-        definitionSymbol = FunctionSymbol(identifier, dataType)
+        ownerClass = ""
+        if self.currentClass is not None:
+            ownerClass = self.currentClass.id
+        definitionSymbol = FunctionSymbol(identifier, dataType, ownerClass)
         self.currentFunctionTable.addSymbol(identifier, definitionSymbol)
         self.currentFunctionId = identifier
 
@@ -68,6 +71,10 @@ class DefinitionsTreeListener(VYPListener):
     def enterClass_header(self, ctx: VYPParser.Class_headerContext):
         parentClass = self.classTable.getSymbol(ctx.parent_id.text)
         self.defineClass(ctx.class_id.text, parentClass)
+
+    def exitClass_body(self, ctx: VYPParser.Class_bodyContext):
+        self.currentClass = None
+        self.localSymbolTable = SymbolTable()
 
     def exitClass_definition(self, ctx: VYPParser.Class_definitionContext):
         self.currentFunctionTable = self.functionTable

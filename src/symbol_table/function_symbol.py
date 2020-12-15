@@ -4,9 +4,11 @@ import functools
 
 class FunctionSymbol(GeneralSymbol):
 
-    def __init__(self, identifier, dataType):
+    def __init__(self, identifier, dataType, ownerClass=""):
         super().__init__(identifier, SymbolType.FUNCTION, dataType)
         self.parameterList = FunctionCallSignature()
+        self.codeGenerator: FunctionCodeGenerator = None
+        self.ownerClass = ownerClass
 
     def appendParameter(self, symbol):
         self.parameterList.appendParameter(symbol)
