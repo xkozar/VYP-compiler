@@ -1,8 +1,6 @@
-concatenation
-handle operation with strings(retyping)
-Working with strings
-implicit type conversions
+check casting. only int to string and objects to it's subclasses
 initialize variables, int 0, string ""
 functions with no return return 0 and ""
 embeded functions
 Objects
+object type casting (runtime check)

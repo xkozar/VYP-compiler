@@ -23,10 +23,10 @@ LABEL prints
 
 
 LABEL concat
-    GETSIZE $4, [$SP - 3]
-    GETSIZE $5, [$SP - 2]
-    COPY $6, [$SP - 2]
-    ADDI $1, $4, $5
+    GETSIZE $4, [$SP - 3] # Left string
+    GETSIZE $5, [$SP - 2] # Right string
+    COPY $6, [$SP - 3]
+    ADDI $1, $4, $5 # Total length
     RESIZE $6, $1
     SET $2, 0
 
@@ -34,7 +34,7 @@ LABEL concat
     LTI $1, $2, $5
     JUMPZ concat_end, $1
 
-    GETWORD $1, [$SP-3], $2
+    GETWORD $1, [$SP-2], $2
     ADDI $7, $2, $4
     SETWORD $6, $7, $1
 
@@ -53,29 +53,31 @@ LABEL main
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	#String literal expression "a"
+	#String literal expression "6"
 	CREATE $6, 1
-	SETWORD $6, 0, "a"
+	SETWORD $6, 0, "6"
 	GETWORD $6, $6, 0
 	SET [$SP], $6
 	ADDI $SP, $SP, 1
 
-	#String literal expression "b"
+	#String literal expression "5"
 	CREATE $6, 1
-	SETWORD $6, 0, "b"
+	SETWORD $6, 0, "5"
 	GETWORD $6, $6, 0
 	SET [$SP], $6
 	ADDI $SP, $SP, 1
 
-	# Calling function concat
-	SET [$SP], $FP
-	ADDI $SP, $SP, 1
-	CALL [$SP], concat
+	# Binary expression <=
+	LTS $4, [$SP -2], [$SP -1]
+	EQS $5, [$SP -2], [$SP -1]
+	OR $4, $4, $5
+	SET [$SP - 2], $4
+	SUBI $SP, $SP, 1
 
-	# Calling function prints
+	# Calling function printi
 	SET [$SP], $FP
 	ADDI $SP, $SP, 1
-	CALL [$SP], prints
+	CALL [$SP], printi
 
 	# Restore stack pointer
 	ADDI $SP, $FP, 0

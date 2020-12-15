@@ -28,11 +28,11 @@ class SemanticsChecker:
 
     def checkBinaryExpressionSemantics(self, leftExpression, rightExpression, operator):
         if leftExpression.dataType != rightExpression.dataType:
-            raise SemanticTypeIncompatibilityError
+            raise SemanticTypeIncompatibilityError(f"Datatypes '{leftExpression.dataType}' and '{rightExpression.dataType}' do not match in binary expression '{operator}'")
         acceptedTypeValues = self.binaryTypeMap[operator]
         if not (leftExpression.dataType in acceptedTypeValues or (
                 'object' in acceptedTypeValues and leftExpression.dataType != 'string')):
-            raise SemanticTypeIncompatibilityError
+            raise SemanticTypeIncompatibilityError(f"Unsupported data type '{leftExpression.dataType}' for operation '{operator}'")
 
     def checkUnaryExpressionSemantics(self, expression, operator):
         if expression.dataType not in self.unaryTypeMap[operator]:

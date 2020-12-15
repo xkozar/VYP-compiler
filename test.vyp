@@ -1,5 +1,3 @@
 void main(void){
-    print("a" + "b");
+    print("6" <= "5");
 }
-
-

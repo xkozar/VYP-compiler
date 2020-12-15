@@ -7,17 +7,20 @@ def incrementRegister(register):
 def decrementRegister(register):
     return f"SUBI {register}, {register}, 1"
 
-binaryOperationsMap = {
-    '*': 'MULI',
-    '/': 'DIVI',
-    '+': 'ADDI',
-    '-': 'SUBI',
-    '<': 'LTI',
-    '>': 'GTI',
-    '==': 'EQI',
+
+
+binaryOperationsIntMap = {
+    '*': 'MUL',
+    '/': 'DIV',
+    '+': 'ADD',
+    '-': 'SUB',
+    '<': 'LT',
+    '>': 'GT',
+    '==': 'EQ',
     '&&': 'AND',
     '||': 'OR'
 }
+
 
 stackPointer = '$SP'
 functionPointer = '$FP'
@@ -156,29 +159,33 @@ class FunctionCodeGenerator:
         self.body += f'\tSET [{stackPointer}], [{functionPointer}{self.getVariableOffset(variable)}]\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
-    def generateBinaryExpression(self, instruction):
-        if instruction in binaryOperationsMap.keys():
+    def generateBinaryExpression(self, instruction, dataType):
+        if dataType == 'string':
+            postFix = 'S'
+        else:
+            postFix = 'I'
+        if instruction in binaryOperationsIntMap.keys():
             self.body += f'\t# Binary expression\n'
-            self.body += f'\t{binaryOperationsMap[instruction]} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\t{binaryOperationsIntMap[instruction]}{postFix} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
             self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
             self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '<=':
             self.body += f'\t# Binary expression <=\n'
-            self.body += f'\tLTI {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
-            self.body += f'\tEQI {expressionResultReg2}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tLT{postFix} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tEQ{postFix} {expressionResultReg2}, [{stackPointer} -2], [{stackPointer} -1]\n'
             self.body += f'\tOR {expressionResultReg1}, {expressionResultReg1}, {expressionResultReg2}\n'
             self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
             self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '>=':
             self.body += f'\t# Binary expression >=\n'
-            self.body += f'\tGTI {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
-            self.body += f'\tEQI {expressionResultReg2}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tGT{postFix} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tEQ{postFix} {expressionResultReg2}, [{stackPointer} -2], [{stackPointer} -1]\n'
             self.body += f'\tOR {expressionResultReg1}, {expressionResultReg1}, {expressionResultReg2}\n'
             self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
             self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '!=':
             self.body += f'\t# Binary expression !=\n'
-            self.body += f'\tEQI {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tEQ{postFix} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
             self.body += f'\tNOT {expressionResultReg1}, {expressionResultReg1}\n'
             self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
             self.body += f'\t{decrementRegister(stackPointer)}\n\n'
@@ -283,8 +290,8 @@ class CodeGenerator:
     def generateVariableExpression(self, function, variable):
         function.codeGenerator.generateVariableExpression(variable)
 
-    def generateBinaryExpression(self, function, instruction):
-        function.codeGenerator.generateBinaryExpression(instruction)
+    def generateBinaryExpression(self, function, instruction, dataType):
+        function.codeGenerator.generateBinaryExpression(instruction, dataType)
 
     def generateNotExpression(self, function):
         function.codeGenerator.notExpression()
