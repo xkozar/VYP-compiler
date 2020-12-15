@@ -135,6 +135,11 @@ class FunctionCodeGenerator:
         self.body += f'\tNOT {self.expressionResultReg1}, [{self.stackPointer} -1]\n'
         self.body += f'\tSET [{self.stackPointer} -1], {self.expressionResultReg1}\n\n'
 
+    def unaryMinus(self):
+        self.body += f'\t# Not expression\n'
+        self.body += f'\tSUBI {self.expressionResultReg1}, 0, [{self.stackPointer} -1]\n'
+        self.body += f'\tSET [{self.stackPointer} -1], {self.expressionResultReg1}\n\n'
+
     def startIf(self, line, column):
         self.body += f'\t# Start of IF\n'
         self.body += f'\t{decrementRegister(self.stackPointer)}\n'
@@ -150,6 +155,21 @@ class FunctionCodeGenerator:
     def endElse(self, line, column):
         self.body += f'\t# End of ELSE part\n'
         self.body += f'\tLABEL ELSE{line}:{column}__end\n'
+
+    def startWhile(self, line, column):
+        self.body += f'\t# Start WHILE\n'
+        self.body += f'\tLABEL WHILE{line}:{column}\n'
+
+    def evaluateWhile(self, line, column):
+        self.body += f'\t# Evaluate WHILE expression\n'
+        self.body += f'\t{decrementRegister(self.stackPointer)}\n'
+        self.body += f'\tJUMPZ WHILE{line}:{column}__end, [{self.stackPointer}]\n'
+
+
+    def endWhile(self, line, column):
+        self.body += f'\t# End WHILE\n'
+        self.body += f'\tJUMP WHILE{line}:{column}\n'
+        self.body += f'\tLABEL WHILE{line}:{column}__end\n'
 
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
@@ -211,6 +231,9 @@ class CodeGenerator:
     def generateNotExpression(self, functionName):
         self.functionDefinitions[functionName].notExpression()
 
+    def generateUnaryMinusExpression(self, functionName):
+        self.functionDefinitions[functionName].unaryMinus()
+
     def generateIfStart(self, functionName, line, column):
         self.functionDefinitions[functionName].startIf(line, column)
 
@@ -219,6 +242,15 @@ class CodeGenerator:
 
     def generateElseEnd(self, functionName, line, column):
         self.functionDefinitions[functionName].endElse(line, column)
+
+    def generateWhileStart(self, functionName, line, column):
+        self.functionDefinitions[functionName].startWhile(line, column)
+
+    def generateWhileEnd(self, functionName, line, column):
+        self.functionDefinitions[functionName].endWhile(line, column)
+
+    def generateEvaluateWhile(self, functionName, line, column):
+        self.functionDefinitions[functionName].evaluateWhile(line, column)
 
 
 

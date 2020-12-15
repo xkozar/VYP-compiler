@@ -132,6 +132,10 @@ class ExpressionListener(CustomParseTreeListener):
         self.processUnaryExpression('!')
         self.codeGenerator.generateNotExpression(self.currentFunctionId)
 
+    def exitNegative_expression(self, ctx:VYPParser.Negative_expressionContext):
+        self.processUnaryExpression('-')
+        self.codeGenerator.generateUnaryMinusExpression(self.currentFunctionId)
+
     def exitPlusminus_expression(self, ctx: VYPParser.Plusminus_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
 

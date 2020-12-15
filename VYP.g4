@@ -45,14 +45,16 @@ if_else_block: if_part else_part;
 if_expression: IF '(' expression ')';
 if_part: if_expression code_block;
 else_part: ELSE code_block;
-while_block: WHILE '(' expression ')' code_block;
+while_expression: WHILE '(' expression ')';
+while_block:  while_expression code_block;
 
 expression
     :   '(' cast=(INT | STRING | ID) ')' expression #castExpression
     |   '(' expression ')'  #bracket_expression
+    |   MINUS expression    #negative_expression
     |   '!' expression      #negation_expression
     |   expression operator=('*' | '/') expression #muldiv_expression
-    |   expression operator=('+' | '-') expression #plusminus_expression
+    |   expression operator=('+' | MINUS) expression #plusminus_expression
     |   expression operator=(LE | LEQ | GT | GTQ) expression #comparison_expression
     |   expression operator=(LOGICAL_EQUAL | LOGICAL_NEQUAL) expression #equality_expression
     |   expression operator=LOGICAL_AND expression #and_expression
@@ -111,13 +113,14 @@ LE: '<';
 LEQ: '<=';
 GT: '>';
 GTQ: '>=';
+MINUS: '-';
 
 LOGICAL_EQUAL: '==';
 LOGICAL_NEQUAL: '!=';
 LOGICAL_AND: '&&';
 LOGICAL_OR: '||';
 
-INTEGER_LITERAL: ('-'? [1-9] DIGIT* | '0');
+INTEGER_LITERAL: ([1-9] DIGIT* | '0');
 ID: (CILETTER | UNDERSCORE)(CILETTER | UNDERSCORE | DIGIT)*;
 STRING_LITERAL: '"' STRING_CHARACTER* '"';
 

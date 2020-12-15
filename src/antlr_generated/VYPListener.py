@@ -206,6 +206,15 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#while_expression.
+    def enterWhile_expression(self, ctx:VYPParser.While_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#while_expression.
+    def exitWhile_expression(self, ctx:VYPParser.While_expressionContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#while_block.
     def enterWhile_block(self, ctx:VYPParser.While_blockContext):
         pass
@@ -311,6 +320,15 @@ class VYPListener(ParseTreeListener):
 
     # Exit a parse tree produced by VYPParser#negation_expression.
     def exitNegation_expression(self, ctx:VYPParser.Negation_expressionContext):
+        pass
+
+
+    # Enter a parse tree produced by VYPParser#negative_expression.
+    def enterNegative_expression(self, ctx:VYPParser.Negative_expressionContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#negative_expression.
+    def exitNegative_expression(self, ctx:VYPParser.Negative_expressionContext):
         pass
 
 

@@ -85,6 +85,7 @@ class CustomParseTreeListener(VYPListener):
 
     def enterStatement(self, ctx: VYPParser.StatementContext):
         self.expressionStack.clear()
+        pass
 
     def enterClass_definition(self, ctx: VYPParser.Class_definitionContext):
         self.currentClass = self.classTable.getSymbol(ctx.class_header().class_id.text)
@@ -122,13 +123,20 @@ class CustomParseTreeListener(VYPListener):
         self.codeGenerator.generateElseEnd(self.currentFunctionId, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
 
     def enterWhile_block(self, ctx:VYPParser.While_blockContext):
-        pass
+        self.codeGenerator.generateWhileStart(self.currentFunctionId, ctx.start.line, ctx.start.column)
 
     def exitWhile_block(self, ctx:VYPParser.While_blockContext):
+        self.codeGenerator.generateWhileEnd(self.currentFunctionId, ctx.start.line, ctx.start.column)
+
+    def enterWhile_expression(self, ctx:VYPParser.While_expressionContext):
+        pass
+
+    def exitWhile_expression(self, ctx:VYPParser.While_expressionContext):
         expression = self.expressionStack.pop()
         if expression.dataType != 'int':
             raise SemanticTypeIncompatibilityError(f"WHILE expected data type 'int', got '{expression.dataType}' instead.")
-        pass
+        self.codeGenerator.generateEvaluateWhile(self.currentFunctionId, ctx.parentCtx.start.line, ctx.parentCtx.start.column)
+        
 
     def exitIf_expression(self, ctx:VYPParser.If_expressionContext):
         expression = self.expressionStack.pop()

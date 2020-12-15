@@ -13,14 +13,14 @@ def main(argv):
     if argv.__len__() == 3:
         sys.stdout = open(argv[2], 'w')
 
-    input_stream = FileStream(argv[1])
-    lexer = VYPLexer(input_stream)
-    
-    stream = CommonTokenStream(lexer)
-    parser = VYPParser(stream)
-    tree = parser.program()
 
     try:
+        input_stream = FileStream(argv[1])
+        lexer = VYPLexer(input_stream)
+        
+        stream = CommonTokenStream(lexer)
+        parser = VYPParser(stream)
+        tree = parser.program()
         definitionListener = DefinitionsTreeListener()
         walker = ParseTreeWalker()
     except Exception:

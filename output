@@ -18,12 +18,32 @@ LABEL main
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	#Literal expression 4
-	SET [$SP], 4
+	#Create variable x
+	CREATE $1, 1
+	SET [$FP+ 0], $1
+
+	# Restore stack pointer
+	ADDI $SP, $FP, 1
+
+	#Literal expression 5
+	SET [$SP], 5
 	ADDI $SP, $SP, 1
 
-	#Literal expression 6
-	SET [$SP], 6
+	# Variable assignment x
+	SUBI $SP, $SP, 1
+	SET [$FP+ 0], [$SP]
+
+	# Restore stack pointer
+	ADDI $SP, $FP, 1
+
+	# Start WHILE
+	LABEL WHILE4:4
+	# Variable expression
+	SET [$SP], [$FP+ 0]
+	ADDI $SP, $SP, 1
+
+	#Literal expression 0
+	SET [$SP], 0
 	ADDI $SP, $SP, 1
 
 	# Binary expression
@@ -31,14 +51,11 @@ LABEL main
 	SET [$SP - 2], $4
 	SUBI $SP, $SP, 1
 
-	# Start of IF
+	# Evaluate WHILE expression
 	SUBI $SP, $SP, 1
-	JUMPNZ IF3:4, [$SP]
-	JUMP IF3:4__end
-	LABEL IF3:4
-
-	#Literal expression 5
-	SET [$SP], 5
+	JUMPZ WHILE4:4__end, [$SP]
+	# Variable expression
+	SET [$SP], [$FP+ 0]
 	ADDI $SP, $SP, 1
 
 	# Calling function print
@@ -47,28 +64,33 @@ LABEL main
 	CALL [$SP], print
 
 	# Restore stack pointer
-	ADDI $SP, $FP, 0
+	ADDI $SP, $FP, 1
 
-	# End of IF part
-	JUMP ELSE3:4__end
-	LABEL IF3:4__end
-
-	#Literal expression 6
-	SET [$SP], 6
+	# Variable expression
+	SET [$SP], [$FP+ 0]
 	ADDI $SP, $SP, 1
 
-	# Calling function print
-	SET [$SP], $FP
+	#Literal expression 1
+	SET [$SP], 1
 	ADDI $SP, $SP, 1
-	CALL [$SP], print
+
+	# Binary expression
+	SUBI $4, [$SP -2], [$SP -1]
+	SET [$SP - 2], $4
+	SUBI $SP, $SP, 1
+
+	# Variable assignment x
+	SUBI $SP, $SP, 1
+	SET [$FP+ 0], [$SP]
 
 	# Restore stack pointer
-	ADDI $SP, $FP, 0
+	ADDI $SP, $FP, 1
 
-	# End of ELSE part
-	LABEL ELSE3:4__end
+	# End WHILE
+	JUMP WHILE4:4
+	LABEL WHILE4:4__end
 	# Restore stack pointer
-	ADDI $SP, $FP, 0
+	ADDI $SP, $FP, 1
 
 
 	JUMP __END

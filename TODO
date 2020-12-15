@@ -1,6 +1,7 @@
-Check IF expression is int
-IF
-WHILE
+better function adressing
 Working with strings
+implicit type conversions
+initialize variables, int 0, string ""
+functions with no return return 0 and ""
 Print - multiple parameters
 Objects

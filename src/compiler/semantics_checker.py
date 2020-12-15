@@ -22,7 +22,8 @@ class SemanticsChecker:
             '||': ['int', 'object']
         }
         self.unaryTypeMap = {
-            '!': ['int']
+            '!': ['int'],
+            '-': ['int']
         }
 
     def checkBinaryExpressionSemantics(self, leftExpression, rightExpression, operator):
@@ -35,7 +36,7 @@ class SemanticsChecker:
 
     def checkUnaryExpressionSemantics(self, expression, operator):
         if expression.dataType not in self.unaryTypeMap[operator]:
-            raise SemanticTypeIncompatibilityError
+            raise SemanticTypeIncompatibilityError(f"Operator {operator} expected type {' or '.join(self.unaryTypeMap[operator])} but got {expression.dataType} instead")
 
     def checkFunctionCallSemantics(self, functionId, callExpressionList: list, callParameterList: list):
         if functionId == 'print':
