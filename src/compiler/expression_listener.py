@@ -1,6 +1,7 @@
 from antlr_generated.VYPParser import VYPParser
 from compiler import CustomParseTreeListener
 from compiler.semantics_checker import SemanticsChecker
+from compiler.custom_exceptions import SemanticTypeIncompatibilityError
 
 intResultOperators = ['<', '>', '<=', '>=', '==']
 
@@ -98,6 +99,10 @@ class ExpressionListener(CustomParseTreeListener):
         castType = ctx.cast.text
         expressionType = castType if castType in ['int', 'string'] else self.classTable.getSymbol(castType).dataType
         expression = self.expressionStack.pop()
+        if expressionType == 'string' and expression.dataType == 'int':
+            self.codeGenerator.generateIntToStringCast(self.currentFunction)
+        elif expressionType == 'int':
+            raise SemanticTypeIncompatibilityError("Cannot cast to 'int'.")
         self.expressionStack.append(CastExpression(expression, expressionType))
 
     def exitFunction_expression(self, ctx: VYPParser.Function_expressionContext):

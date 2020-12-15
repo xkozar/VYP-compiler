@@ -214,22 +214,26 @@ class FunctionCodeGenerator:
 
     def endElse(self, line, column):
         self.body += f'\t# End of ELSE part\n'
-        self.body += f'\tLABEL ELSE{line}:{column}__end\n'
+        self.body += f'\tLABEL ELSE{line}:{column}__end\n\n'
 
     def startWhile(self, line, column):
         self.body += f'\t# Start WHILE\n'
-        self.body += f'\tLABEL WHILE{line}:{column}\n'
+        self.body += f'\tLABEL WHILE{line}:{column}\n\n'
 
     def evaluateWhile(self, line, column):
         self.body += f'\t# Evaluate WHILE expression\n'
         self.body += f'\t{decrementRegister(stackPointer)}\n'
-        self.body += f'\tJUMPZ WHILE{line}:{column}__end, [{stackPointer}]\n'
-
+        self.body += f'\tJUMPZ WHILE{line}:{column}__end, [{stackPointer}]\n\n'
 
     def endWhile(self, line, column):
         self.body += f'\t# End WHILE\n'
         self.body += f'\tJUMP WHILE{line}:{column}\n'
-        self.body += f'\tLABEL WHILE{line}:{column}__end\n'
+        self.body += f'\tLABEL WHILE{line}:{column}__end\n\n'
+
+    def intToStringCast(self):
+        self.body += f'\t# INT to STRING conversion\n'
+        self.body += f'\tINT2STRING {miscRegister}, [{stackPointer}-1]\n\n'
+        self.body += f'\tSET [{stackPointer}-1], {miscRegister}\n\n'
 
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
@@ -317,5 +321,6 @@ class CodeGenerator:
     def generateEvaluateWhile(self, function, line, column):
         function.codeGenerator.evaluateWhile(line, column)
 
-
+    def generateIntToStringCast(self, function):
+        function.codeGenerator.intToStringCast()
 
