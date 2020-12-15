@@ -47,10 +47,10 @@ LABEL prints
 
 concatenationFunction = f'''
 LABEL concat
-    GETSIZE {expressionResultReg1}, [$SP - 3]
-    GETSIZE {expressionResultReg2}, [$SP - 2]
-    COPY {chunkPointer}, [$SP - 2]
-    ADDI $1, {expressionResultReg1}, {expressionResultReg2}
+    GETSIZE {expressionResultReg1}, [$SP - 3] # Left string
+    GETSIZE {expressionResultReg2}, [$SP - 2] # Right string
+    COPY {chunkPointer}, [$SP - 3]
+    ADDI $1, {expressionResultReg1}, {expressionResultReg2} # Total length
     RESIZE {chunkPointer}, $1
     SET $2, 0
 
@@ -58,7 +58,10 @@ LABEL concat
     LTI $1, $2, {expressionResultReg2}
     JUMPZ concat_end, $1
 
-    GETWORD $1, [$SP-3], $2
+    DUMPREGS
+    DUMPSTACK
+    DUMPHEAP
+    GETWORD $1, [$SP-2], $2
     ADDI {miscRegister}, $2, {expressionResultReg1}
     SETWORD {chunkPointer}, {miscRegister}, $1
 
