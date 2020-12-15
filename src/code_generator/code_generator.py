@@ -1,5 +1,12 @@
 from symbol_table.function_symbol import FunctionSymbol
 
+
+def incrementRegister(register):
+    return f"ADDI {register}, {register}, 1"
+
+def decrementRegister(register):
+    return f"SUBI {register}, {register}, 1"
+
 binaryOperationsMap = {
     '*': 'MULI',
     '/': 'DIVI',
@@ -11,6 +18,14 @@ binaryOperationsMap = {
     '&&': 'AND',
     '||': 'OR'
 }
+
+stackPointer = '$SP'
+functionPointer = '$FP'
+programCounter = '$PC'
+expressionResultReg1 = '$4'
+expressionResultReg2 = '$5'
+chunkPointer = '$6'
+miscRegister = '$7'
 
 printIntFunction = '''
 LABEL printi
@@ -30,26 +45,43 @@ LABEL prints
 
 '''
 
-def incrementRegister(register):
-    return f"ADDI {register}, {register}, 1"
+concatenationFunction = f'''
+LABEL concat
+    GETSIZE {expressionResultReg1}, [$SP - 3]
+    GETSIZE {expressionResultReg2}, [$SP - 2]
+    COPY {chunkPointer}, [$SP - 2]
+    ADDI $1, {expressionResultReg1}, {expressionResultReg2}
+    RESIZE {chunkPointer}, $1
+    SET $2, 0
 
-def decrementRegister(register):
-    return f"SUBI {register}, {register}, 1"
+    LABEL concat_start
+    LTI $1, $2, {expressionResultReg2}
+    JUMPZ concat_end, $1
+
+    GETWORD $1, [$SP-3], $2
+    ADDI {miscRegister}, $2, {expressionResultReg1}
+    SETWORD {chunkPointer}, {miscRegister}, $1
+
+    ADDI $2, $2, 1
+    JUMP concat_start
+    LABEL concat_end
+
+    SUBI {stackPointer}, {stackPointer}, 3
+    SET [{stackPointer}], {chunkPointer}
+    {incrementRegister(stackPointer)}
+    RETURN [{stackPointer} + 2]
+
+'''
+
 
 class FunctionCodeGenerator:
-    stackPointer = '$SP'
-    functionPointer = '$FP'
-    programCounter = '$PC'
-    expressionResultReg1 = '$4'
-    expressionResultReg2 = '$5'
-    chunkPointer = '$6'
 
     def __init__(self, name, parameters):
         self.name = name
         self.label = f"LABEL {name}"
         self.header = f'''\t#Function start
-\t{incrementRegister(self.stackPointer)}
-\tSET {self.functionPointer}, {self.stackPointer}
+\t{incrementRegister(stackPointer)}
+\tSET {functionPointer}, {stackPointer}
 '''
         self.body = ""
         self.returnCall = ""
@@ -67,104 +99,104 @@ class FunctionCodeGenerator:
     def defineVariable(self, variableName):
         self.variablesList.append(variableName)
         self.body += f'\t#Create variable {variableName}\n'
-        self.body += f'\tCREATE $1, 1\n'
-        #self.body += f'\t{incrementRegister(self.stackPointer)}\n'
-        self.body += f'\tSET [{self.functionPointer}{self.getVariableOffset(variableName)}], $1\n\n'
+        #self.body += f'\tCREATE $1, 1\n'
+        #self.body += f'\t{incrementRegister(stackPointer)}\n'
+        #self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], $1\n\n'
 
     def intLiteralExpression(self, value):
         self.body += f'\t#Int literal expression {value}\n'
-        self.body += f'\tSET [{self.stackPointer}], {value}\n'
-        self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
+        self.body += f'\tSET [{stackPointer}], {value}\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
     def stringLiteralExpression(self, value):
         self.body += f'\t#String literal expression {value}\n'
-        self.body += f'\tCREATE {self.chunkPointer}, 1\n'
-        self.body += f'\tSETWORD {self.chunkPointer}, 0, {value}\n'
-        self.body += f'\tGETWORD {self.chunkPointer}, {self.chunkPointer}, 0\n'
-        self.body += f'\tSET [{self.stackPointer}], {self.chunkPointer}\n'
-        self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
+        self.body += f'\tCREATE {chunkPointer}, 1\n'
+        self.body += f'\tSETWORD {chunkPointer}, 0, {value}\n'
+        self.body += f'\tGETWORD {chunkPointer}, {chunkPointer}, 0\n'
+        self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
 
     def assignValueToVariable(self, variable):
         self.body += f'\t# Variable assignment {variable}\n'
-        self.body += f'\t{decrementRegister(self.stackPointer)}\n'        
-        self.body += f'\tSET [{self.functionPointer}{self.getVariableOffset(variable)}], [{self.stackPointer}]\n\n'
+        self.body += f'\t{decrementRegister(stackPointer)}\n'        
+        self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variable)}], [{stackPointer}]\n\n'
 
     def callFunction(self, functionName):
         self.body += f'\t# Calling function {functionName}\n'
-        #self.body += f'\t{incrementRegister(self.stackPointer)}\n'
-        self.body += f'\tSET [{self.stackPointer}], {self.functionPointer}\n'
-        self.body += f'\t{incrementRegister(self.stackPointer)}\n'
-        # self.body += f'\tSET [{self.stackPointer}], {self.programCounter}\n'
-        self.body += f'\tCALL [{self.stackPointer}], {functionName}\n\n'
+        #self.body += f'\t{incrementRegister(stackPointer)}\n'
+        self.body += f'\tSET [{stackPointer}], {functionPointer}\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n'
+        # self.body += f'\tSET [{stackPointer}], {programCounter}\n'
+        self.body += f'\tCALL [{stackPointer}], {functionName}\n\n'
 
     def restoreStackPointer(self):
         self.body += f'\t# Restore stack pointer\n'
-        self.body += f'\tADDI {self.stackPointer}, {self.functionPointer}, {len(self.variablesList)}\n\n'
+        self.body += f'\tADDI {stackPointer}, {functionPointer}, {len(self.variablesList)}\n\n'
 
     def returnCallCode(self):
         if self.name == 'main':
             self.returnCall += f'\tJUMP __END\n'
         else:
-            self.returnCall += f"\tRETURN [{self.functionPointer} - 1]"
+            self.returnCall += f"\tRETURN [{functionPointer} - 1]"
 
     def generateReturnValue(self):
         self.body += f'\t# Return value\n'
-        #self.body += f'\tSET [{self.functionPointer}], [{self.functionPointer} - 1]\n'
-        self.body += f'\tSET $2, [{self.functionPointer} - 1]\n'
-        self.body += f'\tSET $3, [{self.functionPointer} - 2]\n'
-        self.body += f'\t{decrementRegister(self.stackPointer)}\n'
-        self.body += f'\tSET [{self.functionPointer} - {2 + len(self.parametersList)}], [{self.stackPointer}]\n'
-        self.body += f'\tSUBI {self.stackPointer}, {self.functionPointer}, {1 + len(self.parametersList)}\n'
-        self.body += f'\tSET {self.functionPointer}, $3\n'
+        #self.body += f'\tSET [{functionPointer}], [{functionPointer} - 1]\n'
+        self.body += f'\tSET $2, [{functionPointer} - 1]\n'
+        self.body += f'\tSET $3, [{functionPointer} - 2]\n'
+        self.body += f'\t{decrementRegister(stackPointer)}\n'
+        self.body += f'\tSET [{functionPointer} - {2 + len(self.parametersList)}], [{stackPointer}]\n'
+        self.body += f'\tSUBI {stackPointer}, {functionPointer}, {1 + len(self.parametersList)}\n'
+        self.body += f'\tSET {functionPointer}, $3\n'
         self.body += f"\tRETURN $2\n"
 
     def generateVariableExpression(self, variable):
         self.body += f'\t# Variable expression\n'
-        self.body += f'\tSET [{self.stackPointer}], [{self.functionPointer}{self.getVariableOffset(variable)}]\n'
-        self.body += f'\t{incrementRegister(self.stackPointer)}\n\n'
+        self.body += f'\tSET [{stackPointer}], [{functionPointer}{self.getVariableOffset(variable)}]\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
     def generateBinaryExpression(self, instruction):
         if instruction in binaryOperationsMap.keys():
             self.body += f'\t# Binary expression\n'
-            self.body += f'\t{binaryOperationsMap[instruction]} {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
-            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
-            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+            self.body += f'\t{binaryOperationsMap[instruction]} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '<=':
             self.body += f'\t# Binary expression <=\n'
-            self.body += f'\tLTI {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
-            self.body += f'\tEQI {self.expressionResultReg2}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
-            self.body += f'\tOR {self.expressionResultReg1}, {self.expressionResultReg1}, {self.expressionResultReg2}\n'
-            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
-            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+            self.body += f'\tLTI {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tEQI {expressionResultReg2}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tOR {expressionResultReg1}, {expressionResultReg1}, {expressionResultReg2}\n'
+            self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '>=':
             self.body += f'\t# Binary expression >=\n'
-            self.body += f'\tGTI {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
-            self.body += f'\tEQI {self.expressionResultReg2}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
-            self.body += f'\tOR {self.expressionResultReg1}, {self.expressionResultReg1}, {self.expressionResultReg2}\n'
-            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
-            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+            self.body += f'\tGTI {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tEQI {expressionResultReg2}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tOR {expressionResultReg1}, {expressionResultReg1}, {expressionResultReg2}\n'
+            self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '!=':
             self.body += f'\t# Binary expression !=\n'
-            self.body += f'\tEQI {self.expressionResultReg1}, [{self.stackPointer} -2], [{self.stackPointer} -1]\n'
-            self.body += f'\tNOT {self.expressionResultReg1}, {self.expressionResultReg1}\n'
-            self.body += f'\tSET [{self.stackPointer} - 2], {self.expressionResultReg1}\n'
-            self.body += f'\t{decrementRegister(self.stackPointer)}\n\n'
+            self.body += f'\tEQI {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            self.body += f'\tNOT {expressionResultReg1}, {expressionResultReg1}\n'
+            self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
+            self.body += f'\t{decrementRegister(stackPointer)}\n\n'
 
     def notExpression(self):
         self.body += f'\t# Not expression\n'
-        self.body += f'\tNOT {self.expressionResultReg1}, [{self.stackPointer} -1]\n'
-        self.body += f'\tSET [{self.stackPointer} -1], {self.expressionResultReg1}\n\n'
+        self.body += f'\tNOT {expressionResultReg1}, [{stackPointer} -1]\n'
+        self.body += f'\tSET [{stackPointer} -1], {expressionResultReg1}\n\n'
 
     def unaryMinus(self):
         self.body += f'\t# Not expression\n'
-        self.body += f'\tSUBI {self.expressionResultReg1}, 0, [{self.stackPointer} -1]\n'
-        self.body += f'\tSET [{self.stackPointer} -1], {self.expressionResultReg1}\n\n'
+        self.body += f'\tSUBI {expressionResultReg1}, 0, [{stackPointer} -1]\n'
+        self.body += f'\tSET [{stackPointer} -1], {expressionResultReg1}\n\n'
 
     def startIf(self, line, column):
         self.body += f'\t# Start of IF\n'
-        self.body += f'\t{decrementRegister(self.stackPointer)}\n'
-        self.body += f'\tJUMPNZ IF{line}:{column}, [{self.stackPointer}]\n'
+        self.body += f'\t{decrementRegister(stackPointer)}\n'
+        self.body += f'\tJUMPNZ IF{line}:{column}, [{stackPointer}]\n'
         self.body += f'\tJUMP IF{line}:{column}__end\n'
         self.body += f'\tLABEL IF{line}:{column}\n\n'
 
@@ -183,8 +215,8 @@ class FunctionCodeGenerator:
 
     def evaluateWhile(self, line, column):
         self.body += f'\t# Evaluate WHILE expression\n'
-        self.body += f'\t{decrementRegister(self.stackPointer)}\n'
-        self.body += f'\tJUMPZ WHILE{line}:{column}__end, [{self.stackPointer}]\n'
+        self.body += f'\t{decrementRegister(stackPointer)}\n'
+        self.body += f'\tJUMPZ WHILE{line}:{column}__end, [{stackPointer}]\n'
 
 
     def endWhile(self, line, column):
@@ -211,6 +243,7 @@ class CodeGenerator:
         print("JUMP main\n")
         print(printIntFunction)
         print(printStringFunction)
+        print(concatenationFunction)
         for functionKey in self.functionDefinitions:
             print(str(self.functionDefinitions[functionKey].codeGenerator) + '\n')
         print("LABEL __END")

@@ -2,11 +2,15 @@ from antlr_generated.VYPParser import VYPParser
 from compiler import CustomParseTreeListener
 from compiler.semantics_checker import SemanticsChecker
 
+intResultOperators = ['<', '>', '<=', '>=' '==']
 
 class BinaryExpression:
 
     def __init__(self, leftExpression, rightExpression, operator):
-        self.dataType = leftExpression.dataType
+        if operator == '+' and leftExpression.dataType == 'string' or rightExpression.dataType == 'string':
+            self.dataType = 'string'
+        else:
+            self.dataType = 'int'
         self.leftExpression = leftExpression
         self.rightExpression = rightExpression
         self.operator = operator
@@ -208,9 +212,7 @@ class ExpressionListener(CustomParseTreeListener):
         self.processFunctionParameter()
 
     def exitExpression_list(self, ctx: VYPParser.Expression_listContext):
-        self.processFunctionParameter()
-        # if ctx.parentCtx.ID().getText() == 'print':
-            
+        self.processFunctionParameter()            
 
     def processBinaryExpression(self, operator):
         rightExpression = self.expressionStack.pop()
@@ -218,7 +220,11 @@ class ExpressionListener(CustomParseTreeListener):
         self.semanticsChecker.checkBinaryExpressionSemantics(leftExpression, rightExpression, operator)
         binaryExpression = BinaryExpression(leftExpression, rightExpression, operator)
         self.expressionStack.append(binaryExpression)
-        self.codeGenerator.generateBinaryExpression(self.currentFunction, operator)
+        if binaryExpression.dataType == 'string' and operator == '+':
+            self.codeGenerator.callFunction(self.currentFunction, 'concat')
+        else:
+            self.codeGenerator.generateBinaryExpression(self.currentFunction, operator)
+            # TODO handle strings
 
     def processUnaryExpression(self, operator):
         expression = self.expressionStack.pop()

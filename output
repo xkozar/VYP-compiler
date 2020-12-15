@@ -21,53 +21,56 @@ LABEL prints
 	RETURN [$SP + 2]
 
 
+
+LABEL concat
+    GETSIZE $4, [$SP - 3]
+    GETSIZE $5, [$SP - 2]
+    COPY $6, [$SP - 2]
+    ADDI $1, $4, $5
+    RESIZE $6, $1
+    SET $2, 0
+
+    LABEL concat_start
+    LTI $1, $2, $5
+    JUMPZ concat_end, $1
+
+    GETWORD $1, [$SP-3], $2
+    ADDI $7, $2, $4
+    SETWORD $6, $7, $1
+
+    ADDI $2, $2, 1
+    JUMP concat_start
+    LABEL concat_end
+
+    SUBI $SP, $SP, 3
+    SET [$SP], $6
+    ADDI $SP, $SP, 1
+    RETURN [$SP + 2]
+
+
 LABEL main
 	#Function start
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	#Create variable s
-	CREATE $1, 1
-	SET [$FP+ 0], $1
-
-	# Restore stack pointer
-	ADDI $SP, $FP, 1
-
-	#String literal expression "ahoj"
+	#String literal expression "a"
 	CREATE $6, 1
-	SETWORD $6, 0, "ahoj"
+	SETWORD $6, 0, "a"
 	GETWORD $6, $6, 0
 	SET [$SP], $6
 	ADDI $SP, $SP, 1
 
-	# Variable assignment s
-	SUBI $SP, $SP, 1
-	SET [$FP+ 0], [$SP]
-
-	# Restore stack pointer
-	ADDI $SP, $FP, 1
-
-	# Variable expression
-	SET [$SP], [$FP+ 0]
+	#String literal expression "b"
+	CREATE $6, 1
+	SETWORD $6, 0, "b"
+	GETWORD $6, $6, 0
+	SET [$SP], $6
 	ADDI $SP, $SP, 1
 
-	# Variable expression
-	SET [$SP], [$FP+ 0]
-	ADDI $SP, $SP, 1
-
-	# Variable expression
-	SET [$SP], [$FP+ 0]
-	ADDI $SP, $SP, 1
-
-	# Calling function prints
+	# Calling function concat
 	SET [$SP], $FP
 	ADDI $SP, $SP, 1
-	CALL [$SP], prints
-
-	# Calling function prints
-	SET [$SP], $FP
-	ADDI $SP, $SP, 1
-	CALL [$SP], prints
+	CALL [$SP], concat
 
 	# Calling function prints
 	SET [$SP], $FP
@@ -75,7 +78,7 @@ LABEL main
 	CALL [$SP], prints
 
 	# Restore stack pointer
-	ADDI $SP, $FP, 1
+	ADDI $SP, $FP, 0
 
 
 	JUMP __END
