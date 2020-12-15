@@ -132,3 +132,5 @@ dmypy.json
 
 vypint-1.0.jar
 .vscode/
+
+**/*.output

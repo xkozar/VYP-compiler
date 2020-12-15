@@ -67,7 +67,7 @@ class CustomParseTreeListener(VYPListener):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE,
                                          ctx.parentCtx.variable_type().getText())
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction)
+        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, definitionSymbol.dataType)
 
     def enterCode_block(self, ctx: VYPParser.Code_blockContext):
         self.localSymbolTable.addClosure()

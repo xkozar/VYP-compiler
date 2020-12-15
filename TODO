@@ -1,3 +1,4 @@
+default return from function does not restore FP
 functions with no return return 0 and ""
 embeded functions
 Objects

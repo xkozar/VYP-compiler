@@ -86,6 +86,7 @@ class DefinitionsTreeListener(VYPListener):
         self.defineField(ctx.ID().getText(), ctx.parentCtx.variable_type().getText())
 
     def exitProgram(self, ctx):
+        self.functionTable.getSymbol('main')
         self.updateFunctionTypes()
 
     def defineField(self, fieldId, dataType):
