@@ -1,0 +1,12 @@
+int fce(void)
+{
+	return 42;
+}
+
+void main(void)
+{
+	int x;
+	x= 9;
+	print("Hello", fce(),   "end");
+
+}

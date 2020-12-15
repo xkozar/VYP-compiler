@@ -1,0 +1,7 @@
+// Multiple declarations
+
+void main(void) {
+	int x;
+	string __STRING12__;
+	int x;
+}

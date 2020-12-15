@@ -1,0 +1,6 @@
+void main(void)
+{
+	string str;
+	str = "Hell//world/*comment*/end";
+	print(str);
+}

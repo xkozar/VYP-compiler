@@ -1,0 +1,8 @@
+void main(void){
+	//int x;
+	/* /* string s;
+	s = "aaa";
+
+	*/
+	print("OK");
+} // end of main

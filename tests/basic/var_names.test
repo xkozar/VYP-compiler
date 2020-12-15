@@ -1,0 +1,12 @@
+// Variable names
+void main(void) {
+    int _x28;
+	string _str1, S_2TR_;
+	_str1 = "asdf";
+	S_2TR_ = "qwe";
+	_x28 = 54;
+
+	print(_x28);
+	print(_str1);
+	print(S_2TR_);
+}

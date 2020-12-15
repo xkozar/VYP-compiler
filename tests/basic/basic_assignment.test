@@ -1,0 +1,9 @@
+void main(void){
+    int x;
+	x = 5;
+	int y; 
+	y= 335;
+	string str;
+	str = "hello world";
+	print(x,str,y);
+}
