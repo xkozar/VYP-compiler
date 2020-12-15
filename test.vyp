@@ -1,4 +1,3 @@
 void main(void){
-    string s;
-    print("1" + s + "a");
+    string s
 }
