@@ -99,12 +99,18 @@ class FunctionCodeGenerator:
             value = - 3 - (len(self.parametersList) - 1 - self.parametersList.index(variable))
             return f'{value}'
 
-    def defineVariable(self, variableName):
+    def defineVariable(self, variableName, dataType):
         self.variablesList.append(variableName)
         self.body += f'\t#Create variable {variableName}\n'
-        #self.body += f'\tCREATE $1, 1\n'
         #self.body += f'\t{incrementRegister(stackPointer)}\n'
         #self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], $1\n\n'
+        if dataType == 'string':
+            self.body += f'\tCREATE {chunkPointer}, 1\n'
+            self.body += f'\tSETWORD {chunkPointer}, 0, ""\n'
+            self.body += f'\tGETWORD {chunkPointer}, {chunkPointer}, 0\n'
+            self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], {chunkPointer}\n'
+        else:
+            self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], 0\n'
 
     def intLiteralExpression(self, value):
         self.body += f'\t#Int literal expression {value}\n'
@@ -266,8 +272,8 @@ class CodeGenerator:
             functionLabel = f'{function.ownerClass}:{functionLabel}'
         function.codeGenerator = FunctionCodeGenerator(functionLabel, functionParameters.copy())
 
-    def defineVariable(self, variableName, function):
-        function.codeGenerator.defineVariable(variableName)
+    def defineVariable(self, variableName, function, dataType):
+        function.codeGenerator.defineVariable(variableName, dataType)
 
     def generateLiteralExpression(self, function, value, literalType):
         if literalType == 'int':

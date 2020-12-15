@@ -59,7 +59,7 @@ class CustomParseTreeListener(VYPListener):
             ctx.variable_type().getText())
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction)
+        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, variableType)
 
     ''' Data type of variable must be taken from parent context'''
 

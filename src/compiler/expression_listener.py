@@ -132,7 +132,6 @@ class ExpressionListener(CustomParseTreeListener):
 
     def exitVariable_expression(self, ctx: VYPParser.Variable_expressionContext):
         variableSymbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
-        self.semanticsChecker.checkVariableIsDefined(variableSymbol)
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
         self.codeGenerator.generateVariableExpression(self.currentFunction, variableSymbol.id);

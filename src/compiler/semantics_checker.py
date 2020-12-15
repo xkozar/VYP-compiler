@@ -74,11 +74,6 @@ class SemanticsChecker:
                 raise SemanticTypeIncompatibilityError
 
     @staticmethod
-    def checkVariableIsDefined(variableSymbol: GeneralSymbol):
-        if not variableSymbol.isDefined:
-            raise SemanticGeneralError(f"Variable with id:{variableSymbol.id} is not yet defined")
-
-    @staticmethod
     def checkVariableAssignment(variableDataType, expressionDataType):
         if variableDataType != expressionDataType:
             raise SemanticTypeIncompatibilityError(f"{variableDataType} is not compatible with {expressionDataType}")

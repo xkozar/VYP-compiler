@@ -1,4 +1,4 @@
-initialize variables, int 0, string ""
+catch syntax error
 functions with no return return 0 and ""
 embeded functions
 Objects
