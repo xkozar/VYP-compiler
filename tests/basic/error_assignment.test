@@ -1,0 +1,5 @@
+void main(void){
+	int x;
+	string str;
+	str = 5;
+}

@@ -1,0 +1,15 @@
+void fce(int param)
+{
+	int x;
+	x = 67;
+	print(x);
+}
+
+
+void main(void) {
+	int x;
+	x = 55;
+	print(x);
+	fce(x);
+	print(x);
+}
