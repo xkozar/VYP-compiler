@@ -58,9 +58,6 @@ LABEL concat
     LTI $1, $2, {expressionResultReg2}
     JUMPZ concat_end, $1
 
-    DUMPREGS
-    DUMPSTACK
-    DUMPHEAP
     GETWORD $1, [$SP-2], $2
     ADDI {miscRegister}, $2, {expressionResultReg1}
     SETWORD {chunkPointer}, {miscRegister}, $1
