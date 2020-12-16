@@ -40,7 +40,7 @@ class DefinitionsTreeListener(VYPListener):
 
         self.defineFunction('readInt', 'int')
 
-        self.defineFunction('readString', 'void')
+        self.defineFunction('readString', 'string')
 
         functionSymbol = self.defineFunction('length', 'int')
         definitionSymbol = GeneralSymbol('s', SymbolType.VARIABLE, 'string')

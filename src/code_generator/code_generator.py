@@ -93,6 +93,13 @@ LABEL readInt
 
 '''
 
+readStringFunction = f'''
+LABEL readString
+    READS {miscRegister}
+    SET [{stackPointer} - 1], {miscRegister}
+	RETURN [$SP]
+
+'''
 
 class FunctionCodeGenerator:
 
@@ -279,6 +286,7 @@ class CodeGenerator:
         print(concatenationFunction)
         print(getLengthFunction)
         print(readIntFunction)
+        print(readStringFunction)
         for functionKey in self.functionDefinitions:
             print(str(self.functionDefinitions[functionKey].codeGenerator) + '\n')
         print("LABEL __END")
