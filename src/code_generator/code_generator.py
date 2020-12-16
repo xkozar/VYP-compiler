@@ -76,6 +76,23 @@ LABEL concat
 
 '''
 
+getLengthFunction = f'''
+LABEL length
+	GETSIZE {miscRegister}, [{stackPointer} - 2]
+	SUBI {stackPointer}, {stackPointer}, 1
+    SET [{stackPointer} - 1], {miscRegister}
+	RETURN [{stackPointer} + 1]
+
+'''
+
+readIntFunction = f'''
+LABEL readInt
+    READI {miscRegister}
+    SET [{stackPointer} - 1], {miscRegister}
+	RETURN [$SP]
+
+'''
+
 
 class FunctionCodeGenerator:
 
@@ -260,6 +277,8 @@ class CodeGenerator:
         print(printIntFunction)
         print(printStringFunction)
         print(concatenationFunction)
+        print(getLengthFunction)
+        print(readIntFunction)
         for functionKey in self.functionDefinitions:
             print(str(self.functionDefinitions[functionKey].codeGenerator) + '\n')
         print("LABEL __END")

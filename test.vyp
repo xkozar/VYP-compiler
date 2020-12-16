@@ -1,12 +1,6 @@
 void main(void)
 {
-    int x;
-    x = 10;
-    test();
-    print(x);
+    print(readInt() + 2);
+    print(length("hellosdfg"));
 }
 
-void test(void){
-    int y;
-    y = 100;
-}

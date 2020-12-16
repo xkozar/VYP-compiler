@@ -42,7 +42,10 @@ class DefinitionsTreeListener(VYPListener):
 
         self.defineFunction('readString', 'void')
 
-        self.defineFunction('length', 'int')
+        functionSymbol = self.defineFunction('length', 'int')
+        definitionSymbol = GeneralSymbol('s', SymbolType.VARIABLE, 'string')
+        definitionSymbol.setAsDefined()
+        functionSymbol.appendParameter(definitionSymbol)
 
         self.defineFunction('subStr', 'string')
 
@@ -53,6 +56,7 @@ class DefinitionsTreeListener(VYPListener):
         definitionSymbol = FunctionSymbol(identifier, dataType, ownerClass)
         self.currentFunctionTable.addSymbol(identifier, definitionSymbol)
         self.currentFunctionId = identifier
+        return definitionSymbol
 
     ''' Enter function symbol to global function definitions '''
 

@@ -1,3 +1,4 @@
+define parameters for embeded
 embeded functions
 Objects
 object type casting (runtime check) and check objects to it's subclasses
