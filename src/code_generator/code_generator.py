@@ -76,6 +76,44 @@ LABEL concat
 
 '''
 
+subStrFunction = f'''
+LABEL subStr
+    GETSIZE {miscRegister}, [$SP - 4] # Original string size
+    CREATE {chunkPointer}, [$SP - 2] # Chunk with size
+    SET {expressionResultReg1}, [$SP - 3] # BEGIN INDEX
+    SET $2, 0 #COUNTER
+    ADDI $1, {expressionResultReg1}, [$SP - 2]
+    LTI $1, $1, {miscRegister}
+    JUMPNZ substr_start, $1
+    SUBI $1, {miscRegister}, {expressionResultReg1}
+    
+    RESIZE {chunkPointer}, $1 
+    
+    LABEL substr_start
+    LTI $1, {expressionResultReg1}, {miscRegister}
+    JUMPZ substr_end, $1
+
+    LTI $1, $2, [$SP - 2]
+    JUMPZ substr_end, $1
+
+    GETWORD $1, [$SP-4], {expressionResultReg1}
+    SETWORD {chunkPointer}, $2, $1
+
+    ADDI $2, $2, 1
+    ADDI {expressionResultReg1}, {expressionResultReg1}, 1
+    JUMP substr_start
+    LABEL substr_end
+
+    DUMPREGS
+    DUMPSTACK
+    DUMPHEAP
+    SUBI {stackPointer}, {stackPointer}, 4
+    SET [{stackPointer}], {chunkPointer}
+    {incrementRegister(stackPointer)}
+    RETURN [{stackPointer} + 3]
+
+'''
+
 getLengthFunction = f'''
 LABEL length
 	GETSIZE {miscRegister}, [{stackPointer} - 2]
@@ -287,6 +325,7 @@ class CodeGenerator:
         print(getLengthFunction)
         print(readIntFunction)
         print(readStringFunction)
+        print(subStrFunction)
         for functionKey in self.functionDefinitions:
             print(str(self.functionDefinitions[functionKey].codeGenerator) + '\n')
         print("LABEL __END")

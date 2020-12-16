@@ -47,7 +47,18 @@ class DefinitionsTreeListener(VYPListener):
         definitionSymbol.setAsDefined()
         functionSymbol.appendParameter(definitionSymbol)
 
-        self.defineFunction('subStr', 'string')
+        functionSymbol = self.defineFunction('subStr', 'string')
+        definitionSymbol = GeneralSymbol('s', SymbolType.VARIABLE, 'string')
+        definitionSymbol.setAsDefined()
+        functionSymbol.appendParameter(definitionSymbol)
+
+        definitionSymbol = GeneralSymbol('i', SymbolType.VARIABLE, 'int')
+        definitionSymbol.setAsDefined()
+        functionSymbol.appendParameter(definitionSymbol)
+
+        definitionSymbol = GeneralSymbol('n', SymbolType.VARIABLE, 'int')
+        definitionSymbol.setAsDefined()
+        functionSymbol.appendParameter(definitionSymbol)
 
     def defineFunction(self, identifier, dataType):
         ownerClass = ""
