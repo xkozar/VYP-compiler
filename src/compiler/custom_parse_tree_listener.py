@@ -118,7 +118,17 @@ class CustomParseTreeListener(VYPListener):
                 pass
                 #raise SemanticGeneralError("No return value specified")
         self.currentFunctionReturn = False
-        self.codeGenerator.returnFromFunction(self.currentFunction)
+        setReturnValue = currentFunction.dataType != 'void'
+
+        if setReturnValue:
+            if currentFunction.dataType == 'string':
+                self.codeGenerator.generateLiteralExpression(self.currentFunction, '""', 'string')
+            else:
+                self.codeGenerator.generateLiteralExpression(self.currentFunction, 0, 'int')
+        if self.currentFunctionId != 'main':
+            self.codeGenerator.generateReturnValue(self.currentFunction, setReturnValue)
+        else:
+            self.codeGenerator.returnFromFunction(self.currentFunction)
 
     def exitIf_part(self, ctx:VYPParser.If_partContext):
         self.codeGenerator.generateIfEnd(self.currentFunction, ctx.start.line, ctx.start.column)

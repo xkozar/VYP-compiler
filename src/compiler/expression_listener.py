@@ -195,7 +195,8 @@ class ExpressionListener(CustomParseTreeListener):
             currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
         self.semanticsChecker.checkVariableAssignment(currentFunction.dataType, returnExpression.dataType)
         self.currentFunctionReturn = True
-        self.codeGenerator.generateReturnValue(self.currentFunction)
+        setReturnValue = currentFunction.dataType != 'void'
+        self.codeGenerator.generateReturnValue(self.currentFunction, setReturnValue)
 
     # TODO check empty constructor exists!!!
 

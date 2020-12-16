@@ -1,4 +1,12 @@
-void test(void)
+void main(void)
 {
+    int x;
+    x = 10;
+    test();
+    print(x);
+}
 
+void test(void){
+    int y;
+    y = 100;
 }

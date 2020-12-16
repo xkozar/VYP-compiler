@@ -146,10 +146,9 @@ class FunctionCodeGenerator:
     def returnCallCode(self):
         if self.name == 'main':
             self.returnCall += f'\tJUMP __END\n'
-        else:
-            self.returnCall += f"\tRETURN [{functionPointer} - 1]"
 
-    def generateReturnValue(self):
+
+    def generateReturnValue(self, setReturnValue):
         self.body += f'\t# Return value\n'
         #self.body += f'\tSET [{functionPointer}], [{functionPointer} - 1]\n'
         self.body += f'\tSET $2, [{functionPointer} - 1]\n'
@@ -294,8 +293,8 @@ class CodeGenerator:
     def restoreStackPointer(self, function):
         function.codeGenerator.restoreStackPointer()
 
-    def generateReturnValue(self, function):
-        function.codeGenerator.generateReturnValue()
+    def generateReturnValue(self, function, setReturnValue):
+        function.codeGenerator.generateReturnValue(setReturnValue)
 
     def generateVariableExpression(self, function, variable):
         function.codeGenerator.generateVariableExpression(variable)
