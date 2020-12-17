@@ -1,0 +1,9 @@
+void main(void)
+{
+	int x;
+	string y;
+	x = 105;
+	y = "105";
+	int z;
+	z = x < y;
+}

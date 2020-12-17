@@ -1,0 +1,8 @@
+void main(void)
+{
+	int x,y,z; 
+	x = 918;
+	y = 638;
+	z = x*y;
+	print(z);
+}

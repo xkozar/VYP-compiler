@@ -1,0 +1,7 @@
+void main(void)
+{
+	int x, y;
+	x = 105;
+	y = 105;
+	print(x != y);
+}

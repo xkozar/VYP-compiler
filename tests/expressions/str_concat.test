@@ -1,0 +1,10 @@
+void main(void)
+{
+	string str1, str2;
+	str1 = "Hello\t";
+	str2 = "world !";
+	
+	string res;
+	res = str1 + str2;
+	print(res);
+}

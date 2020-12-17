@@ -1,0 +1,8 @@
+void main(void)
+{
+	int x, y, z;
+	x = 78;
+	y = 65;
+	z = x >= y;
+	print(z);
+}
