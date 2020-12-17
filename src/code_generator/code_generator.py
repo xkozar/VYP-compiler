@@ -310,9 +310,19 @@ class FunctionCodeGenerator:
         if classSymbol.id != 'Object':
             parentVmtOffset = self.vmt.getClassVmtOffset(classSymbol.parent.id)
             self.body += f'\tSETWORD {chunkPointer}, 2, [{parentVmtOffset}]\n'
+        for index, field in enumerate(classSymbol.fieldTable.symbols.values()):
+            if field.dataType == 'string':
+                self.body += f'\tCREATE {miscRegister}, 1\n'
+                self.body += f'\tSETWORD {miscRegister}, 0, ""\n'
+                self.body += f'\tGETWORD {miscRegister}, {miscRegister}, 0\n'
+                self.body += f'\tSETWORD {chunkPointer}, {2 + index}, 0\n'
+            else:
+                self.body += f'\tSETWORD {chunkPointer}, {2 + index}, 0\n'
+        self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n'
 
-        pass
-
+            #self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], {chunkPointer}\n'
+    
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
 
