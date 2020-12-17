@@ -1,0 +1,16 @@
+void main(void)
+{
+	int x,y,z;
+	x = 0;	
+	y = 54;
+	z = -54;
+
+	if ((x > y) || (z <= (x+y)))
+	{
+		print("If");
+	}
+	else
+	{
+		print("Else");
+	}
+}
