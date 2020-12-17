@@ -1,0 +1,14 @@
+void main(void)
+{
+	int x;
+	x = 115;	
+
+	if (x)
+	{
+		print("If");
+	}
+	else
+	{
+		print("Else");
+	}
+}

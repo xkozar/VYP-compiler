@@ -1,0 +1,10 @@
+void main(void)
+{
+	int x,y,z,w;
+	x = 4;
+	y = 8;
+	z = -12;
+	w = -6;
+	z = x - y + z*2 + (99 - w) / 5;
+	print(z);
+}

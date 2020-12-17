@@ -1,0 +1,11 @@
+void fce(void)
+{
+}
+
+void main(void)
+{
+	int fce;
+	fce = 5;
+	fce();
+
+}

@@ -1,0 +1,10 @@
+void main(void)
+{
+	int number_1;
+	int number_2;
+	int number_3;
+	number_1 = 69;
+	number_2 = 23;
+	number_3 = number_1 / number_2;
+	print((number_3));
+}

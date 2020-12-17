@@ -1,0 +1,8 @@
+void main(void)
+{
+	int a,b,c;
+	a = 0;
+	b = !a;
+	print(b);
+
+}

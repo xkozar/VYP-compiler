@@ -1,0 +1,7 @@
+void main(void)
+{
+	string x, y;
+	x = "sdd df";
+	y = "sdd df";
+	print((x) != (y));
+}
