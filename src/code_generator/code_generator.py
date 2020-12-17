@@ -1,4 +1,5 @@
 from symbol_table.function_symbol import FunctionSymbol
+from symbol_table.class_symbol import ClassSymbol
 
 
 def incrementRegister(register):
@@ -138,7 +139,7 @@ LABEL readString
 
 class FunctionCodeGenerator:
 
-    def __init__(self, name, parameters):
+    def __init__(self, name, parameters, vmt):
         self.name = name
         self.label = f"LABEL {name}"
         self.header = f'''\t#Function start
@@ -149,6 +150,7 @@ class FunctionCodeGenerator:
         self.returnCall = ""
         self.parametersList = parameters
         self.variablesList = []
+        self.vmt = vmt
 
     def getVariableOffset(self, variable):
         if variable in self.variablesList:
@@ -299,6 +301,18 @@ class FunctionCodeGenerator:
         self.body += f'\tINT2STRING {miscRegister}, [{stackPointer}-1]\n\n'
         self.body += f'\tSET [{stackPointer}-1], {miscRegister}\n\n'
 
+    def generateInstance(self, classSymbol: ClassSymbol):
+        vmtOffset = self.vmt.getClassVmtOffset(classSymbol.id)
+        self.body += f'\t# Creating new instance of object\n'
+        self.body += f'\tCREATE {chunkPointer}, {classSymbol.fieldTable.getLength() + 3}\n'
+        self.body += f'\tSETWORD {chunkPointer}, 0, "{classSymbol.id}"\n'
+        self.body += f'\tSETWORD {chunkPointer}, 1, [{vmtOffset}]\n'
+        if classSymbol.id != 'Object':
+            parentVmtOffset = self.vmt.getClassVmtOffset(classSymbol.parent.id)
+            self.body += f'\tSETWORD {chunkPointer}, 2, [{parentVmtOffset}]\n'
+
+        pass
+
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
 
@@ -321,6 +335,9 @@ class VirtualMethodTableGenerator:
             self.body += f'SET [{stackPointer}], {chunkPointer}\n'
             self.body += f'{incrementRegister(stackPointer)}\n\n'
             
+    def getClassVmtOffset(self, className):
+        return self.classes.index(className)
+
     def generateCode(self):
         print(self.body)
 
@@ -360,7 +377,7 @@ class CodeGenerator:
         functionLabel = function.id
         if function.ownerClass != "":
             functionLabel = f'{function.ownerClass}:{functionLabel}'
-        function.codeGenerator = FunctionCodeGenerator(functionLabel, functionParameters.copy())
+        function.codeGenerator = FunctionCodeGenerator(functionLabel, functionParameters.copy(), self.VMTGenerator)
 
     def defineVariable(self, variableName, function, dataType):
         function.codeGenerator.defineVariable(variableName, dataType)
@@ -423,3 +440,5 @@ class CodeGenerator:
     def generateVirtualMethodTable(self, className, methods):
         self.VMTGenerator.generateVirtualMethodTable(className, methods)
 
+    def generateInstance(self, function, classSymbol):
+        function.codeGenerator.generateInstance(classSymbol)

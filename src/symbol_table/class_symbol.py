@@ -10,8 +10,8 @@ class ClassSymbol(GeneralSymbol):
         super().__init__(identifier, SymbolType.CLASS, identifier)
         self.parent = parent
         self.methodTable = PartialClassSymbolTable()
-        self.fieldTable = PartialClassSymbolTable()
-
+        self.fieldTable = parent.fieldTable.copy()
+    
     def getParent(self):
         return self.parent
 
@@ -56,6 +56,9 @@ class ClassSymbol(GeneralSymbol):
 
 
 class StubParentSymbol:
+
+    def __init__(self):
+        self.fieldTable = PartialClassSymbolTable()
 
     def getMethod(self, key):
         return None
