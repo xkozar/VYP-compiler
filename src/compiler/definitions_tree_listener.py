@@ -122,7 +122,12 @@ class DefinitionsTreeListener(VYPListener):
         self.currentFunctionTable.getSymbol(self.currentFunctionId).appendParameter(symbol)
 
     def updateFunctionTypes(self):
-        for function in self.functionTable.getAllSymbols():
+        self.updateFuntionTypesHelper(self.functionTable.getAllSymbols())
+        for classSymbol in self.classTable.getAllSymbols():
+            self.updateFuntionTypesHelper(classSymbol.methodTable.getAllCurrentSymbols())
+
+    def updateFuntionTypesHelper(self, functionList):
+        for function in functionList:
             if function.dataType not in ['int', 'void', 'string']:
                 classSymbol = self.classTable.getSymbol(function.dataType)
                 function.dataType = classSymbol

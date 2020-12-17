@@ -171,6 +171,8 @@ class ExpressionListener(CustomParseTreeListener):
 
     def enterFinal_field_expression(self, ctx:VYPParser.Final_field_expressionContext):
         lastExpression = self.expressionStack.pop()
+        if lastExpression.id == 'super':
+            raise SemanticGeneralError(f"Cannot variable on 'super' reference")
         if not isinstance(lastExpression.dataType, ClassSymbol):
             raise SemanticGeneralError(f"Cannot invoke variable on non-object data type '{lastExpression.dataType}'")
         symbol = lastExpression.dataType.getField(ctx.ID().getText())
@@ -203,6 +205,7 @@ class ExpressionListener(CustomParseTreeListener):
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
                                                 self.functionCallParametersList.copy())
         self.expressionStack.append(functionExpression)
+        self.functionCallParametersList = []
 # TODO call method        self.codeGenerator.callFunction(self.currentFunction, functionId)
 
 
@@ -212,11 +215,6 @@ class ExpressionListener(CustomParseTreeListener):
         self.expressionStack.append(variableExpression)
         # TODO generate object value
 
-        # for nestedObject in self.nestedObjectList:
-        #      variableExpression = self.processObjectInvocation(variableExpression, nestedObject)
-        #     self.nestedObjectList.append(variableExpression)
-        # self.expressionStack.append(variableExpression)
-        # self.nestedObjectList = []
 
     def exitInstance_expression(self, ctx: VYPParser.Instance_expression_valueContext):
         self.nestedObjectList = []

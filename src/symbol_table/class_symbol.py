@@ -26,6 +26,9 @@ class ClassSymbol(GeneralSymbol):
             raise SemanticGeneralError(f"Redefinition of field \'{variableSymbol.id}\' in class \'{self.id}\'")
         self.fieldTable.addSymbol(variableSymbol.id, variableSymbol)
 
+    def defineMethod(self, symbol):
+        pass
+
     # Get all methods that were directly defined in this class
     def getAllClassDefinedMethods(self):
         return self.methodTable.getAllCurrentSymbols()
