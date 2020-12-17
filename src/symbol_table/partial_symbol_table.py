@@ -54,3 +54,11 @@ class PartialClassSymbolTable(PartialSymbolTable):
         if self.symbols.get(key):
             raise SemanticGeneralError(f'Symbol with id:\'{key}\' is already defined in this class')
         self.symbols.update({key: symbol})
+
+    def getLength(self):
+        return len(list(self.symbols.keys()))
+
+    def copy(self):
+        returnValue = PartialClassSymbolTable()
+        returnValue.symbols = self.symbols.copy()
+        return returnValue

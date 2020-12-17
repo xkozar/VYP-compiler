@@ -1,7 +1,8 @@
 from antlr_generated.VYPParser import VYPParser
 from compiler import CustomParseTreeListener
 from compiler.semantics_checker import SemanticsChecker
-from compiler.custom_exceptions import SemanticTypeIncompatibilityError
+from compiler.custom_exceptions import SemanticTypeIncompatibilityError, SemanticGeneralError
+from symbol_table.class_symbol import ClassSymbol
 
 intResultOperators = ['<', '>', '<=', '>=', '==']
 
@@ -105,8 +106,10 @@ class ExpressionListener(CustomParseTreeListener):
             raise SemanticTypeIncompatibilityError("Cannot cast to 'int'.")
         self.expressionStack.append(CastExpression(expression, expressionType))
 
-    def exitFunction_expression(self, ctx: VYPParser.Function_expressionContext):
-        functionId = ctx.function_call().ID().getText()
+    def exitFunction_call(self, ctx: VYPParser.Function_callContext):
+        if isinstance(ctx.parentCtx, VYPParser.Final_method_expressionContext):
+            return
+        functionId = ctx.ID().getText()
         functionSymbol = self.functionTable.getSymbol(functionId)
         self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList,
                                                          functionSymbol.parameterList.parameters)
@@ -140,7 +143,6 @@ class ExpressionListener(CustomParseTreeListener):
         self.processBinaryExpression(ctx.operator.text)
 
     '''Nothing needs to be done, rule is just used to get proper order of operations'''
-
     def exitBracket_expression(self, ctx: VYPParser.Bracket_expressionContext):
         pass
 
@@ -155,10 +157,11 @@ class ExpressionListener(CustomParseTreeListener):
     def exitPlusminus_expression(self, ctx: VYPParser.Plusminus_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
 
-    def exitInstance_creation(self, ctx:VYPParser.Instance_creationContext):
-        classSymbol = self.getObjectFromReference(ctx.ID().getText())
+    def exitNew_expression(self, ctx:VYPParser.New_expressionContext):
+        classSymbol = self.getObjectFromReference(ctx.children[0].ID().getText())
         objectExpression = ObjectExpression(classSymbol)
         self.expressionStack.append(objectExpression)
+        self.codeGenerator.generateInstance(self.currentFunction, classSymbol)
         
     def exitLiteral_expression(self, ctx: VYPParser.Literal_expressionContext):
         dataType = 'string' if ctx.literal_value().STRING_LITERAL() is not None else 'int'
@@ -166,22 +169,54 @@ class ExpressionListener(CustomParseTreeListener):
         self.expressionStack.append(literalExpression)
         self.codeGenerator.generateLiteralExpression(self.currentFunction, ctx.literal_value().getText(), dataType)
 
-    def exitFinal_field_expression(self, ctx: VYPParser.Final_field_expressionContext):
-        variableExpression = VariableExpression(None, ctx.ID().getText())
-        self.nestedObjectList.append(variableExpression)
+    def enterFinal_field_expression(self, ctx:VYPParser.Final_field_expressionContext):
+        lastExpression = self.expressionStack.pop()
+        if lastExpression.id == 'super':
+            raise SemanticGeneralError(f"Cannot variable on 'super' reference")
+        if not isinstance(lastExpression.dataType, ClassSymbol):
+            raise SemanticGeneralError(f"Cannot invoke variable on non-object data type '{lastExpression.dataType}'")
+        symbol = lastExpression.dataType.getField(ctx.ID().getText())
+        if symbol is None:
+            raise SemanticGeneralError(f"Field '{ctx.ID().getText()}' is not defined in class '{lastExpression.dataType.id}'")
+        expression = VariableExpression(symbol.dataType, symbol.id)
+        self.expressionStack.append(expression)
+
+    def enterFinal_method_expression(self, ctx:VYPParser.Final_method_expressionContext):
+        lastExpression = self.expressionStack.pop()
+        if not isinstance(lastExpression.dataType, ClassSymbol):
+            raise SemanticGeneralError(f"Cannot invoke method on non-object data type '{lastExpression.dataType}'")
+        symbol = lastExpression.dataType.getMethod(ctx.function_call().ID().getText())
+        if symbol is None:
+            raise SemanticGeneralError(f"Method '{ctx.function_call().ID().getText()}' is not defined in class '{lastExpression.dataType.id}'")
+        expression = VariableExpression(symbol.dataType, symbol.id)
+        self.expressionStack.append(lastExpression)
+
+    # def exitFinal_field_expression(self, ctx: VYPParser.Final_field_expressionContext):
+    #     variableExpression = VariableExpression(None, ctx.ID().getText())
+    #     self.nestedObjectList.append(variableExpression)
 
     def exitFinal_method_expression(self, ctx: VYPParser.Final_method_expressionContext):
-        functionExpression = FunctionExpression(ctx.function_call().ID().getText(), None,
-                                                self.functionCallParametersList)
-        self.functionCallParametersList = []
-        self.nestedObjectList.append(functionExpression)
+        lastExpression = self.expressionStack.pop()
 
-    def exitInstance_expression_value(self, ctx: VYPParser.Instance_expression_valueContext):
-        classSymbol = self.getObjectFromReference(ctx.instance_expression().reference.text)
-        variableExpression = VariableExpression(classSymbol, ctx.instance_expression().reference.text)
-        for nestedObject in self.nestedObjectList:
-            variableExpression = self.processObjectInvocation(variableExpression, nestedObject)
+        functionId = ctx.function_call().ID().getText()
+        functionSymbol = lastExpression.dataType.getMethod(functionId)
+        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList,
+                                                         functionSymbol.parameterList.parameters)
+        functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
+                                                self.functionCallParametersList.copy())
+        self.expressionStack.append(functionExpression)
+        self.functionCallParametersList = []
+# TODO call method        self.codeGenerator.callFunction(self.currentFunction, functionId)
+
+
+    def enterInstance_expression(self, ctx: VYPParser.Instance_expression_valueContext):
+        classSymbol = self.getObjectFromReference(ctx.reference.text)
+        variableExpression = VariableExpression(classSymbol, ctx.reference.text)
         self.expressionStack.append(variableExpression)
+        # TODO generate object value
+
+
+    def exitInstance_expression(self, ctx: VYPParser.Instance_expression_valueContext):
         self.nestedObjectList = []
 
     def exitInstance_assignment(self, ctx: VYPParser.Instance_assignmentContext):
@@ -198,16 +233,20 @@ class ExpressionListener(CustomParseTreeListener):
         setReturnValue = currentFunction.dataType != 'void'
         self.codeGenerator.generateReturnValue(self.currentFunction, setReturnValue)
 
-    # TODO check empty constructor exists!!!
+
 
     def processObjectInvocation(self, baseExpression, nextExpression):
         if isinstance(nextExpression, VariableExpression):
             symbol = baseExpression.dataType.getField(nextExpression.id)
+            if symbol is None:
+                raise SemanticGeneralError(f"Field '{nextExpression.id}' is not defined in class '{baseExpression.dataType.id}'")
             expression = VariableExpression(symbol.dataType, nextExpression.id)
             # TODO generate field access
             return expression
         if isinstance(nextExpression, FunctionExpression):
             symbol = baseExpression.dataType.getMethod(nextExpression.id)
+            if symbol is None:
+                raise SemanticGeneralError(f"Method '{nextExpression.id}' is not defined in class '{baseExpression.dataType.id}'")
             expression = FunctionExpression(nextExpression.id, symbol.dataType, self.functionCallParametersList.copy())
             # TODO generate method call
             self.functionCallParametersList = []
@@ -242,8 +281,12 @@ class ExpressionListener(CustomParseTreeListener):
 
     def getObjectFromReference(self, reference):
         if reference == 'this':
+            if self.currentClass is None:
+                raise SemanticGeneralError("Cannot access 'this' reference outside of class definition")
             return self.currentClass
         if reference == 'super':
+            if self.currentClass is None:
+                raise SemanticGeneralError("Cannot access 'super' reference outside of class definition")
             return self.currentClass.parent
         return self.classTable.getSymbol(reference)
 

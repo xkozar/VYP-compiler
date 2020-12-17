@@ -42,7 +42,7 @@ class SemanticsChecker:
         if functionId == 'print':
             return self.checkPrintFunctionCall(callExpressionList)
         if len(callExpressionList) != len(callParameterList):
-            raise SemanticGeneralError
+            raise SemanticGeneralError(f"Wrong number of arguments for call of '{functionId}'")
         self.checkFunctionParametersTypes(callExpressionList, callParameterList)
 
     def checkMethodOverrideTypes(self, classTable: SymbolTable):
@@ -68,10 +68,10 @@ class SemanticsChecker:
     @staticmethod
     def checkPrintFunctionCall(callExpressionList):
         if len(callExpressionList) == 0:
-            raise SemanticGeneralError
+            raise SemanticGeneralError("Parameter list cannot be empty for 'print'")
         for callExpression in callExpressionList:
             if callExpression.dataType not in ['int', 'string']:
-                raise SemanticTypeIncompatibilityError
+                raise SemanticTypeIncompatibilityError("Print accepts only primitive data types.")
 
     @staticmethod
     def checkVariableAssignment(variableDataType, expressionDataType):
