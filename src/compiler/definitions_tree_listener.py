@@ -22,9 +22,10 @@ class DefinitionsTreeListener(VYPListener):
         return self.classTable
 
     def __defineBuiltInClasses(self):
+
         objectSymbol = ClassSymbol('Object', StubParentSymbol(), StaticPartialSymbolTable())
-        toStringSymbol = FunctionSymbol('toString', 'string')
-        getClassSymbol = FunctionSymbol('getClass', 'string')
+        toStringSymbol = FunctionSymbol('toString', 'string', 'Object')
+        getClassSymbol = FunctionSymbol('getClass', 'string', 'Object')
         objectSymbol.methodTable.addSymbol('toString', toStringSymbol)
         objectSymbol.methodTable.addSymbol('getClass', getClassSymbol)
         self.classTable.addSymbol('Object', objectSymbol)
@@ -133,3 +134,4 @@ class DefinitionsTreeListener(VYPListener):
                 continue
             classSymbol = self.classTable.getSymbol(parameter.dataType)
             parameter.dataType = classSymbol
+

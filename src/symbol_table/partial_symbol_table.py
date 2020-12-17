@@ -34,6 +34,9 @@ class PartialSymbolTable:
     def getAllCurrentSymbols(self):
         return list(self.symbols.values())
 
+    def getAllCurrentSymbolsAsDict(self):
+        return self.symbols.copy()
+
     def getAllSymbols(self):
         return self.getAllCurrentSymbols() + self.__parentClosure.getAllSymbols()
 

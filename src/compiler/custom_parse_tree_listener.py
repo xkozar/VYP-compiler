@@ -105,6 +105,7 @@ class CustomParseTreeListener(VYPListener):
         self.semanticsChecker.checkMethodOverrideTypes(self.classTable)
 
     def exitProgram(self, ctx:VYPParser.ProgramContext):
+        self.generateMethodVirtualTables()
         self.codeGenerator.generateCode()
 
     def exitFunction_body(self, ctx:VYPParser.Function_bodyContext):
@@ -157,3 +158,8 @@ class CustomParseTreeListener(VYPListener):
         if expression.dataType != 'int':
             raise SemanticTypeIncompatibilityError(f"IF expected data type 'int', got '{expression.dataType}' instead.")
         self.codeGenerator.generateIfStart(self.currentFunction, ctx.start.line, ctx.start.column)
+
+    def generateMethodVirtualTables(self):
+        for classSymbol in self.classTable.getAllSymbols():
+            allMethods = classSymbol.getAllAvailableMethods()
+            self.codeGenerator.generateVirtualMethodTable(classSymbol.id, allMethods)

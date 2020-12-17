@@ -33,6 +33,18 @@ class ClassSymbol(GeneralSymbol):
     def getMethodFromParents(self, key):
         return self.getParent().getMethod(key)
 
+    def getAllAvailableMethods(self):
+        if self.id == 'Object':
+            return self.methodTable.getAllCurrentSymbolsAsDict()
+        allMethods = self.parent.getAllAvailableMethods()
+        currentMethods = self.methodTable.getAllCurrentSymbolsAsDict()
+        for method in list(currentMethods.keys()):
+            allMethods[method] = currentMethods[method]
+        return allMethods
+
+
+
+
     def __eq__(self, other):
         if not isinstance(other, ClassSymbol):
             return False
