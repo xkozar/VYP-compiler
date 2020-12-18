@@ -1,4 +1,4 @@
-void MAIN(void)
+void main(void)
 {
 	return;
 }
