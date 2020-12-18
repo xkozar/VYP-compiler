@@ -163,8 +163,6 @@ class FunctionCodeGenerator:
     def defineVariable(self, variableName, dataType):
         self.variablesList.append(variableName)
         self.body += f'\t#Create variable {variableName}\n'
-        #self.body += f'\t{incrementRegister(stackPointer)}\n'
-        #self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], $1\n\n'
         if dataType == 'string':
             self.body += f'\tCREATE {chunkPointer}, 1\n'
             self.body += f'\tSETWORD {chunkPointer}, 0, ""\n'
@@ -208,11 +206,19 @@ class FunctionCodeGenerator:
 
     def callFunction(self, functionName):
         self.body += f'\t# Calling function {functionName}\n'
-        #self.body += f'\t{incrementRegister(stackPointer)}\n'
         self.body += f'\tSET [{stackPointer}], {functionPointer}\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n'
-        # self.body += f'\tSET [{stackPointer}], {programCounter}\n'
         self.body += f'\tCALL [{stackPointer}], {functionName}\n\n'
+
+    def callMethod(self, className, method):
+        index = self.vmt.getMethodOffset(className, method.id)
+        parametersLength = len(method.callExpressions)
+        self.body += f'\t# Calling method {method.id}\n'
+        self.body += f'\tGETWORD {miscRegister}, [{stackPointer}-{1+parametersLength}], 1\n'
+        self.body += f'\tGETWORD {miscRegister}, {miscRegister}, {index}\n'
+        self.body += f'\tSET [{stackPointer}], {functionPointer}\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n'
+        self.body += f'\tCALL [{stackPointer}], {miscRegister}\n\n'
 
     def restoreStackPointer(self):
         self.body += f'\t# Restore stack pointer\n'
@@ -347,17 +353,20 @@ class VirtualMethodTableGenerator:
         self.classes = []
         self.methodsTable = {}
 
+    def getMethodOffset(self, className, methodName):
+        return self.methodsTable[className].index(methodName)
+
     def generateVirtualMethodTable(self, className, methods):
         if self.methodsTable.get(className) is None:
             self.methodsTable[className] = []
         self.classes.append(className)
         self.body += f'# VMT of class {className}\n'
         self.body += f'CREATE {chunkPointer}, {len(list(methods.keys()))}\n'
+        self.body += f'SET [{stackPointer}], {chunkPointer}\n'
+        self.body += f'{incrementRegister(stackPointer)}\n\n'
         for index, methodName in enumerate(list(methods.keys())):
             self.methodsTable[className].append(methodName)
             self.body += f'SETWORD {chunkPointer}, {index}, "{methods[methodName].ownerClass}:{methodName}"\n'
-            self.body += f'SET [{stackPointer}], {chunkPointer}\n'
-            self.body += f'{incrementRegister(stackPointer)}\n\n'
             
     def getClassVmtOffset(self, className):
         return self.classes.index(className)
@@ -397,7 +406,7 @@ class CodeGenerator:
         print("LABEL __END")
 
     def generateFunctionHeader(self, function: FunctionSymbol, functionParameters):
-        self.functionDefinitions[function.id] = function
+        self.functionDefinitions[f'{function.ownerClass}:{function.id}'] = function
         functionLabel = function.id
         if function.ownerClass != "":
             functionLabel = f'{function.ownerClass}:{functionLabel}'
@@ -424,6 +433,9 @@ class CodeGenerator:
 
     def callFunction(self, function, functionToCall):
         function.codeGenerator.callFunction(functionToCall)
+
+    def callMethod(self, function, className, method):
+        function.codeGenerator.callMethod(className, method)
 
     def returnFromFunction(self, function):
         function.codeGenerator.returnCallCode()

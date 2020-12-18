@@ -194,9 +194,9 @@ class ExpressionListener(CustomParseTreeListener):
         self.expressionStack.append(lastExpression)
         self.nestedObjectList.append(lastExpression)
 
-    # def exitFinal_field_expression(self, ctx: VYPParser.Final_field_expressionContext):
-    #     variableExpression = VariableExpression(None, ctx.ID().getText())
-    #     self.nestedObjectList.append(variableExpression)
+    # def exitFinal_method_expression(self, ctx:VYPParser.Final_method_expressionContext):
+    #     pass
+    #     self.codeGenerator.callMethod(self.currentFunction, )
 
     def exitFinal_method_expression(self, ctx: VYPParser.Final_method_expressionContext):
         lastExpression = self.expressionStack.pop()
@@ -207,6 +207,8 @@ class ExpressionListener(CustomParseTreeListener):
                                                          functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
                                                 self.functionCallParametersList.copy())
+        self.codeGenerator.callMethod(self.currentFunction, lastExpression.dataType.id, functionExpression)
+
         self.expressionStack.append(functionExpression)
         self.functionCallParametersList = []
 # TODO call method        self.codeGenerator.callFunction(self.currentFunction, functionId)
@@ -216,7 +218,6 @@ class ExpressionListener(CustomParseTreeListener):
         self.nestedObjectList = []
         classSymbol = self.getObjectFromReference(ctx.reference.text)
         variableExpression = VariableExpression(classSymbol, ctx.reference.text)
-        self.codeGenerator.generateVariableExpression(self.currentFunction, ctx.reference.text)
         self.expressionStack.append(variableExpression)
         self.nestedObjectList.append(variableExpression)
         # TODO generate object value
@@ -273,6 +274,7 @@ class ExpressionListener(CustomParseTreeListener):
                 raise SemanticGeneralError("Cannot access 'super' reference outside of class definition")
             return self.currentClass.parent
         symbol = self.localSymbolTable.getSymbol(reference)
+        self.codeGenerator.generateVariableExpression(self.currentFunction, reference)
         return symbol.dataType
 
     def exitStatement(self, ctx):
