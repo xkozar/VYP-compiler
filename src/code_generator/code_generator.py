@@ -22,6 +22,7 @@ binaryOperationsIntMap = {
     '||': 'OR'
 }
 
+singleNameOperations = ['||', '&&']
 
 stackPointer = '$SP'
 functionPointer = '$FP'
@@ -250,7 +251,10 @@ class FunctionCodeGenerator:
             postFix = 'I'
         if instruction in binaryOperationsIntMap.keys():
             self.body += f'\t# Binary expression\n'
-            self.body += f'\t{binaryOperationsIntMap[instruction]}{postFix} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            if instruction in singleNameOperations:
+                self.body += f'\t{binaryOperationsIntMap[instruction]} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
+            else:
+                self.body += f'\t{binaryOperationsIntMap[instruction]}{postFix} {expressionResultReg1}, [{stackPointer} -2], [{stackPointer} -1]\n'
             self.body += f'\tSET [{stackPointer} - 2], {expressionResultReg1}\n'
             self.body += f'\t{decrementRegister(stackPointer)}\n\n'
         elif instruction == '<=':
