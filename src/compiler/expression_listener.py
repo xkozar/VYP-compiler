@@ -179,7 +179,9 @@ class ExpressionListener(CustomParseTreeListener):
         if symbol is None:
             raise SemanticGeneralError(f"Field '{ctx.ID().getText()}' is not defined in class '{lastExpression.dataType.id}'")
         expression = VariableExpression(symbol.dataType, symbol.id)
-        self.codeGenerator.generateFieldExpression(self.currentFunction, self.nestedObjectList[-1].dataType, symbol.id)
+        if not isinstance(ctx.parentCtx.parentCtx.parentCtx, VYPParser.Instance_assignmentContext):
+            self.codeGenerator.generateFieldExpression(self.currentFunction, self.nestedObjectList[-1].dataType, symbol.id, 0)
+            pass
         self.expressionStack.append(expression)
         self.nestedObjectList.append(expression)
 
@@ -221,6 +223,12 @@ class ExpressionListener(CustomParseTreeListener):
         self.expressionStack.append(variableExpression)
         self.nestedObjectList.append(variableExpression)
         # TODO generate object value
+
+    def exitInstance_expression(self, ctx: VYPParser.Instance_expression_valueContext):
+        pass
+        if not isinstance(ctx.parentCtx, VYPParser.Instance_assignmentContext):
+            #self.codeGenerator.decreaseStackPointer(self.currentFunction, len(self.nestedObjectList)-1)
+            pass
 
     def exitInstance_assignment(self, ctx: VYPParser.Instance_assignmentContext):
         self.codeGenerator.assignValueToField(self.currentFunction, self.nestedObjectList[-2].dataType, self.nestedObjectList[-1].id)
@@ -268,6 +276,7 @@ class ExpressionListener(CustomParseTreeListener):
         if reference == 'this':
             if self.currentClass is None:
                 raise SemanticGeneralError("Cannot access 'this' reference outside of class definition")
+            self.codeGenerator.generateVariableExpression(self.currentFunction, reference)
             return self.currentClass
         if reference == 'super':
             if self.currentClass is None:

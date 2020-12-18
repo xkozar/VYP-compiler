@@ -153,6 +153,10 @@ class FunctionCodeGenerator:
         self.vmt = vmt
 
     def getVariableOffset(self, variable):
+        if variable == 'this':
+            value = -3 - len(self.parametersList)
+            return f'{value}'
+            #value = 
         if variable in self.variablesList:
             value = self.variablesList.index(variable)
             return f'+ {value}'
@@ -184,7 +188,6 @@ class FunctionCodeGenerator:
         self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
-
     def assignValueToVariable(self, variable):
         self.body += f'\t# Variable assignment {variable}\n'
         self.body += f'\t{decrementRegister(stackPointer)}\n'        
@@ -194,14 +197,18 @@ class FunctionCodeGenerator:
         self.body += f'\t# Field assignment \'{fieldName}\'\n'
         self.body += f'\tSUBI {stackPointer}, {stackPointer}, 2\n'  
         index = list(classSymbol.fieldTable.symbols.keys()).index(fieldName)
-        self.body += f'\tSETWORD [{stackPointer} - 1], {3 + index}, [{stackPointer} + 1]\n\n'
+        self.body += f'\tSETWORD [{stackPointer}], {3 + index}, [{stackPointer} + 1]\n\n'
 
-    def fieldExpression(self, classSymbol, fieldName):
+    def fieldExpression(self, classSymbol, fieldName, toDecrease):
         self.body += f'\t# Field expression \'{fieldName}\'\n'
         index = list(classSymbol.fieldTable.symbols.keys()).index(fieldName)
         self.body += f'\tGETWORD {miscRegister}, [{stackPointer} - 1], {3 + index}\n'
-        self.body += f'\tSET [{stackPointer}-1], {miscRegister}\n'
-        #self.body += f'\t{incrementRegister(stackPointer)}\n\n'
+        self.body += f'\tSET [{stackPointer}-1], {miscRegister}\n\n'
+
+
+    def decreaseStackPointer(self, count):
+        self.body += f'\t# Decrease $SP by {count}\n'
+        self.body += f'\tSUBI {stackPointer}, {stackPointer}, {count}\n\n'
 
 
     def callFunction(self, functionName):
@@ -242,6 +249,11 @@ class FunctionCodeGenerator:
 
     def generateVariableExpression(self, variable):
         self.body += f'\t# Variable expression \'{variable}\'\n'
+        self.body += f'\tSET [{stackPointer}], [{functionPointer}{self.getVariableOffset(variable)}]\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n\n'
+    
+    def generateSelfExpression(self):
+        self.body += f'\t# Self expression \'{variable}\'\n'
         self.body += f'\tSET [{stackPointer}], [{functionPointer}{self.getVariableOffset(variable)}]\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
@@ -339,7 +351,7 @@ class FunctionCodeGenerator:
             else:
                 self.body += f'\tSETWORD {chunkPointer}, {3 + index}, 0\n'
         self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
-        self.body += f'\t{incrementRegister(stackPointer)}\n'
+        self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
             #self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], {chunkPointer}\n'
     
@@ -428,8 +440,8 @@ class CodeGenerator:
     def assignValueToField(self, function, classSymbol, variableName):
         function.codeGenerator.assignValueToField(classSymbol, variableName)
 
-    def generateFieldExpression(self, function, classSymbol, variableName):
-        function.codeGenerator.fieldExpression(classSymbol, variableName)
+    def generateFieldExpression(self, function, classSymbol, variableName, toDecrease):
+        function.codeGenerator.fieldExpression(classSymbol, variableName, toDecrease)
 
     def callFunction(self, function, functionToCall):
         function.codeGenerator.callFunction(functionToCall)
@@ -484,3 +496,6 @@ class CodeGenerator:
 
     def generateInstance(self, function, classSymbol):
         function.codeGenerator.generateInstance(classSymbol)
+
+    def decreaseStackPointer(self, function, count):
+        function.codeGenerator.decreaseStackPointer(count)
