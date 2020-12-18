@@ -192,6 +192,20 @@ class FunctionCodeGenerator:
         self.body += f'\t{decrementRegister(stackPointer)}\n'        
         self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variable)}], [{stackPointer}]\n\n'
 
+    def assignValueToField(self, classSymbol, fieldName):
+        self.body += f'\t# Field assignment \'{fieldName}\'\n'
+        self.body += f'\tSUBI {stackPointer}, {stackPointer}, 2\n'  
+        index = list(classSymbol.fieldTable.symbols.keys()).index(fieldName)
+        self.body += f'\tSETWORD [{stackPointer} - 1], {3 + index}, [{stackPointer} + 1]\n\n'
+
+    def fieldExpression(self, classSymbol, fieldName):
+        self.body += f'\t# Field expression \'{fieldName}\'\n'
+        index = list(classSymbol.fieldTable.symbols.keys()).index(fieldName)
+        self.body += f'\tGETWORD {miscRegister}, [{stackPointer} - 1], {3 + index}\n'
+        self.body += f'\tSET [{stackPointer}-1], {miscRegister}\n'
+        #self.body += f'\t{incrementRegister(stackPointer)}\n\n'
+
+
     def callFunction(self, functionName):
         self.body += f'\t# Calling function {functionName}\n'
         #self.body += f'\t{incrementRegister(stackPointer)}\n'
@@ -221,7 +235,7 @@ class FunctionCodeGenerator:
         self.body += f"\tRETURN $2\n"
 
     def generateVariableExpression(self, variable):
-        self.body += f'\t# Variable expression\n'
+        self.body += f'\t# Variable expression \'{variable}\'\n'
         self.body += f'\tSET [{stackPointer}], [{functionPointer}{self.getVariableOffset(variable)}]\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
@@ -303,7 +317,7 @@ class FunctionCodeGenerator:
 
     def generateInstance(self, classSymbol: ClassSymbol):
         vmtOffset = self.vmt.getClassVmtOffset(classSymbol.id)
-        self.body += f'\t# Creating new instance of object\n'
+        self.body += f'\t# Creating new instance of object {classSymbol.id}\n'
         self.body += f'\tCREATE {chunkPointer}, {classSymbol.fieldTable.getLength() + 3}\n'
         self.body += f'\tSETWORD {chunkPointer}, 0, "{classSymbol.id}"\n'
         self.body += f'\tSETWORD {chunkPointer}, 1, [{vmtOffset}]\n'
@@ -315,9 +329,9 @@ class FunctionCodeGenerator:
                 self.body += f'\tCREATE {miscRegister}, 1\n'
                 self.body += f'\tSETWORD {miscRegister}, 0, ""\n'
                 self.body += f'\tGETWORD {miscRegister}, {miscRegister}, 0\n'
-                self.body += f'\tSETWORD {chunkPointer}, {2 + index}, 0\n'
+                self.body += f'\tSETWORD {chunkPointer}, {3 + index}, 0\n'
             else:
-                self.body += f'\tSETWORD {chunkPointer}, {2 + index}, 0\n'
+                self.body += f'\tSETWORD {chunkPointer}, {3 + index}, 0\n'
         self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n'
 
@@ -401,6 +415,12 @@ class CodeGenerator:
 
     def assignValueToVariable(self, function, variableName):
         function.codeGenerator.assignValueToVariable(variableName)
+
+    def assignValueToField(self, function, classSymbol, variableName):
+        function.codeGenerator.assignValueToField(classSymbol, variableName)
+
+    def generateFieldExpression(self, function, classSymbol, variableName):
+        function.codeGenerator.fieldExpression(classSymbol, variableName)
 
     def callFunction(self, function, functionToCall):
         function.codeGenerator.callFunction(functionToCall)
