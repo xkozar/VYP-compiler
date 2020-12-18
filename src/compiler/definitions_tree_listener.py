@@ -125,6 +125,8 @@ class DefinitionsTreeListener(VYPListener):
         self.updateFuntionTypesHelper(self.functionTable.getAllSymbols())
         for classSymbol in self.classTable.getAllSymbols():
             self.updateFuntionTypesHelper(classSymbol.methodTable.getAllCurrentSymbols())
+            if classSymbol.id != 'Object':
+                classSymbol.parent.dataType = self.classTable.getSymbol(classSymbol.parent.dataType)
 
     def updateFuntionTypesHelper(self, functionList):
         for function in functionList:

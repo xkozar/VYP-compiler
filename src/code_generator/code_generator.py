@@ -224,8 +224,12 @@ class FunctionCodeGenerator:
         self.body += f'\tSET $2, [{functionPointer} - 1]\n'
         self.body += f'\tSET $3, [{functionPointer} - 2]\n'
         self.body += f'\t{decrementRegister(stackPointer)}\n'
-        self.body += f'\tSET [{functionPointer} - {2 + len(self.parametersList)}], [{stackPointer}]\n'
+        if setReturnValue:
+            self.body += f'\tSET [{functionPointer} - {2 + len(self.parametersList)}], [{stackPointer}]\n'
         self.body += f'\tSUBI {stackPointer}, {functionPointer}, {1 + len(self.parametersList)}\n'
+        if not setReturnValue:
+            self.body += f'\t{decrementRegister(stackPointer)}\n'
+        
         self.body += f'\tSET {functionPointer}, $3\n'
         self.body += f"\tRETURN $2\n"
 

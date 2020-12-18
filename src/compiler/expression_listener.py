@@ -163,6 +163,19 @@ class ExpressionListener(CustomParseTreeListener):
         objectExpression = ObjectExpression(classSymbol)
         self.expressionStack.append(objectExpression)
         self.codeGenerator.generateInstance(self.currentFunction, classSymbol)
+        self.triggerParentContructor(objectExpression)
+
+    def triggerParentContructor(self, objectExpression):
+        if objectExpression.dataType.id == 'Object':
+            return
+        self.triggerParentContructor(objectExpression.dataType.parent)
+        constructorSymbol = objectExpression.dataType.methodTable.getSymbol(objectExpression.dataType.id)
+
+        functionExpression = FunctionExpression(constructorSymbol.id, constructorSymbol.dataType, [])
+
+        if constructorSymbol.id == constructorSymbol.ownerClass:
+            self.codeGenerator.callMethod(self.currentFunction, objectExpression.dataType.id, functionExpression)
+        pass
         
     def exitLiteral_expression(self, ctx: VYPParser.Literal_expressionContext):
         dataType = 'string' if ctx.literal_value().STRING_LITERAL() is not None else 'int'
