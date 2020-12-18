@@ -1,3 +1,5 @@
+**/*.output
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -130,7 +132,11 @@ dmypy.json
 
 .idea/
 
+
 vypint-1.0.jar
 .vscode/
-
-**/*.output
+*.output
+*.int
+output
+test.vyp
+TODO

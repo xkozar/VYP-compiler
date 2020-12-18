@@ -69,7 +69,8 @@ literal_value
     :   INTEGER_LITERAL
     |   STRING_LITERAL;
 
-instance_expression: reference=(SUPER | THIS | ID) nested_object;
+first_instance: (reference=(SUPER | THIS | ID) | function_call);
+instance_expression: first_instance nested_object;
 
 instance_creation: NEW ID;
 nested_object

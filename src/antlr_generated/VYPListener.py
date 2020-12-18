@@ -368,6 +368,15 @@ class VYPListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by VYPParser#first_instance.
+    def enterFirst_instance(self, ctx:VYPParser.First_instanceContext):
+        pass
+
+    # Exit a parse tree produced by VYPParser#first_instance.
+    def exitFirst_instance(self, ctx:VYPParser.First_instanceContext):
+        pass
+
+
     # Enter a parse tree produced by VYPParser#instance_expression.
     def enterInstance_expression(self, ctx:VYPParser.Instance_expressionContext):
         pass

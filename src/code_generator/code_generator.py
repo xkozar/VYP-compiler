@@ -31,24 +31,6 @@ expressionResultReg2 = '$5'
 chunkPointer = '$6'
 miscRegister = '$7'
 
-printIntFunction = '''
-LABEL printi
-	WRITEI [$SP - 2]
-    WRITES "\\n"
-	SUBI $SP, $SP, 2
-	RETURN [$SP + 2]
-
-'''
-
-printStringFunction = '''
-LABEL prints
-	WRITES [$SP - 2]
-    WRITES "\\n"
-	SUBI $SP, $SP, 2
-	RETURN [$SP + 2]
-
-'''
-
 concatenationFunction = f'''
 LABEL concat
     GETSIZE {expressionResultReg1}, [$SP - 3] # Left string
@@ -353,8 +335,15 @@ class FunctionCodeGenerator:
         self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n\n'
 
-            #self.body += f'\tSET [{functionPointer}{self.getVariableOffset(variableName)}], {chunkPointer}\n'
-    
+    def generatePrint(self, parameters):
+        self.body += f'\t# Print variables\n'
+        for index, parameter in enumerate(parameters[::-1]):
+            if parameter.dataType == 'string':
+                self.body += f'\tWRITES [$SP{- len(parameters) + index}]\n'
+            else:
+                self.body += f'\tWRITEI [$SP{- len(parameters) + index}]\n'
+
+
     def __str__(self):
         return '\n'.join([self.label, self.header, self.body, self.returnCall])
 
@@ -398,8 +387,6 @@ class CodeGenerator:
         self.VMTGenerator = VirtualMethodTableGenerator()
     
     def generateEmbeddedFunctions(self):
-        print(printIntFunction)
-        print(printStringFunction)
         print(concatenationFunction)
         print(getLengthFunction)
         print(readIntFunction)
@@ -499,3 +486,6 @@ class CodeGenerator:
 
     def decreaseStackPointer(self, function, count):
         function.codeGenerator.decreaseStackPointer(count)
+
+    def generatePrint(self, function, parameters):
+        function.codeGenerator.generatePrint(parameters)
