@@ -19,7 +19,7 @@ testCases = list(map(lambda testCase: testCase.replace(testSuffix, ''), testFile
 for testCase in testCases:
     resultFile = open(testCase + testResultSuffix, 'r')
     outputFile = open(testCase + testOutputSuffix, 'w')
-    process = subprocess.Popen(['python', 'src/main.py', f'{testCase}{testSuffix}'], stdout=outputFile, stderr=outputFile)
+    process = subprocess.Popen(['python3', 'src/main.py', f'{testCase}{testSuffix}'], stdout=outputFile, stderr=outputFile)
     process.communicate()
     expectedReturnCode = int(resultFile.readline().strip())
     if process.returncode != expectedReturnCode:
