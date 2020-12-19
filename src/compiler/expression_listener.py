@@ -249,11 +249,19 @@ class ExpressionListener(CustomParseTreeListener):
         self.nestedObjectList = []
 
     def exitReturn_statement(self, ctx: VYPParser.Return_statementContext):
-        returnExpression = self.expressionStack.pop()
         if self.currentClass == None:
             currentFunction = self.functionTable.getSymbol(self.currentFunctionId)
         else:
             currentFunction = self.currentClass.methodTable.getSymbol(self.currentFunctionId)
+        if ctx.expression() is None:
+            if currentFunction.dataType != 'void':
+                raise SemanticGeneralError(f"Return statement must contain expression for non-void functions")
+            self.codeGenerator.generateReturnValue(self.currentFunction, False)
+            return
+        if currentFunction.dataType == 'void':
+            raise SemanticGeneralError(f"Void functions cannot return expression")
+
+        returnExpression = self.expressionStack.pop()
         self.semanticsChecker.checkVariableAssignment(currentFunction.dataType, returnExpression.dataType)
         self.currentFunctionReturn = True
         setReturnValue = currentFunction.dataType != 'void'

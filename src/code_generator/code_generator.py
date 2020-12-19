@@ -251,6 +251,8 @@ class FunctionCodeGenerator:
 
     def generateReturnValue(self, setReturnValue):
         self.body += f'\t# Return value\n'
+        if self.name == 'main':
+            self.body += f'\tJUMP __END\n'
         #self.body += f'\tSET [{functionPointer}], [{functionPointer} - 1]\n'
         self.body += f'\tSET $2, [{functionPointer} - 1]\n'
         self.body += f'\tSET $3, [{functionPointer} - 2]\n'
@@ -364,10 +366,7 @@ class FunctionCodeGenerator:
             self.body += f'\tSETWORD {chunkPointer}, 2, [{parentVmtOffset}]\n'
         for index, field in enumerate(classSymbol.fieldTable.symbols.values()):
             if field.dataType == 'string':
-                self.body += f'\tCREATE {miscRegister}, 1\n'
-                self.body += f'\tSETWORD {miscRegister}, 0, ""\n'
-                self.body += f'\tGETWORD {miscRegister}, {miscRegister}, 0\n'
-                self.body += f'\tSETWORD {chunkPointer}, {3 + index}, 0\n'
+                self.body += f'\tSETWORD {chunkPointer}, {3 + index}, ""\n'
             else:
                 self.body += f'\tSETWORD {chunkPointer}, {3 + index}, 0\n'
         self.body += f'\tSET [{stackPointer}], {chunkPointer}\n'
