@@ -26,4 +26,4 @@ class GeneralSymbol:
         return self.dataType == other.dataType
 
     def __str__(self):
-        return f'Symbol(id: {self.id}, type: {self.symbolType}, dataType: {self.dataType}'
+        return f'Symbol(id: {self.id}, type: {self.symbolType}, dataType: {self.dataType.id or self.dataType}'

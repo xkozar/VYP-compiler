@@ -51,7 +51,10 @@ class ClassSymbol(GeneralSymbol):
     def __eq__(self, other):
         if not isinstance(other, ClassSymbol):
             return False
-        if self.dataType == other.dataType:
+        if isinstance(self.dataType, str):
+            if self.dataType == other.dataType:
+                return True
+        elif self.dataType.id == other.dataType.id:
             return True
         return self.__eq__(other.getParent())
         
