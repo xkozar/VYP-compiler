@@ -1,0 +1,35 @@
+void main(void) {
+
+	Rectangle r;
+	r = new Rectangle;
+
+	string res;
+
+	r.setID("7");
+	res = r.getID();
+
+	print(res);
+}
+
+
+
+class Shape : Object {
+
+	int id;
+	void Shape(void) {}
+
+	void setID(int x) { this.id = x; }
+
+	int getID(void) { return this.id; }
+}
+
+class Rectangle : Shape {
+
+	string textID;
+	void Rectangle(void) {}
+	
+	void setID(string text) { this.textID = text; }
+	string getID(void) { return this.textID; }
+
+}
+

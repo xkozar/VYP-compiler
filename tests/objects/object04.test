@@ -1,0 +1,18 @@
+void main(void)
+{
+	Shape a;
+	a = new Shape;
+	print(a.id);
+
+}
+
+class Shape : Object
+{
+	int id;
+
+	void Shape(void) { this.id = 6; print("Shape constructor"); }
+
+
+}
+
+

@@ -1,0 +1,27 @@
+void main(void) {
+
+	Rectangle r;
+	r = new Rectangle;
+
+	int res;
+	res = r.getID();
+
+	print(res);
+}
+
+
+
+class Shape : Object {
+
+	int id;
+	void Shape(void) {}
+}
+
+class Rectangle : Shape {
+
+	int ID;
+	void Rectangle(void) {}
+	
+	int getID(void) { return this.ID; }
+}
+

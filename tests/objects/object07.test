@@ -1,0 +1,33 @@
+void main(void)
+{
+	Rectangle r;
+	r = new Rectangle;
+	r.set_width(5);
+	r.set_height(8);
+
+	print(r.area());
+}
+
+
+
+class Shape : Object {
+
+	int id;
+
+	void Shape(void) {}
+
+	string toString(void) { return "instance of Shape " + (string)(this.id); }
+}
+
+
+class Rectangle : Shape {
+
+	int height, width;
+
+	void set_width(int x) { this.width = x; }
+	void set_height(int x) { this.height = x; }
+
+
+	int area(void) { return this.height * this.width; }
+}
+

@@ -1,0 +1,26 @@
+void main(void)
+{
+	Circle c;
+	c = new Circle;
+	print(c.r);
+
+
+}
+
+class Shape : Object
+{
+	int id;
+
+	void Shape(void) { print("Shape constructor\n"); }
+
+
+}
+
+
+class Circle : Shape
+{
+	int r;
+	void Circle(void) { print("Circle constructor\n"); }
+
+
+}

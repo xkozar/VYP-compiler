@@ -1,0 +1,55 @@
+void main(void)
+{
+	int x,y;
+	x = 5;
+	y = 9;
+
+	int res;
+		
+	res = 1 * mul( 
+					sum(
+						sum(x,y),
+						div(y,3) 
+						), 
+					sub(
+						mul(x,9), 
+						mul(2,2)
+						) 
+				);
+
+	print_result(res);
+}
+
+void print_result(int x)
+{
+	print(x);
+}
+
+int sum(int a, int b)
+{
+	int res;
+	res = a + b;
+	return res;
+}
+
+
+int mul(int a, int b)
+{
+	return a * b;
+}
+
+int sub(int a, int b)
+{
+	return a-b;
+}
+
+
+int div(int a, int b)
+{
+	int res;
+	res = a / b;
+	return res;
+}
+
+
+
