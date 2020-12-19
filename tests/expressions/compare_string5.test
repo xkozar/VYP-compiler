@@ -1,0 +1,8 @@
+void main(void)
+{
+	string a,b;
+	a = "abc d";
+	b= "abc ";
+	print(a >= b);
+
+}

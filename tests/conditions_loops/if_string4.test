@@ -1,0 +1,13 @@
+void main(void)
+{
+	if ("str " < "str")
+	{
+		print("OK");
+	}
+	else
+	{
+		print("fail");
+	}
+
+
+}

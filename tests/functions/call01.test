@@ -1,0 +1,10 @@
+int fce(int x)
+{
+	return x;
+}
+
+void main(void)
+{
+	print(fce(5));
+
+}
