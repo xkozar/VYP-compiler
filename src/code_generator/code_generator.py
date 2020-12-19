@@ -95,6 +95,24 @@ LABEL subStr
 
 '''
 
+toStringFunction = f'''
+LABEL Object:toString
+    INT2STRING {miscRegister}, [{stackPointer} - 2] 
+	SUBI {stackPointer}, {stackPointer}, 1
+    SET [{stackPointer} - 1], {miscRegister}
+	RETURN [{stackPointer} + 1]
+
+'''
+
+getClassFunction = f'''
+LABEL Object:getClass
+	GETWORD {miscRegister}, [{stackPointer} - 2], 0
+	SUBI {stackPointer}, {stackPointer}, 1
+    SET [{stackPointer} - 1], {miscRegister}
+	RETURN [{stackPointer} + 1]
+
+'''
+
 getLengthFunction = f'''
 LABEL length
 	GETSIZE {miscRegister}, [{stackPointer} - 2]
@@ -396,6 +414,8 @@ class CodeGenerator:
         self.VMTGenerator = VirtualMethodTableGenerator()
     
     def generateEmbeddedFunctions(self):
+        print(toStringFunction)
+        print(getClassFunction)
         print(concatenationFunction)
         print(getLengthFunction)
         print(readIntFunction)
