@@ -59,6 +59,8 @@ class CustomParseTreeListener(VYPListener):
             ctx.variable_type().getText())
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
+        if self.functionTable.isSymbolDefined(ctx.ID().getText()):
+            raise SemanticGeneralError(f"There is already function with id: {ctx.ID().getText()} defined")
         self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, variableType)
 
     ''' Data type of variable must be taken from parent context'''

@@ -63,6 +63,17 @@ LABEL concat
 subStrFunction = f'''
 LABEL subStr
     GETSIZE {miscRegister}, [$SP - 4] # Original string size
+
+    GTI {expressionResultReg1}, [$SP - 3], {miscRegister}
+    LTI {expressionResultReg2}, [$SP - 3], 0
+    OR {expressionResultReg1}, {expressionResultReg1}, {expressionResultReg2}
+    JUMPZ __subStrStart, {expressionResultReg1}
+    CREATE {chunkPointer}, 1
+    SETWORD {chunkPointer}, 0, ""
+    GETWORD {chunkPointer}, {chunkPointer}, 0
+    JUMP substr_end
+
+    LABEL __subStrStart
     CREATE {chunkPointer}, [$SP - 2] # Chunk with size
     SET {expressionResultReg1}, [$SP - 3] # BEGIN INDEX
     SET $2, 0 #COUNTER
