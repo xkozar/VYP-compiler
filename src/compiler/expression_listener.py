@@ -186,7 +186,7 @@ class ExpressionListener(CustomParseTreeListener):
     def enterFinal_field_expression(self, ctx:VYPParser.Final_field_expressionContext):
         lastExpression = self.expressionStack.pop()
         if lastExpression.id == 'super':
-            raise SemanticGeneralError(f"Cannot variable on 'super' reference")
+            raise SemanticGeneralError(f"Cannot invoke variable on 'super' reference")
         if not isinstance(lastExpression.dataType, ClassSymbol):
             raise SemanticGeneralError(f"Cannot invoke variable on non-object data type '{lastExpression.dataType}'")
         symbol = lastExpression.dataType.getField(ctx.ID().getText())
@@ -223,7 +223,7 @@ class ExpressionListener(CustomParseTreeListener):
                                                          functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
                                                 self.functionCallParametersList.copy())
-        self.codeGenerator.callMethod(self.currentFunction, lastExpression.dataType.id, functionExpression)
+        self.codeGenerator.callMethod(self.currentFunction, lastExpression.dataType.id, functionExpression, lastExpression.id == 'super')
 
         self.expressionStack.append(functionExpression)
         self.functionCallParametersList = []
@@ -297,6 +297,7 @@ class ExpressionListener(CustomParseTreeListener):
         if reference == 'super':
             if self.currentClass is None:
                 raise SemanticGeneralError("Cannot access 'super' reference outside of class definition")
+            self.codeGenerator.generateVariableExpression(self.currentFunction, 'this')
             return self.currentClass.parent
         symbol = self.localSymbolTable.getSymbol(reference)
         self.codeGenerator.generateVariableExpression(self.currentFunction, reference)

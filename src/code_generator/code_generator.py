@@ -200,11 +200,12 @@ class FunctionCodeGenerator:
         self.body += f'\t{incrementRegister(stackPointer)}\n'
         self.body += f'\tCALL [{stackPointer}], {functionName}\n\n'
 
-    def callMethod(self, className, method):
+    def callMethod(self, className, method, useSuper):
         index = self.vmt.getMethodOffset(className, method.id)
         parametersLength = len(method.callExpressions)
+        vmtIndex = 2 if useSuper else 1
         self.body += f'\t# Calling method {method.id}\n'
-        self.body += f'\tGETWORD {miscRegister}, [{stackPointer}-{1+parametersLength}], 1\n'
+        self.body += f'\tGETWORD {miscRegister}, [{stackPointer}-{1+parametersLength}], {vmtIndex}\n'
         self.body += f'\tGETWORD {miscRegister}, {miscRegister}, {index}\n'
         self.body += f'\tSET [{stackPointer}], {functionPointer}\n'
         self.body += f'\t{incrementRegister(stackPointer)}\n'
@@ -441,8 +442,8 @@ class CodeGenerator:
     def callFunction(self, function, functionToCall):
         function.codeGenerator.callFunction(functionToCall)
 
-    def callMethod(self, function, className, method):
-        function.codeGenerator.callMethod(className, method)
+    def callMethod(self, function, className, method, useSuper=False):
+        function.codeGenerator.callMethod(className, method, useSuper)
 
     def returnFromFunction(self, function):
         function.codeGenerator.returnCallCode()

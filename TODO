@@ -1,4 +1,3 @@
-super reference
 wrong symbols in dot notation
 check constructor is void type and takes void parameter only
 built-in methods
@@ -6,9 +5,9 @@ MAKEFILE set path to antlr
 return in main is just exit
 allow empty returns
 check void main
+variables cant have same name as functions and classes
 
 NICE TO HAVE:
 object type casting (runtime check) and check objects to it's subclasses
 variable overlapping(shadowing)
-variables cant have same name as functions and classes
 lexical errors
