@@ -16,6 +16,9 @@ for fileNames in walk("./tests"):
 testFileNames = list(filter(lambda fileName: fileName.endswith(testSuffix), allFileNames))
 testCases = list(map(lambda testCase: testCase.replace(testSuffix, ''), testFileNames))
 
+passed = 0
+failed = 0
+
 for testCase in testCases:
     compilationOK = True
     resultFile = open(testCase + testResultSuffix, 'r')
@@ -25,9 +28,11 @@ for testCase in testCases:
     expectedReturnCode = int(resultFile.readline().strip())
     if process.returncode != expectedReturnCode:
         print("FAIL: test", testCase, "returned code is ", process.returncode, ", expected return code", expectedReturnCode)
+        failed += 1
         compilationOK = False
 
     if compilationOK and (expectedReturnCode != 0):
+        passed += 1
         print("PASS: test", testCase, "passed")
 
     outputFile.close()
@@ -47,16 +52,22 @@ for testCase in testCases:
         resultOutput = intOutputFile.readlines()
 
         if process2.returncode != 0:
+            failed += 1
             print("FAIL: interpret: test", testCase, "returned code is ", process2.returncode)
             interpretOK = False
 
         if interpretOK:
             if resultOutput != refOutput:
+                failed += 1
                 print("FAIL: Result output for", testCase, "is different from referenced output")
                 interpretOK = False
 
         if interpretOK:
+            passed += 1
             print("PASS: test", testCase, "passed")
 
         resultFile.close()
         intOutputFile.close()
+
+
+print("Total tests: ", len(testCases), "Passed: ", passed, "Failed: ", failed, "\n")
