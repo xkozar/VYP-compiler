@@ -53,7 +53,7 @@ class SemanticsChecker:
                 if parentMethod is None:
                     continue
                 if method.dataType != parentMethod.dataType:
-                    raise SemanticTypeIncompatibilityError
+                    raise SemanticTypeIncompatibilityError("Method overriden with wrong data types")
 
     @staticmethod
     def checkFunctionParametersTypes(callExpressionList: list, callParameterList: list):

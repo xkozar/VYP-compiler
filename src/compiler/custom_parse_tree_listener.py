@@ -59,8 +59,8 @@ class CustomParseTreeListener(VYPListener):
             ctx.variable_type().getText())
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
-        if self.functionTable.isSymbolDefined(ctx.ID().getText()):
-            raise SemanticGeneralError(f"There is already function with id: {ctx.ID().getText()} defined")
+        if self.functionTable.isSymbolDefined(ctx.ID().getText()) or self.classTable.isSymbolDefined(ctx.ID().getText()):
+            raise SemanticGeneralError(f"Symbol with id: {ctx.ID().getText()} is already defined")
         self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, variableType)
 
     ''' Data type of variable must be taken from parent context'''
@@ -69,7 +69,17 @@ class CustomParseTreeListener(VYPListener):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE,
                                          ctx.parentCtx.variable_type().getText())
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
+        if self.functionTable.isSymbolDefined(ctx.ID().getText()) or self.classTable.isSymbolDefined(ctx.ID().getText()):
+            raise SemanticGeneralError(f"Symbol with id: {ctx.ID().getText()} is already defined")
         self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, definitionSymbol.dataType)
+
+    def enterField_definition(self, ctx:VYPParser.Field_definitionContext):
+        if self.currentClass.methodTable.isSymbolDefined(ctx.ID().getText()):
+            raise SemanticGeneralError(f"There is already method with id: {ctx.ID().getText()} defined")
+
+    def enterMultiple_field_definition(self, ctx:VYPParser.Multiple_field_definitionContext):
+        if self.currentClass.methodTable.isSymbolDefined(ctx.ID().getText()):
+            raise SemanticGeneralError(f"There is already method with id: {ctx.ID().getText()} defined")
 
     def enterCode_block(self, ctx: VYPParser.Code_blockContext):
         self.localSymbolTable.addClosure()
@@ -98,6 +108,9 @@ class CustomParseTreeListener(VYPListener):
 
     def exitClass_definition(self, ctx: VYPParser.Class_definitionContext):
         self.currentClass = None
+        self.localSymbolTable = SymbolTable()
+
+    def enterMethod_definition(self, ctx: VYPParser.Method_definitionContext):
         self.localSymbolTable = SymbolTable()
 
     def defineFunctionParameter(self, symbol: GeneralSymbol):

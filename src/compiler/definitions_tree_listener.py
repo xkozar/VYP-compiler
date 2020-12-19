@@ -128,6 +128,12 @@ class DefinitionsTreeListener(VYPListener):
         for classSymbol in self.classTable.getAllSymbols():
             self.updateFuntionTypesHelper(classSymbol.methodTable.getAllCurrentSymbols())
             classSymbol.dataType = self.classTable.getSymbol(classSymbol.dataType)
+        self.checkMethorOverriding()
+
+    def checkMethorOverriding(self):
+        for classSymbol in self.classTable.getAllSymbols():
+            for methodSymbol in classSymbol.methodTable.getAllCurrentSymbols():
+                pass
 
     def updateFuntionTypesHelper(self, functionList):
         for function in functionList:
