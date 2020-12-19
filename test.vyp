@@ -1,6 +1,9 @@
+class Shape : Object {
+	int test;
+} 
+
 void main(void)
 {
-    print(readInt() + 2);
-    print(length("hellosdfg"));
+	int Object;
 }
-
+void test(void){}

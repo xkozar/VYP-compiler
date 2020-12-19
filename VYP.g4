@@ -38,7 +38,7 @@ variable_definition: variable_type ID multiple_variable_definition* ';';
 multiple_variable_definition: ',' ID;
 variable_assignment: ID '=' expression ';';
 instance_assignment: instance_expression '=' expression ';';
-return_statement: RETURN expression ';';
+return_statement: RETURN expression? ';';
 
 code_block: '{' statement* '}';
 if_else_block: if_part else_part;
