@@ -1,0 +1,6 @@
+void main(void)
+{
+	string res;
+	res = subStr("Hello world!",-5,8);
+	print(res);
+}

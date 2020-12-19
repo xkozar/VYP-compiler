@@ -1,0 +1,6 @@
+void main(void)
+{
+	int len;
+	len =length("ahoj");
+	print(len);
+}

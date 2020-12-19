@@ -1,0 +1,12 @@
+int fce(int x, int y, string str)
+{
+	int z;
+	z = x + y;
+	print(str);
+	return z;
+}
+
+void main(void)
+{
+	print(fce(5,-9,"Hello"));
+}

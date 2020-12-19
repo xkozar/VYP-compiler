@@ -1,0 +1,17 @@
+void main(void)
+{
+	string a, b;
+	a = "hello";
+	b = "hello";
+
+	if (a != b)
+	{
+		print("OK");
+	}
+	else
+	{
+		print("fail");
+	}
+
+
+}

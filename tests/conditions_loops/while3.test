@@ -1,0 +1,11 @@
+void main(void)
+{
+	string x;
+	x = "c";
+	
+	while(x != "c")
+	{
+		
+	}
+	print(x);
+}

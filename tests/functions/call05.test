@@ -1,0 +1,13 @@
+string my_concat(string str1, string str2)
+{
+	string str;
+	str = str1 + str2;
+	return str;
+}
+
+void main(void)
+{
+	string str;
+	str = my_concat("Good ");
+	print(str);
+}
