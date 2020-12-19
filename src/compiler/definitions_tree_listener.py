@@ -102,7 +102,9 @@ class DefinitionsTreeListener(VYPListener):
         self.defineField(ctx.ID().getText(), ctx.parentCtx.variable_type().getText())
 
     def exitProgram(self, ctx):
-        self.functionTable.getSymbol('main')
+        mainSymbol = self.functionTable.getSymbol('main')
+        if mainSymbol.dataType != 'void' or len(mainSymbol.parameterList) != 0:
+            raise SemanticGeneralError("Wrong definition of 'main' function")
         self.updateFunctionTypes()
 
     def defineField(self, fieldId, dataType):

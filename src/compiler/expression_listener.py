@@ -9,10 +9,10 @@ intResultOperators = ['<', '>', '<=', '>=', '==']
 class BinaryExpression:
 
     def __init__(self, leftExpression, rightExpression, operator):
-        if leftExpression.dataType == 'string' and operator in intResultOperators:
-            self.dataType = 'int'
-        else:
+        if operator == '+':
             self.dataType = leftExpression.dataType
+        else:
+            self.dataType = 'int'
         self.leftExpression = leftExpression
         self.rightExpression = rightExpression
         self.operator = operator
