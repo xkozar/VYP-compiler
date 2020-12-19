@@ -1,0 +1,23 @@
+void main(void) {
+
+	Rectangle r;
+	r = new Rectangle;
+
+	string res;
+
+	r.setID("7");
+	res = r.getID();
+
+	print(res);
+}
+
+
+class Rectangle : Object {
+
+	string textID;
+	void Rectangle(void) {}
+	
+	void setID(string x) { this.textID = x; }
+	string getID(void) { return this.textID; }
+}
+

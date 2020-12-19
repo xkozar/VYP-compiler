@@ -1,0 +1,19 @@
+void main(void)
+{
+	Shape a;
+	a = new Shape;
+	a.id = 15;
+	a.change_id();
+	print(a.id);
+
+}
+
+class Shape : Object
+{
+	int id;
+	void change_id(void) { this.id = 1; }
+
+
+}
+
+

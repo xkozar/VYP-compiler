@@ -1,0 +1,18 @@
+void main(void)
+{
+	Shape s;
+	s = new Shape;
+	print(s.toString());	
+}
+
+
+
+class Shape : Object {
+
+	int id;
+
+	void Shape(void) {}
+
+	string toString(void) { return "instance of Shape " + (string)(this.id); }
+}
+

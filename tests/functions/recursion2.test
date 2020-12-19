@@ -1,0 +1,46 @@
+void main(void) {
+	int a; 
+	int res;
+	a = 8;
+	print(fce1(a));
+}
+
+
+int fce1 (int n) {
+	int res;
+	if(n <= 0)
+	{
+		return -1;
+	}
+	else
+	{
+		res = fce2(n-1);
+	}
+	return res;
+}
+
+int fce2 (int n) {
+	int res;
+	if(n <= 0)
+	{
+		return -1;
+	}
+	else
+	{
+		res =fce3(n-1);
+	}
+	return res;
+}
+
+int fce3 (int n) {
+	int res;
+	if(n <= 0)
+	{
+		return -1;
+	}
+	else
+	{
+		res = fce1(n-1);
+	}
+	return res;
+}

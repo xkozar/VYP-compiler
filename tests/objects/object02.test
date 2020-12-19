@@ -1,0 +1,16 @@
+void main(void)
+{
+	Shape a;
+	a = new Shape;
+	a.id = 15;
+	a.print_id();	
+
+}
+
+class Shape : Object
+{
+	int id;
+	void print_id(void) { print("My id is ",this.id, "\n" ); }
+}
+
+
