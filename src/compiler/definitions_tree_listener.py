@@ -1,7 +1,7 @@
 from antlr_generated.VYPListener import VYPListener
 from antlr_generated.VYPParser import VYPParser
 from symbol_table import GeneralSymbol, SymbolTable, SymbolType, FunctionSymbol, ClassSymbol, StaticPartialSymbolTable, StubParentSymbol
-
+from compiler.custom_exceptions import SemanticGeneralError
 
 class DefinitionsTreeListener(VYPListener):
 
@@ -126,10 +126,12 @@ class DefinitionsTreeListener(VYPListener):
         for classSymbol in self.classTable.getAllSymbols():
             self.updateFuntionTypesHelper(classSymbol.methodTable.getAllCurrentSymbols())
             classSymbol.dataType = self.classTable.getSymbol(classSymbol.dataType)
-                #classSymbol.parent.dataType = self.classTable.getSymbol(classSymbol.parent.dataType)
 
     def updateFuntionTypesHelper(self, functionList):
         for function in functionList:
+            if function.ownerClass == function.id:
+                if function.dataType != 'void' or len(function.parameterList) != 0:
+                    raise SemanticGeneralError("Wrong constructor definition")
             if function.dataType not in ['int', 'void', 'string']:
                 classSymbol = self.classTable.getSymbol(function.dataType)
                 function.dataType = classSymbol
