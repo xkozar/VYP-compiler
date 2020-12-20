@@ -57,21 +57,21 @@ class CustomParseTreeListener(VYPListener):
         variableType = ctx.variable_type().getText() if ctx.variable_type().getText() in ['int',
                                                                                           'string'] else self.classTable.getSymbol(
             ctx.variable_type().getText())
-        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType)
+        definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE, variableType, ctx.start.line, ctx.start.column)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
         if self.functionTable.isSymbolDefined(ctx.ID().getText()) or self.classTable.isSymbolDefined(ctx.ID().getText()):
             raise SemanticGeneralError(f"Symbol with id: {ctx.ID().getText()} is already defined")
-        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, variableType)
+        self.codeGenerator.defineVariable(definitionSymbol.codeName, self.currentFunction, variableType)
 
     ''' Data type of variable must be taken from parent context'''
 
     def enterMultiple_variable_definition(self, ctx: VYPParser.Multiple_variable_definitionContext):
         definitionSymbol = GeneralSymbol(ctx.ID().getText(), SymbolType.VARIABLE,
-                                         ctx.parentCtx.variable_type().getText())
+                                         ctx.parentCtx.variable_type().getText(), ctx.start.line, ctx.start.column)
         self.localSymbolTable.addSymbol(ctx.ID().getText(), definitionSymbol)
         if self.functionTable.isSymbolDefined(ctx.ID().getText()) or self.classTable.isSymbolDefined(ctx.ID().getText()):
             raise SemanticGeneralError(f"Symbol with id: {ctx.ID().getText()} is already defined")
-        self.codeGenerator.defineVariable(definitionSymbol.id, self.currentFunction, definitionSymbol.dataType)
+        self.codeGenerator.defineVariable(definitionSymbol.codeName, self.currentFunction, definitionSymbol.dataType)
 
     def enterField_definition(self, ctx:VYPParser.Field_definitionContext):
         if self.currentClass.methodTable.isSymbolDefined(ctx.ID().getText()):
@@ -95,7 +95,7 @@ class CustomParseTreeListener(VYPListener):
         symbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         expression = self.expressionStack.pop()
         self.semanticsChecker.checkVariableAssignment(symbol.dataType, expression.dataType)
-        self.codeGenerator.assignValueToVariable(self.currentFunction, ctx.ID().getText())
+        self.codeGenerator.assignValueToVariable(self.currentFunction, symbol.codeName)
 
 
     def enterStatement(self, ctx: VYPParser.StatementContext):

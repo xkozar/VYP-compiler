@@ -138,7 +138,7 @@ class ExpressionListener(CustomParseTreeListener):
         variableSymbol = self.localSymbolTable.getSymbol(ctx.ID().getText())
         variableExpression = VariableExpression(variableSymbol.dataType, variableSymbol.id)
         self.expressionStack.append(variableExpression)
-        self.codeGenerator.generateVariableExpression(self.currentFunction, variableSymbol.id);
+        self.codeGenerator.generateVariableExpression(self.currentFunction, variableSymbol.codeName);
 
     def exitAnd_expression(self, ctx: VYPParser.And_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -308,7 +308,7 @@ class ExpressionListener(CustomParseTreeListener):
             self.codeGenerator.generateVariableExpression(self.currentFunction, 'this')
             return self.currentClass.parent
         symbol = self.localSymbolTable.getSymbol(reference)
-        self.codeGenerator.generateVariableExpression(self.currentFunction, reference)
+        self.codeGenerator.generateVariableExpression(self.currentFunction, symbol.codeName)
         return symbol.dataType
 
     def exitStatement(self, ctx):

@@ -1,9 +1,19 @@
-class Shape : Object {
-	int test;
-} 
-
+/*
 void main(void)
 {
-	int Object;
+	int x;
+	x = 12;
+	print(x);
+	
+	if (1 < 2)
+	{
+		int x;
+		x = 25;
+		print(x);
+	}
+	else
+	{
+	}
+
+	print(x);
 }
-void test(void){}

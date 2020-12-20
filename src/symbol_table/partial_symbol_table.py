@@ -18,8 +18,8 @@ class PartialSymbolTable:
             return self.__parentClosure.isSymbolDefined(key)
 
     def addSymbol(self, key, symbol):
-        if self.isSymbolDefined(key):
-            raise SemanticGeneralError(f'Symbol with id:\'{key}\' is already defined')
+        if self.symbols.get(key):
+            raise SemanticGeneralError(f'Symbol with id:\'{key}\' is already defined in this scope')
         self.symbols.update({key: symbol})
 
     def getParentClosure(self):

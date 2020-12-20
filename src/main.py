@@ -36,6 +36,8 @@ def main(argv):
         walker.walk(listener, tree)
     except Exception as e:
         sys.stderr.write(str(e))
+        if e.exitCode == 1:
+            exit(99)
         exit(e.exitCode)
 
 

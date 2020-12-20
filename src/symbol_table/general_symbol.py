@@ -10,12 +10,16 @@ class SymbolType(Enum):
 
 class GeneralSymbol:
 
-    def __init__(self, identifier: str, symbolType: SymbolType, dataType):
+    def __init__(self, identifier: str, symbolType: SymbolType, dataType, line="", column=""):
         self.id = identifier
         self.symbolType = symbolType
         # For function, data type is it's return type
         self.dataType = dataType
         self.isDefined = False
+        if line != '':
+            self.codeName = f"{line}:{column}:{self.id}"
+        else:
+            self.codeName = self.id
 
     def setAsDefined(self):
         self.isDefined = True

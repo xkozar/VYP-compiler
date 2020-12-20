@@ -1,4 +1,0 @@
-NICE TO HAVE:
-object type casting (runtime check) and check objects to it's subclasses
-variable overlapping(shadowing)
-lexical errors
