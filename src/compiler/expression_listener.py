@@ -232,8 +232,6 @@ class ExpressionListener(CustomParseTreeListener):
 
         self.expressionStack.append(functionExpression)
         self.functionCallParametersList = []
-# TODO call method        self.codeGenerator.callFunction(self.currentFunction, functionId)
-
 
     def enterFirst_instance(self, ctx: VYPParser.First_instanceContext):
         self.nestedObjectList = []
@@ -242,7 +240,6 @@ class ExpressionListener(CustomParseTreeListener):
             variableExpression = VariableExpression(classSymbol, ctx.reference.text)
             self.expressionStack.append(variableExpression)
             self.nestedObjectList.append(variableExpression)
-        # TODO generate object value
 
     def exitFirst_instance(self, ctx: VYPParser.First_instanceContext):
         if ctx.reference is None:
@@ -319,5 +316,3 @@ class ExpressionListener(CustomParseTreeListener):
     def exitStatement(self, ctx):
         #self.expressionStack.clear()
         self.codeGenerator.restoreStackPointer(self.currentFunction)
-
-# TODO OBJECT EXPRESSIONS

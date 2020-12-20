@@ -464,7 +464,6 @@ class CodeGenerator:
             function.codeGenerator.intLiteralExpression(value)
         else:
             function.codeGenerator.stringLiteralExpression(value)
-        # TODO string
 
     def assignValueToVariable(self, function, variableName):
         function.codeGenerator.assignValueToVariable(variableName)

@@ -1,19 +1,23 @@
-/*
-void main(void)
-{
-	int x;
-	x = 12;
-	print(x);
-	
-	if (1 < 2)
-	{
-		int x;
-		x = 25;
-		print(x);
-	}
-	else
-	{
+class Shape : Object{
+
+	void Shape(void){
+		print("SHAPE constructor");
 	}
 
-	print(x);
+	void hello(void){
+
+	}
+}
+
+class Triangle : Shape {
+	Shape test;
+	void Triangle(void){
+		this.test = new Shape;
+		this.test.hello();
+	}
+}
+
+void main(void)
+{
+	new Triangle;
 }

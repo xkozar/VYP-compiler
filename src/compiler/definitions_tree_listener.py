@@ -41,7 +41,6 @@ class DefinitionsTreeListener(VYPListener):
         self.currentFunctionId = identifier
 
     def __defineBuiltInFunctions(self):
-        # TODO add parameters
         self.defineFunction('print', 'void')
 
         self.defineFunction('readInt', 'int')
