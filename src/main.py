@@ -37,7 +37,7 @@ def main(argv):
     except Exception as e:
         sys.stderr.write(str(e))
         if e.exitCode == 1:
-            exit(99)
+            exit(19)
         exit(e.exitCode)
 
 
