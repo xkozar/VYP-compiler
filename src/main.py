@@ -1,3 +1,9 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+             Maroš Holko, xholko01
+'''
+
 import sys
 from antlr4 import *
 

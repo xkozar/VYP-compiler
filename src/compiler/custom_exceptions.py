@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 class LexicalAnalysisError(Exception):
     exitCode = 11
 

@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from antlr4.error.ErrorListener import ErrorListener
 
 from compiler.custom_exceptions import SyntacticAnalysisError

@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from compiler import SemanticGeneralError
 from symbol_table.static_partial_symbol_table import StaticPartialSymbolTable
 

@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from symbol_table import GeneralSymbol, SymbolType, PartialSymbolTable, PartialClassSymbolTable
 from symbol_table.class_partial_symbol_table import ClassPartialSymbolTable
 from compiler.custom_exceptions import SemanticGeneralError

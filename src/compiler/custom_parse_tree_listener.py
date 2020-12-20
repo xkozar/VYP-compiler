@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from collections import deque
 
 from antlr_generated.VYPListener import VYPListener

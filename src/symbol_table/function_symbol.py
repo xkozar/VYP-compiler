@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from symbol_table.general_symbol import GeneralSymbol, SymbolType
 import functools
 

@@ -1,5 +1,11 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+             Maroš Holko, xholko01
+'''
 from symbol_table.function_symbol import FunctionSymbol
 from symbol_table.class_symbol import ClassSymbol
+
 
 
 def incrementRegister(register):

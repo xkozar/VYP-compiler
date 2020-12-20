@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from .partial_symbol_table import PartialSymbolTable
 from .static_partial_symbol_table import StaticPartialSymbolTable
 from .general_symbol import GeneralSymbol

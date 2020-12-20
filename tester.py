@@ -1,3 +1,9 @@
+'''
+    project: VYPlanguage compiler
+    file: code_generator.py
+    authros: Maroš Holko, xholko01
+'''
+
 from os import walk
 import subprocess
 

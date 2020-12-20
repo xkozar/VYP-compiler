@@ -1,3 +1,8 @@
+'''
+    project: VYPlanguage compiler
+    authros: Tomáš Kožár, xkozar02
+'''
+
 from compiler import SemanticTypeIncompatibilityError, SemanticGeneralError
 from symbol_table.general_symbol import GeneralSymbol
 from symbol_table.symbol_table import SymbolTable
