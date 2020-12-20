@@ -133,12 +133,9 @@ class DefinitionsTreeListener(VYPListener):
         for classSymbol in self.classTable.getAllSymbols():
             self.updateFuntionTypesHelper(classSymbol.methodTable.getAllCurrentSymbols())
             classSymbol.dataType = self.classTable.getSymbol(classSymbol.dataType)
-        self.checkMethorOverriding()
-
-    def checkMethorOverriding(self):
-        for classSymbol in self.classTable.getAllSymbols():
-            for methodSymbol in classSymbol.methodTable.getAllCurrentSymbols():
-                pass
+            for fieldSymbol in classSymbol.fieldTable.getAllCurrentSymbols():
+                if fieldSymbol.dataType not in ['int', 'string'] and isinstance(fieldSymbol.dataType, str):
+                    fieldSymbol.dataType = self.classTable.getSymbol(fieldSymbol.dataType)
 
     def updateFuntionTypesHelper(self, functionList):
         for function in functionList:
