@@ -92,8 +92,7 @@ class ExpressionListener(CustomParseTreeListener):
 
     def __init__(self, functionDefinitionTable, classTable):
         super().__init__(functionDefinitionTable, classTable)
-        self.functionCallParametersList = []
-        self.nestedObjectList = []
+        self.nestedObjectStack = []
 
     def exitEquality_expression(self, ctx: VYPParser.Equality_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -111,27 +110,24 @@ class ExpressionListener(CustomParseTreeListener):
             raise SemanticTypeIncompatibilityError("Cannot cast to 'int'.")
         self.expressionStack.append(CastExpression(expression, expressionType))
 
+    def enterFunction_call(self, ctx: VYPParser.Function_callContext):
+        self.functionCallStack.append(list())
+
     def exitFunction_call(self, ctx: VYPParser.Function_callContext):
         if isinstance(ctx.parentCtx, VYPParser.Final_method_expressionContext):
             return
         functionId = ctx.ID().getText()
         functionSymbol = self.functionTable.getSymbol(functionId)
-        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList,
+        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallStack[-1],
                                                          functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
-                                                self.functionCallParametersList.copy())
+                                                self.functionCallStack[-1].copy())
         self.expressionStack.append(functionExpression)
         if functionId != 'print':
             self.codeGenerator.callFunction(self.currentFunction, functionId)
         else:
-            self.codeGenerator.generatePrint(self.currentFunction, self.functionCallParametersList.copy())
-            # for parameter in self.functionCallParametersList:
-            #     if parameter.dataType == 'int':
-            #         self.codeGenerator.callFunction(self.currentFunction, 'printi')
-            #     else:
-            #         self.codeGenerator.callFunction(self.currentFunction, 'prints')
-
-        self.functionCallParametersList = []
+            self.codeGenerator.generatePrint(self.currentFunction, self.functionCallStack[-1].copy())
+        self.functionCallStack.pop()
 
     def exitComparison_expression(self, ctx: VYPParser.Comparison_expressionContext):
         self.processBinaryExpression(ctx.operator.text)
@@ -199,10 +195,10 @@ class ExpressionListener(CustomParseTreeListener):
             raise SemanticGeneralError(f"Field '{ctx.ID().getText()}' is not defined in class '{lastExpression.dataType.id}'")
         expression = VariableExpression(symbol.dataType, symbol.id)
         if not isinstance(ctx.parentCtx.parentCtx.parentCtx, VYPParser.Instance_assignmentContext):
-            self.codeGenerator.generateFieldExpression(self.currentFunction, self.nestedObjectList[-1].dataType, symbol.id, 0)
+            self.codeGenerator.generateFieldExpression(self.currentFunction, self.nestedObjectStack[-1][-1].dataType, symbol.id, 0)
             pass
         self.expressionStack.append(expression)
-        self.nestedObjectList.append(expression)
+        self.nestedObjectStack[-1].append(expression)
 
     def enterFinal_method_expression(self, ctx:VYPParser.Final_method_expressionContext):
         lastExpression = self.expressionStack.pop()
@@ -213,7 +209,7 @@ class ExpressionListener(CustomParseTreeListener):
             raise SemanticGeneralError(f"Method '{ctx.function_call().ID().getText()}' is not defined in class '{lastExpression.dataType.id}'")
         expression = VariableExpression(symbol.dataType, symbol.id)
         self.expressionStack.append(lastExpression)
-        self.nestedObjectList.append(lastExpression)
+        self.nestedObjectStack[-1].append(lastExpression)
 
     # def exitFinal_method_expression(self, ctx:VYPParser.Final_method_expressionContext):
     #     pass
@@ -224,31 +220,35 @@ class ExpressionListener(CustomParseTreeListener):
 
         functionId = ctx.function_call().ID().getText()
         functionSymbol = lastExpression.dataType.getMethod(functionId)
-        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallParametersList,
+        self.semanticsChecker.checkFunctionCallSemantics(functionId, self.functionCallStack[-1],
                                                          functionSymbol.parameterList.parameters)
         functionExpression = FunctionExpression(functionId, functionSymbol.dataType,
-                                                self.functionCallParametersList.copy())
+                                                self.functionCallStack[-1].copy())
         self.codeGenerator.callMethod(self.currentFunction, lastExpression.dataType.id, functionExpression, lastExpression.id == 'super')
 
         self.expressionStack.append(functionExpression)
-        self.functionCallParametersList = []
+        self.functionCallStack.pop()
 
     def enterFirst_instance(self, ctx: VYPParser.First_instanceContext):
-        self.nestedObjectList = []
+        self.nestedObjectStack.append([])
         if ctx.reference is not None:
             classSymbol = self.getObjectFromReference(ctx.reference.text)
             variableExpression = VariableExpression(classSymbol, ctx.reference.text)
             self.expressionStack.append(variableExpression)
-            self.nestedObjectList.append(variableExpression)
+            self.nestedObjectStack[-1].append(variableExpression)
+    
+    def exitInstance_expression(self, ctx: VYPParser.Instance_expressionContext):
+        if not isinstance(ctx.parentCtx, VYPParser.Instance_assignmentContext):
+            self.nestedObjectStack.pop()
 
     def exitFirst_instance(self, ctx: VYPParser.First_instanceContext):
         if ctx.reference is None:
-            self.nestedObjectList.append(self.expressionStack[-1])
+            self.nestedObjectStack[-1].append(self.expressionStack[-1])
             pass
 
     def exitInstance_assignment(self, ctx: VYPParser.Instance_assignmentContext):
-        self.codeGenerator.assignValueToField(self.currentFunction, self.nestedObjectList[-2].dataType, self.nestedObjectList[-1].id)
-        self.nestedObjectList = []
+        self.codeGenerator.assignValueToField(self.currentFunction, self.nestedObjectStack[-1][-2].dataType, self.nestedObjectStack[-1][-1].id)
+        self.nestedObjectStack.pop()
 
     def exitReturn_statement(self, ctx: VYPParser.Return_statementContext):
         if self.currentClass == None:
@@ -272,7 +272,7 @@ class ExpressionListener(CustomParseTreeListener):
     def exitNext_expression(self, ctx: VYPParser.Next_expressionContext):
         #self.processFunctionParameter()
         expression = self.expressionStack.pop()
-        self.functionCallParametersList.insert(0, expression)
+        self.functionCallStack[-1].insert(0, expression)
 
     def exitExpression_list(self, ctx: VYPParser.Expression_listContext):
         self.processFunctionParameter()            
@@ -296,7 +296,8 @@ class ExpressionListener(CustomParseTreeListener):
 
     def processFunctionParameter(self):
         expression = self.expressionStack.pop()
-        self.functionCallParametersList.append(expression)
+        self.functionCallStack[-1].append(expression)
+        pass
 
     def getObjectFromReference(self, reference):
         if reference == 'this':

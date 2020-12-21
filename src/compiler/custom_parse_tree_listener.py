@@ -22,13 +22,13 @@ class CustomParseTreeListener(VYPListener):
         self.semanticsChecker = SemanticsChecker()
         self.codeGenerator = CodeGenerator()
         self.expressionStack = deque()
-        self.functionParametersDict = {}
         self.currentFunctionId = ''
         self.currentFunction = None
         self.classTable = classTable
         self.checkClassDefinitionsSemantics()
         self.currentClass = None
         self.currentFunctionReturn = False
+        self.functionCallStack = list()
 
     ''' Reset symbol table since symbol table is valid only inside of function/method
         definition'''

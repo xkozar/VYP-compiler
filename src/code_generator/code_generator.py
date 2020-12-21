@@ -263,9 +263,10 @@ class FunctionCodeGenerator:
         self.body += f'\tSET $2, [{functionPointer} - 1]\n'
         self.body += f'\tSET $3, [{functionPointer} - 2]\n'
         self.body += f'\t{decrementRegister(stackPointer)}\n'
+        methodOffset = 1 if ':' in self.name and setReturnValue else 0
         if setReturnValue:
-            self.body += f'\tSET [{functionPointer} - {2 + len(self.parametersList)}], [{stackPointer}]\n'
-        self.body += f'\tSUBI {stackPointer}, {functionPointer}, {1 + len(self.parametersList)}\n'
+            self.body += f'\tSET [{functionPointer} - {2 + len(self.parametersList) + methodOffset}], [{stackPointer}]\n'
+        self.body += f'\tSUBI {stackPointer}, {functionPointer}, {1 + len(self.parametersList) + methodOffset}\n'
         if not setReturnValue:
             self.body += f'\t{decrementRegister(stackPointer)}\n'
         
