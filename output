@@ -11,15 +11,14 @@ ADDI $SP, $SP, 1
 SETWORD $6, 0, "Object:toString"
 SETWORD $6, 1, "Object:getClass"
 # VMT of class Shape
-CREATE $6, 4
+CREATE $6, 3
 SET [$SP], $6
 ADDI $SP, $SP, 1
 
 SETWORD $6, 0, "Object:toString"
 SETWORD $6, 1, "Object:getClass"
 SETWORD $6, 2, "Shape:Shape"
-SETWORD $6, 3, "Shape:hello"
-# VMT of class Triangle
+# VMT of class Rectangle
 CREATE $6, 5
 SET [$SP], $6
 ADDI $SP, $SP, 1
@@ -27,8 +26,8 @@ ADDI $SP, $SP, 1
 SETWORD $6, 0, "Object:toString"
 SETWORD $6, 1, "Object:getClass"
 SETWORD $6, 2, "Shape:Shape"
-SETWORD $6, 3, "Shape:hello"
-SETWORD $6, 4, "Triangle:Triangle"
+SETWORD $6, 3, "Rectangle:Rectangle"
+SETWORD $6, 4, "Rectangle:getID"
 
 JUMP main
 
@@ -142,64 +141,23 @@ LABEL subStr
     RETURN [$SP + 3]
 
 
-LABEL Shape:Shape
+LABEL main
 	#Function start
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	#String literal expression "SHAPE constructor"
-	CREATE $6, 1
-	SETWORD $6, 0, "SHAPE constructor"
-	GETWORD $6, $6, 0
-	SET [$SP], $6
-	ADDI $SP, $SP, 1
-
-	# Print variables
-	WRITES [$SP-1]
+	#Create variable 3:1:r
+	SET [$FP+ 0], 0
 	# Restore stack pointer
-	ADDI $SP, $FP, 0
+	ADDI $SP, $FP, 1
 
-	# Return value
-	SET $2, [$FP - 1]
-	SET $3, [$FP - 2]
-	SUBI $SP, $SP, 1
-	SUBI $SP, $FP, 1
-	SUBI $SP, $SP, 1
-	SET $FP, $3
-	RETURN $2
-
-
-
-LABEL Shape:hello
-	#Function start
-	ADDI $SP, $SP, 1
-	SET $FP, $SP
-
-	# Return value
-	SET $2, [$FP - 1]
-	SET $3, [$FP - 2]
-	SUBI $SP, $SP, 1
-	SUBI $SP, $FP, 1
-	SUBI $SP, $SP, 1
-	SET $FP, $3
-	RETURN $2
-
-
-
-LABEL Triangle:Triangle
-	#Function start
-	ADDI $SP, $SP, 1
-	SET $FP, $SP
-
-	# Variable expression 'this'
-	SET [$SP], [$FP-3]
-	ADDI $SP, $SP, 1
-
-	# Creating new instance of object Shape
-	CREATE $6, 3
-	SETWORD $6, 0, "Shape"
-	SETWORD $6, 1, [1]
-	SETWORD $6, 2, [0]
+	# Creating new instance of object Rectangle
+	CREATE $6, 5
+	SETWORD $6, 0, "Rectangle"
+	SETWORD $6, 1, [2]
+	SETWORD $6, 2, [1]
+	SETWORD $6, 3, 0
+	SETWORD $6, 4, ""
 	SET [$SP], $6
 	ADDI $SP, $SP, 1
 
@@ -210,30 +168,63 @@ LABEL Triangle:Triangle
 	ADDI $SP, $SP, 1
 	CALL [$SP], $7
 
-	# Field assignment 'test'
-	SUBI $SP, $SP, 2
-	SETWORD [$SP], 3, [$SP + 1]
-
-	# Restore stack pointer
-	ADDI $SP, $FP, 0
-
-	# Variable expression 'this'
-	SET [$SP], [$FP-3]
-	ADDI $SP, $SP, 1
-
-	# Field expression 'test'
-	GETWORD $7, [$SP - 1], 3
-	SET [$SP-1], $7
-
-	# Calling method hello
+	# Calling method Rectangle
 	GETWORD $7, [$SP-1], 1
 	GETWORD $7, $7, 3
 	SET [$SP], $FP
 	ADDI $SP, $SP, 1
 	CALL [$SP], $7
 
+	# Variable assignment 3:1:r
+	SUBI $SP, $SP, 1
+	SET [$FP+ 0], [$SP]
+
 	# Restore stack pointer
-	ADDI $SP, $FP, 0
+	ADDI $SP, $FP, 1
+
+	#Create variable 6:1:res
+	CREATE $6, 1
+	SETWORD $6, 0, ""
+	GETWORD $6, $6, 0
+	SET [$FP+ 1], $6
+	# Restore stack pointer
+	ADDI $SP, $FP, 2
+
+	# Variable expression '3:1:r'
+	SET [$SP], [$FP+ 0]
+	ADDI $SP, $SP, 1
+
+	# Calling method getID
+	GETWORD $7, [$SP-1], 1
+	GETWORD $7, $7, 4
+	SET [$SP], $FP
+	ADDI $SP, $SP, 1
+	CALL [$SP], $7
+
+	# Variable assignment 6:1:res
+	SUBI $SP, $SP, 1
+	SET [$FP+ 1], [$SP]
+
+	# Restore stack pointer
+	ADDI $SP, $FP, 2
+
+	# Variable expression '6:1:res'
+	SET [$SP], [$FP+ 1]
+	ADDI $SP, $SP, 1
+
+	# Print variables
+	WRITES [$SP-1]
+	# Restore stack pointer
+	ADDI $SP, $FP, 2
+
+
+	JUMP __END
+
+
+LABEL Shape:Shape
+	#Function start
+	ADDI $SP, $SP, 1
+	SET $FP, $SP
 
 	# Return value
 	SET $2, [$FP - 1]
@@ -246,39 +237,62 @@ LABEL Triangle:Triangle
 
 
 
-LABEL main
+LABEL Rectangle:Rectangle
 	#Function start
 	ADDI $SP, $SP, 1
 	SET $FP, $SP
 
-	# Creating new instance of object Triangle
-	CREATE $6, 4
-	SETWORD $6, 0, "Triangle"
-	SETWORD $6, 1, [2]
-	SETWORD $6, 2, [1]
-	SETWORD $6, 3, 0
-	SET [$SP], $6
+	# Return value
+	SET $2, [$FP - 1]
+	SET $3, [$FP - 2]
+	SUBI $SP, $SP, 1
+	SUBI $SP, $FP, 1
+	SUBI $SP, $SP, 1
+	SET $FP, $3
+	RETURN $2
+
+
+
+LABEL Rectangle:getID
+	#Function start
+	ADDI $SP, $SP, 1
+	SET $FP, $SP
+
+	# Variable expression 'this'
+	SET [$SP], [$FP-3]
 	ADDI $SP, $SP, 1
 
-	# Calling method Shape
-	GETWORD $7, [$SP-1], 1
-	GETWORD $7, $7, 2
-	SET [$SP], $FP
-	ADDI $SP, $SP, 1
-	CALL [$SP], $7
+	# Field expression 'textID'
+	GETWORD $7, [$SP - 1], 4
+	SET [$SP-1], $7
 
-	# Calling method Triangle
-	GETWORD $7, [$SP-1], 1
-	GETWORD $7, $7, 4
-	SET [$SP], $FP
-	ADDI $SP, $SP, 1
-	CALL [$SP], $7
-
+	# Return value
+	SET $2, [$FP - 1]
+	SET $3, [$FP - 2]
+	SUBI $SP, $SP, 1
+	SET [$FP - 3], [$SP]
+	SUBI $SP, $FP, 2
+	SET $FP, $3
+	RETURN $2
 	# Restore stack pointer
 	ADDI $SP, $FP, 0
 
+	#String literal expression ""
+	CREATE $6, 1
+	SETWORD $6, 0, ""
+	GETWORD $6, $6, 0
+	SET [$SP], $6
+	ADDI $SP, $SP, 1
 
-	JUMP __END
+	# Return value
+	SET $2, [$FP - 1]
+	SET $3, [$FP - 2]
+	SUBI $SP, $SP, 1
+	SET [$FP - 3], [$SP]
+	SUBI $SP, $FP, 2
+	SET $FP, $3
+	RETURN $2
+
 
 
 LABEL __END

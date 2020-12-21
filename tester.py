@@ -29,7 +29,7 @@ for testCase in testCases:
     compilationOK = True
     resultFile = open(testCase + testResultSuffix, 'r')
     outputFile = open(testCase + testOutputSuffix, 'w')
-    process = subprocess.Popen(['./vypcomp.sh', 'src/main.py', f'{testCase}{testSuffix}'], stdout=outputFile, stderr=outputFile)
+    process = subprocess.Popen(['python3', 'src/main.py', f'{testCase}{testSuffix}'], stdout=outputFile, stderr=outputFile)
     process.communicate()
     expectedReturnCode = int(resultFile.readline().strip())
     if process.returncode != expectedReturnCode:

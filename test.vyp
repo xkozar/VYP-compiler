@@ -1,23 +1,28 @@
-class Shape : Object{
+void main(void) {
 
-	void Shape(void){
-		print("SHAPE constructor");
-	}
+	Rectangle r;
+	r = new Rectangle;
 
-	void hello(void){
+	string res;
 
-	}
+	res = r.getID();
+
+	print(res);
 }
 
-class Triangle : Shape {
-	Shape test;
-	void Triangle(void){
-		this.test = new Shape;
-		this.test.hello();
-	}
+
+
+class Shape : Object {
+
+	int id;
+	void Shape(void) {}
 }
 
-void main(void)
-{
-	new Triangle;
+class Rectangle : Shape {
+
+	string textID;
+	void Rectangle(void) {}
+	
+	string getID(void) { return this.textID; }
 }
+
