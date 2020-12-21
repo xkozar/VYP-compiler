@@ -16,8 +16,8 @@ allFileNames = []
 
 for fileNames in walk("./tests"):
     for fileName in fileNames[2]:
-        allFileNames.append(f'{fileNames[0]}\\{fileName}')
-        #allFileNames.append(f'{fileNames[0]}/{fileName}')    # merlin
+        #allFileNames.append(f'{fileNames[0]}\\{fileName}')
+        allFileNames.append(f'{fileNames[0]}/{fileName}')    # merlin
 
 testFileNames = list(filter(lambda fileName: fileName.endswith(testSuffix), allFileNames))
 testCases = list(map(lambda testCase: testCase.replace(testSuffix, ''), testFileNames))
